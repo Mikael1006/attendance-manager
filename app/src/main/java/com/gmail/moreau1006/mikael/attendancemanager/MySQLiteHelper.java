@@ -26,8 +26,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String MATCHS_COL_ID = "_id";
     public static final String MATCHS_COL_DATE = "Date";
     public static final String MATCHS_COL_DATE_RDV = "DateRDV";
-    public static final String MATCHS_COL_ADVERSAIRE = "Adversaire";
-    public static final String MATCHS_COL_DOMICILE = "Domicile";
+    public static final String MATCHS_COL_OPPONENT = "Adversaire";
+    public static final String MATCHS_COL_HOME = "Domicile";
     public static final String MATCHS_COL_TEAM_ID = "idTeam";
 
     private static final String DATABASE_NAME = "attendance_manager7.db";
@@ -42,8 +42,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_BDD_MATCHS = "CREATE TABLE " + MATCHS_TABLE + " ("
             + MATCHS_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + MATCHS_COL_DATE + " DATE, "
-            + MATCHS_COL_DATE_RDV + " DATE NOT NULL, " + MATCHS_COL_ADVERSAIRE + " TEXT,"
-            + MATCHS_COL_DOMICILE + " BOOLEAN," + MATCHS_COL_TEAM_ID + " INTEGER);\n";
+            + MATCHS_COL_DATE_RDV + " DATE NOT NULL, " + MATCHS_COL_OPPONENT + " TEXT,"
+            + MATCHS_COL_HOME + " BOOLEAN," + MATCHS_COL_TEAM_ID + " INTEGER);\n";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

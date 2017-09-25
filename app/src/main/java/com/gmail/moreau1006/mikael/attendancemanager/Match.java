@@ -13,18 +13,26 @@ public class Match {
     private Team team;
     private Date dateMatch;
     private Date dateRdv;
-    private String adversaire;
-    private boolean domicile;
+    private String opponent;
+    private boolean home;
 
     public Match() {
     }
 
-    public Match(Team team, Date dateMatch, Date dateRdv, String adversaire, boolean domicile) {
+    public Match(Team team, Date dateMatch, Date dateRdv, String opponent, boolean home) {
         this.team = team;
         this.dateMatch = dateMatch;
         this.dateRdv = dateRdv;
-        this.adversaire = adversaire;
-        this.domicile = domicile;
+        this.opponent = opponent;
+        this.home = home;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Team getTeam() {
@@ -51,19 +59,19 @@ public class Match {
         this.dateRdv = dateRdv;
     }
 
-    public String getAdversaire() {
-        return adversaire;
+    public String getOpponent() {
+        return opponent;
     }
 
-    public void setAdversaire(String adversaire) {
-        this.adversaire = adversaire;
+    public void setOpponent(String opponent) {
+        this.opponent = opponent;
     }
 
-    public boolean isDomicile() {
-        return domicile;
+    public boolean isHome() {
+        return home;
     }
 
-    public void setDomicile(boolean domicile) {
-        this.domicile = domicile;
+    public void setHome(boolean home) {
+        this.home = home;
     }
 }
