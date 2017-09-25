@@ -92,7 +92,7 @@ public class MatchsDAO {
         Date today = new Date();
 
         Cursor cursor = database.query(MySQLiteHelper.MATCHS_TABLE,
-                allColumns, MySQLiteHelper.MATCHS_COL_DATE_RDV + " >= " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(today), null,
+                allColumns, MySQLiteHelper.MATCHS_COL_DATE + " >= " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(today), null,
                 null, null, null);
 
         cursor.moveToFirst();
