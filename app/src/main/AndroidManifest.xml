@@ -22,7 +22,9 @@
         <activity android:name=".MatchActivity" />
         <activity android:name=".ListPlayersActivity" />
         <activity android:name=".ListTeamsActivity" />
-        <activity android:name=".ListMatchsActivity"></activity>
+        <activity android:name=".ListMatchsActivity" />
+        <activity android:name=".SelectTeamActivity" />
+        <activity android:name=".SelectPlayersActivity"></activity>
     </application>
 
 </manifest>

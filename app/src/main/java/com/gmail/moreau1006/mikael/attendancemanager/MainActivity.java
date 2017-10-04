@@ -91,6 +91,9 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
+            Intent intent = new Intent(this, MatchActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_send) {
             Intent intent = new Intent(this, ListTeamsActivity.class);
             startActivity(intent);
