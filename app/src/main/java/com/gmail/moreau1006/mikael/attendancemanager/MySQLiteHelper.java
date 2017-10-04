@@ -30,7 +30,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String MATCHS_COL_HOME = "Domicile";
     public static final String MATCHS_COL_TEAM_ID = "idTeam";
 
-    private static final String DATABASE_NAME = "attendance_manager7.db";
+    private static final String DATABASE_NAME = "attendance_manager8.db";
     private static final int DATABASE_VERSION = 1;
 
     private static final String CREATE_BDD_PLAYERS = "CREATE TABLE " + PLAYERS_TABLE + " ("

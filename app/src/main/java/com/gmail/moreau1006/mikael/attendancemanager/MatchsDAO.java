@@ -40,13 +40,14 @@ public class MatchsDAO {
         dbHelper.close();
     }
 
-    public Match createMatch(Date dateMatch, Date dateRdv, String opponent, boolean home) {
+    public Match createMatch(Date dateMatch, Date dateRdv, String opponent, boolean home, Team team) {
 
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.MATCHS_COL_DATE, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dateMatch));
         values.put(MySQLiteHelper.MATCHS_COL_DATE_RDV, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dateRdv));
         values.put(MySQLiteHelper.MATCHS_COL_OPPONENT, opponent);
         values.put(MySQLiteHelper.MATCHS_COL_HOME, home);
+        values.put(MySQLiteHelper.MATCHS_COL_TEAM_ID, team.getId());
 
         long insertId = database.insert(MySQLiteHelper.MATCHS_TABLE, null, values);
 

@@ -19,9 +19,13 @@ public class ListMatchsActivity extends AppCompatActivity {
 
         matchsListView = (ListView) findViewById(R.id.MatchsListView);
 
+        matchsDAO = new MatchsDAO(this);
+        matchsDAO.open();
+
         matchs = matchsDAO.getAllMatchs();
         //matchs = matchsDAO.getAllFutureMatchs();
 
-
+        MatchAdapter adapter = new MatchAdapter(ListMatchsActivity.this, matchs);
+        matchsListView.setAdapter(adapter);
     }
 }
