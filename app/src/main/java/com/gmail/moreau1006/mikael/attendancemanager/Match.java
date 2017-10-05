@@ -1,14 +1,12 @@
 package com.gmail.moreau1006.mikael.attendancemanager;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by mika on 16/09/17.
  */
 
-public class Match implements Serializable {
+public class Match {
 
     private long id;
 //    private long idTeam;
@@ -17,7 +15,6 @@ public class Match implements Serializable {
     private Date dateRdv;
     private String opponent;
     private boolean home;
-    private List<Player> players;
 
     public Match() {
     }
@@ -76,13 +73,5 @@ public class Match implements Serializable {
 
     public void setHome(boolean home) {
         this.home = home;
-    }
-
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(List<Player> players) {
-        this.players = players;
     }
 }
