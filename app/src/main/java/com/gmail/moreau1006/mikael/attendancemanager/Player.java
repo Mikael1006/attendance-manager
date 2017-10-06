@@ -1,10 +1,12 @@
 package com.gmail.moreau1006.mikael.attendancemanager;
 
+import java.io.Serializable;
+
 /**
  * Created by mika on 16/09/17.
  */
 
-public class Player {
+public class Player implements Serializable {
 
     private long id;
     private String name;

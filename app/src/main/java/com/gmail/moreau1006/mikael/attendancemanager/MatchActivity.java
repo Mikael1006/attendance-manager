@@ -9,10 +9,15 @@ import android.view.View;
 
 public class MatchActivity extends AppCompatActivity {
 
+    public static final String EXTRA_MATCH = "com.gmail.moreau1006.mikael.attendancemanager.MATCH";
+
+    private Match match;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
+        match = new Match();
     }
 
     public void ValidateMatch(View view) {
@@ -21,6 +26,7 @@ public class MatchActivity extends AppCompatActivity {
 
     public void selectTeam(View view) {
         Intent intent = new Intent(this, SelectTeamActivity.class);
+        intent.putExtra(EXTRA_MATCH,match);
         startActivity(intent);
     }
 }

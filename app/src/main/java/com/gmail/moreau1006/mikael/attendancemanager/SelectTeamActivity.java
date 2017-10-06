@@ -15,12 +15,14 @@ import java.util.List;
 
 public class SelectTeamActivity extends AppCompatActivity {
 
-    public static final String EXTRA_TEAM = "com.gmail.moreau1006.mikael.attendancemanager.TEAM";
+    // public static final String EXTRA_TEAM = "com.gmail.moreau1006.mikael.attendancemanager.TEAM";
+    public static final String EXTRA_MATCH = "com.gmail.moreau1006.mikael.attendancemanager.MATCH";
 
     private ListView selectTeamListView;
     private List<Team> teams;
     private TeamsDAO teamsDAO;
     private PlayersDAO playersDAO;
+    private Match match;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,8 @@ public class SelectTeamActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_team);
 
         selectTeamListView = (ListView) findViewById(R.id.SelectTeamListView);
+
+        match = (Match) getIntent().getSerializableExtra(MatchActivity.EXTRA_MATCH);
 
         teamsDAO = new TeamsDAO(this);
         teamsDAO.open();
@@ -49,8 +53,11 @@ public class SelectTeamActivity extends AppCompatActivity {
         // On récupère la bonne équipe de la liste
         Team team = teams.get(index);
 
+        // match == null
+        match.setTeam(team);
+
         Intent intent = new Intent(this, SelectPlayersActivity.class);
-        intent.putExtra(EXTRA_TEAM,team);
+        intent.putExtra(EXTRA_MATCH,match);
         startActivity(intent);
     }
 }
