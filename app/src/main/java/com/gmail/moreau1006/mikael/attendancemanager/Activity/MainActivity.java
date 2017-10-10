@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity
             // retourner à l'activité principale
             // http://www.phonandroid.com/forum/revenir-a-l-activite-principale-t1635.html
 
-            Intent intent = new Intent(this, MatchActivity.class);
+            Intent intent = new Intent(this, SelectDateMatchActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_send) {
             Intent intent = new Intent(this, ListTeamsActivity.class);
