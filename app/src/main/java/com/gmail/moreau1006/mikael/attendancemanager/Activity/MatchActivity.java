@@ -1,11 +1,12 @@
-package com.gmail.moreau1006.mikael.attendancemanager;
+package com.gmail.moreau1006.mikael.attendancemanager.Activity;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
+import com.gmail.moreau1006.mikael.attendancemanager.R;
 
 public class MatchActivity extends AppCompatActivity {
 

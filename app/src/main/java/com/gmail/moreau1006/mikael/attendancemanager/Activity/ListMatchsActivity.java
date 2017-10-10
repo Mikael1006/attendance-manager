@@ -1,8 +1,13 @@
-package com.gmail.moreau1006.mikael.attendancemanager;
+package com.gmail.moreau1006.mikael.attendancemanager.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
+import com.gmail.moreau1006.mikael.attendancemanager.Adapter.MatchAdapter;
+import com.gmail.moreau1006.mikael.attendancemanager.DAO.MatchsDAO;
+import com.gmail.moreau1006.mikael.attendancemanager.R;
 
 import java.util.List;
 

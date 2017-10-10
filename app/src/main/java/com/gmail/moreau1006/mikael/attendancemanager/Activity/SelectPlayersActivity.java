@@ -1,18 +1,17 @@
-package com.gmail.moreau1006.mikael.attendancemanager;
+package com.gmail.moreau1006.mikael.attendancemanager.Activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
+import com.gmail.moreau1006.mikael.attendancemanager.DAO.PlayersDAO;
+import com.gmail.moreau1006.mikael.attendancemanager.R;
+import com.gmail.moreau1006.mikael.attendancemanager.Adapter.SelectPlayerAdapter;
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Team;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,5 +63,8 @@ public class SelectPlayersActivity extends AppCompatActivity {
        }else{
            selectedPlayers.remove(player);
        }
+    }
+    public void validate(View view){
+
     }
 }

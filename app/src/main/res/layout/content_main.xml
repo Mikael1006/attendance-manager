@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.gmail.moreau1006.mikael.attendancemanager.MainActivity"
+    tools:context="com.gmail.moreau1006.mikael.attendancemanager.Activity.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
     <RelativeLayout

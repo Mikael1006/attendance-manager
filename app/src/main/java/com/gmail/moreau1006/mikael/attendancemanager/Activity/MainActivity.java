@@ -1,4 +1,4 @@
-package com.gmail.moreau1006.mikael.attendancemanager;
+package com.gmail.moreau1006.mikael.attendancemanager.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.gmail.moreau1006.mikael.attendancemanager.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -91,9 +93,11 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
+            // retourner à l'activité principale
+            // http://www.phonandroid.com/forum/revenir-a-l-activite-principale-t1635.html
+
             Intent intent = new Intent(this, MatchActivity.class);
             startActivity(intent);
-
         } else if (id == R.id.nav_send) {
             Intent intent = new Intent(this, ListTeamsActivity.class);
             startActivity(intent);

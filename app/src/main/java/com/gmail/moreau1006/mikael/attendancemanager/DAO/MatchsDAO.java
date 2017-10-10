@@ -1,11 +1,13 @@
-package com.gmail.moreau1006.mikael.attendancemanager;
+package com.gmail.moreau1006.mikael.attendancemanager.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Team;
 
 import java.text.DateFormat;
 import java.text.ParseException;

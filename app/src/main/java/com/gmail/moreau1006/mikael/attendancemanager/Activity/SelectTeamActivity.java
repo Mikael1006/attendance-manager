@@ -1,15 +1,17 @@
-package com.gmail.moreau1006.mikael.attendancemanager;
+package com.gmail.moreau1006.mikael.attendancemanager.Activity;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ListView;
+
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
+import com.gmail.moreau1006.mikael.attendancemanager.DAO.PlayersDAO;
+import com.gmail.moreau1006.mikael.attendancemanager.R;
+import com.gmail.moreau1006.mikael.attendancemanager.Adapter.SelectTeamAdapter;
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Team;
+import com.gmail.moreau1006.mikael.attendancemanager.DAO.TeamsDAO;
 
 import java.util.List;
 

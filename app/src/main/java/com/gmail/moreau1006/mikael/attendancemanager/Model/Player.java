@@ -1,4 +1,4 @@
-package com.gmail.moreau1006.mikael.attendancemanager;
+package com.gmail.moreau1006.mikael.attendancemanager.Model;
 
 import java.io.Serializable;
 

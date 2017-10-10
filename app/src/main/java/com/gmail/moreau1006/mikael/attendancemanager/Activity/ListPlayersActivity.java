@@ -1,4 +1,4 @@
-package com.gmail.moreau1006.mikael.attendancemanager;
+package com.gmail.moreau1006.mikael.attendancemanager.Activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,6 +13,13 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
+import com.gmail.moreau1006.mikael.attendancemanager.Adapter.PlayerAdapter;
+import com.gmail.moreau1006.mikael.attendancemanager.DAO.PlayersDAO;
+import com.gmail.moreau1006.mikael.attendancemanager.R;
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Team;
+
 import java.util.List;
 
 public class ListPlayersActivity extends AppCompatActivity {
