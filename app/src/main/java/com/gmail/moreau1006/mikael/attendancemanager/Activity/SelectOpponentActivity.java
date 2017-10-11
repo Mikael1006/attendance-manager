@@ -24,6 +24,9 @@ public class SelectOpponentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_opponent);
 
+        // get the match
+        match = (Match) getIntent().getSerializableExtra(SelectDateMatchActivity.EXTRA_MATCH);
+
         homeTrueRadioButton = (RadioButton) findViewById(R.id.home_true_radioButton);
         homeFalseRadioButton = (RadioButton) findViewById(R.id.home_false_radioButton);
         opponentEditText = (EditText) findViewById(R.id.opponent_editText);
@@ -32,8 +35,7 @@ public class SelectOpponentActivity extends AppCompatActivity {
         homeFalseRadioButton.setChecked(false);
         match.setHome(true);
 
-        // get the match
-        match = (Match) getIntent().getSerializableExtra(SelectDateMatchActivity.EXTRA_MATCH);
+
     }
 
     public void checkHomeTrue(View view){
