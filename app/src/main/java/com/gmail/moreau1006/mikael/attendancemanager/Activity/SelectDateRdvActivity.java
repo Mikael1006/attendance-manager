@@ -18,10 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class SelectDateMatchActivity extends AppCompatActivity {
-
-    public static final String EXTRA_MATCH = "com.gmail.moreau1006.mikael.attendancemanager.MATCH";
-    public static final int RESQUEST_CODE = 1000;
+public class SelectDateRdvActivity extends AppCompatActivity {
 
     private static final String FRAG_TAG_DATE_PICKER = "datePickerMatch";
     private static final String FRAG_TAG_TIME_PICKER = "timePickerMatch";
@@ -34,16 +31,17 @@ public class SelectDateMatchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_date_match);
+        setContentView(R.layout.activity_select_date_rdv);
 
         // initiate TextViews
-        dateTextView = (TextView) findViewById(R.id.date_match_textView);
-        timeTextView = (TextView) findViewById(R.id.time_match_textView);
+        dateTextView = (TextView) findViewById(R.id.date_rdv_textView);
+        timeTextView = (TextView) findViewById(R.id.time_rdv_textView);
 
         date = null;
         time = null;
 
-        match = new Match();
+        // get the match
+        match = (Match) getIntent().getSerializableExtra(SelectDateMatchActivity.EXTRA_MATCH);
     }
 
     public void onClickDate(View view){
@@ -102,23 +100,26 @@ public class SelectDateMatchActivity extends AppCompatActivity {
     public void validateDateMatch(View view){
 
         if (date != null && time != null){
-            Date dateMatch = null;
+            Date dateRdv = null;
             try {
-                dateMatch = new SimpleDateFormat("dd/MM/yyyy, HH:mm").parse(date + ", " + time);
+                dateRdv = new SimpleDateFormat("dd/MM/yyyy, HH:mm").parse(date + ", " + time);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            match.setDateMatch(dateMatch);
+            match.setDateRdv(dateRdv);
 
-            Intent intent = new Intent(this, SelectDateRdvActivity.class);
-            intent.putExtra(EXTRA_MATCH,match);
-            startActivityForResult(intent, RESQUEST_CODE);
+//            Intent intent = new Intent(this, SelectDateRdvActivity.class);
+//            intent.putExtra(EXTRA_MATCH,match);
+//            startActivityForResult(intent, RESQUEST_CODE);
+
+            setResult(RESULT_OK);
+            finish();
 
 
         }else{
-            AlertDialog alertDialog = new AlertDialog.Builder(SelectDateMatchActivity.this).create();
+            AlertDialog alertDialog = new AlertDialog.Builder(SelectDateRdvActivity.this).create();
             alertDialog.setTitle("Attention");
-            alertDialog.setMessage("Veuillez selectionner une date et une heure de match");
+            alertDialog.setMessage("Veuillez selectionner une date et une heure de rendez-vous");
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {

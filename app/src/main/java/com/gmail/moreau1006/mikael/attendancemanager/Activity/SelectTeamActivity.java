@@ -17,7 +17,6 @@ import java.util.List;
 
 public class SelectTeamActivity extends AppCompatActivity {
 
-    // public static final String EXTRA_TEAM = "com.gmail.moreau1006.mikael.attendancemanager.TEAM";
     public static final String EXTRA_MATCH = "com.gmail.moreau1006.mikael.attendancemanager.MATCH";
 
     private ListView selectTeamListView;
