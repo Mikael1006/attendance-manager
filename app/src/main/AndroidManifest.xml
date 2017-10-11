@@ -26,7 +26,8 @@
         <activity android:name=".Activity.SelectTeamActivity" />
         <activity android:name=".Activity.SelectPlayersActivity" />
         <activity android:name=".Activity.SelectDateMatchActivity" />
-        <activity android:name=".Activity.SelectDateRdvActivity"></activity>
+        <activity android:name=".Activity.SelectDateRdvActivity" />
+        <activity android:name=".Activity.SelectOpponentActivity"></activity>
     </application>
 
 </manifest>

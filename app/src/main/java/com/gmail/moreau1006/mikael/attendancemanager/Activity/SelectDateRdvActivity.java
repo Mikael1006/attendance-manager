@@ -97,7 +97,7 @@ public class SelectDateRdvActivity extends AppCompatActivity {
         rtpd.show(getSupportFragmentManager(), FRAG_TAG_TIME_PICKER);
     }
 
-    public void validateDateMatch(View view){
+    public void validateDateRdv(View view){
 
         if (date != null && time != null){
             Date dateRdv = null;
@@ -108,12 +108,12 @@ public class SelectDateRdvActivity extends AppCompatActivity {
             }
             match.setDateRdv(dateRdv);
 
-//            Intent intent = new Intent(this, SelectDateRdvActivity.class);
-//            intent.putExtra(EXTRA_MATCH,match);
-//            startActivityForResult(intent, RESQUEST_CODE);
+            Intent intent = new Intent(this, SelectOpponentActivity.class);
+            intent.putExtra(SelectDateMatchActivity.EXTRA_MATCH,match);
+            startActivityForResult(intent, SelectDateMatchActivity.RESQUEST_CODE);
 
-            setResult(RESULT_OK);
-            finish();
+//            setResult(RESULT_OK);
+//            finish();
 
 
         }else{
@@ -133,7 +133,7 @@ public class SelectDateRdvActivity extends AppCompatActivity {
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         if(requestCode==SelectDateMatchActivity.RESQUEST_CODE){
             if(resultCode==RESULT_OK){
-                setResult(SelectDateMatchActivity.RESQUEST_CODE);
+                setResult(RESULT_OK);
                 finish();
             }
         }
