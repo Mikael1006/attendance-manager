@@ -1,5 +1,6 @@
 package com.gmail.moreau1006.mikael.attendancemanager.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ import java.util.List;
 
 public class SelectPlayersActivity extends AppCompatActivity {
 
+    public static final String EXTRA_SELECTED_PLAYERS = "com.gmail.moreau1006.mikael.attendancemanager.SELECTED_PLAYERS";
     private ListView playersListView;
     private PlayersDAO playersDAO;
     private Team team;
@@ -35,7 +37,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         playersDAO = new PlayersDAO(this);
         playersDAO.open();
 
-        // On récupère l'équipe de la liste
+        // get match from previous activity
         match = (Match) getIntent().getSerializableExtra(SelectTeamActivity.EXTRA_MATCH);
 
         // On récupère tous les joueurs de l'équipe
@@ -64,7 +66,21 @@ public class SelectPlayersActivity extends AppCompatActivity {
            selectedPlayers.remove(player);
        }
     }
-    public void validate(View view){
+    public void validateSelectPlayers(View view){
 
+        Intent intent = new Intent(SelectPlayersActivity.this, WriteSmsActivity.class);
+        intent.putExtra(SelectDateMatchActivity.EXTRA_MATCH,match);
+        intent.putExtra(EXTRA_SELECTED_PLAYERS,(ArrayList<Player>) selectedPlayers);
+        startActivityForResult(intent, SelectDateMatchActivity.RESQUEST_CODE);
+    }
+
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        if(requestCode==SelectDateMatchActivity.RESQUEST_CODE){
+            if(resultCode==RESULT_OK){
+                setResult(RESULT_OK);
+                finish();
+            }
+        }
+        super.onActivityResult (requestCode, resultCode, data);
     }
 }

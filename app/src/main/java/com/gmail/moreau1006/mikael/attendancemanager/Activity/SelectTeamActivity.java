@@ -59,6 +59,16 @@ public class SelectTeamActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, SelectPlayersActivity.class);
         intent.putExtra(EXTRA_MATCH,match);
-        startActivity(intent);
+        startActivityForResult(intent, SelectDateMatchActivity.RESQUEST_CODE);
+    }
+
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        if(requestCode==SelectDateMatchActivity.RESQUEST_CODE){
+            if(resultCode==RESULT_OK){
+                setResult(RESULT_OK);
+                finish();
+            }
+        }
+        super.onActivityResult (requestCode, resultCode, data);
     }
 }

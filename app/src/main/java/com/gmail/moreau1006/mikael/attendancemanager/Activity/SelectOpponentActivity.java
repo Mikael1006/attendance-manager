@@ -74,7 +74,7 @@ public class SelectOpponentActivity extends AppCompatActivity {
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         if(requestCode==SelectDateMatchActivity.RESQUEST_CODE){
             if(resultCode==RESULT_OK){
-                setResult(SelectDateMatchActivity.RESQUEST_CODE);
+                setResult(RESULT_OK);
                 finish();
             }
         }

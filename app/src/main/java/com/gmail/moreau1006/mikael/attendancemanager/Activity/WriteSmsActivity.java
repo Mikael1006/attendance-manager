@@ -1,0 +1,53 @@
+package com.gmail.moreau1006.mikael.attendancemanager.Activity;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.EditText;
+
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
+import com.gmail.moreau1006.mikael.attendancemanager.R;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+public class WriteSmsActivity extends AppCompatActivity {
+
+    private Match match;
+    private List<Player> selectedPlayers;
+    private String sms;
+    private EditText smsEditText;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_write_sms);
+
+        smsEditText = (EditText) findViewById(R.id.sms_editText);
+
+        // get match and players from previous activity
+        match = (Match) getIntent().getSerializableExtra(SelectTeamActivity.EXTRA_MATCH);
+        selectedPlayers = (ArrayList<Player>) getIntent().getSerializableExtra(SelectPlayersActivity.EXTRA_SELECTED_PLAYERS);
+
+        DateFormat dateFormat = new SimpleDateFormat("EEEE, d MMM yyyy HH:mm", Locale.FRENCH);
+        String dateMatch = dateFormat.format(match.getDateMatch());
+        String dateRdv = dateFormat.format(match.getDateRdv());
+        String home;
+        if(match.isHome()){
+            home = "Domicile";
+        }else{
+            home = "Exterieur";
+        }
+
+        sms =   "Date Match : " + dateMatch + "\n"
+                + "Date Rdv : " + dateRdv + "\n"
+                + "Adversaire : " + match.getOpponent() + "\n"
+                + "Lieu : " + home + "\n";
+
+        smsEditText.setText(sms);
+
+    }
+}
