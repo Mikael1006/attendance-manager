@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.TextView;
 
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Team;
@@ -61,6 +62,36 @@ public class MatchsDAO {
         Match match = cursorToMatch(cursor);
         cursor.close();
 
+        // On ajoute la team car elle n'est pas ajoutée avec le curseur.
+        match.setTeam(team);
+
+        return match;
+    }
+
+    public Match createMatch(Match match) {
+
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.MATCHS_COL_DATE, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(match.getDateMatch()));
+        values.put(MySQLiteHelper.MATCHS_COL_DATE_RDV, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(match.getDateRdv()));
+        values.put(MySQLiteHelper.MATCHS_COL_OPPONENT, match.getOpponent());
+        values.put(MySQLiteHelper.MATCHS_COL_HOME, match.isHome());
+        values.put(MySQLiteHelper.MATCHS_COL_TEAM_ID, match.getTeam().getId());
+
+        long insertId = database.insert(MySQLiteHelper.MATCHS_TABLE, null, values);
+
+        Cursor cursor = database.query(MySQLiteHelper.MATCHS_TABLE,
+                allColumns, MySQLiteHelper.MATCHS_COL_ID + " = " + insertId, null,
+                null, null, null);
+
+        Team team = match.getTeam();
+
+        cursor.moveToFirst();
+        match = cursorToMatch(cursor);
+        cursor.close();
+
+        // On ajoute la team car elle n'est pas ajoutée avec le curseur.
+        match.setTeam(team);
+
         return match;
     }
 
@@ -83,7 +114,7 @@ public class MatchsDAO {
             matchs.add(macth);
             cursor.moveToNext();
         }
-        // assurez-vous de la fermeture du curseur
+        // fermeture du curseur
         cursor.close();
 
         return matchs;
@@ -104,7 +135,7 @@ public class MatchsDAO {
             matchs.add(macth);
             cursor.moveToNext();
         }
-        // assurez-vous de la fermeture du curseur
+        // fermeture du curseur
         cursor.close();
 
         return matchs;
@@ -138,16 +169,18 @@ public class MatchsDAO {
         match.setOpponent(cursor.getString(3));
         match.setHome(cursor.getInt(4) > 0);
 
+        long idTeam = cursor.getLong(5);
+
         // On récupère l'équipe
-        Cursor cursorteam = database.query(MySQLiteHelper.TEAMS_TABLE,
-                allColumns, MySQLiteHelper.TEAMS_COL_ID + " = " + cursor.getLong(5), null,
-                null, null, null);
-
-        cursorteam.moveToFirst();
-        Team team = cursorToTeam(cursorteam);
-        cursorteam.close();
-
-        match.setTeam(team);
+//        Cursor cursorteam = database.query(MySQLiteHelper.TEAMS_TABLE,
+//                allColumns, MySQLiteHelper.TEAMS_COL_ID + " = " + idTeam, null,
+//                null, null, null);
+//
+//        cursorteam.moveToFirst();
+//        Team team = cursorToTeam(cursorteam);
+//        cursorteam.close();
+//
+//        match.setTeam(team);
 
         return match;
     }

@@ -93,7 +93,7 @@ public class SelectDateMatchActivity extends AppCompatActivity {
                     }
 
                 })
-                .setStartTime(10, 10)
+                .setStartTime(20, 0)
                 .setDoneText("Valider")
                 .setCancelText("Annuler");
         rtpd.show(getSupportFragmentManager(), FRAG_TAG_TIME_PICKER);

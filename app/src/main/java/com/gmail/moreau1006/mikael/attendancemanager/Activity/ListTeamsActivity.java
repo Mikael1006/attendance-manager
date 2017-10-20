@@ -118,7 +118,7 @@ public class ListTeamsActivity extends AppCompatActivity {
             teamsListView.setAdapter(adapter);
 
             // Vide le textEdit
-            teamNameEditText.setText("Nouvelle équipe");
+            teamNameEditText.setText("");
 
             // Ferme le clavier
             // https://stackoverflow.com/questions/2342620/how-to-hide-keyboard-after-typing-in-edittext-in-android

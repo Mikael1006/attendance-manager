@@ -2,8 +2,10 @@ package com.gmail.moreau1006.mikael.attendancemanager.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 
+import com.gmail.moreau1006.mikael.attendancemanager.DAO.MatchsDAO;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
 import com.gmail.moreau1006.mikael.attendancemanager.R;
@@ -20,6 +22,7 @@ public class WriteSmsActivity extends AppCompatActivity {
     private List<Player> selectedPlayers;
     private String sms;
     private EditText smsEditText;
+    private MatchsDAO matchsDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,5 +52,14 @@ public class WriteSmsActivity extends AppCompatActivity {
 
         smsEditText.setText(sms);
 
+        matchsDAO = new MatchsDAO(this);
+        matchsDAO.open();
+    }
+
+    public void validateSms(View view){
+        match = matchsDAO.createMatch(match);
+        matchsDAO.close();
+        setResult(RESULT_OK);
+        finish();
     }
 }

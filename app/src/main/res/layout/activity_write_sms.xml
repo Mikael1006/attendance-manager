@@ -11,6 +11,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/sms_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Redigez le sms"
+            android:textSize="18sp" />
+
         <EditText
             android:id="@+id/sms_editText"
             android:layout_width="360dp"
@@ -28,7 +35,8 @@
             android:id="@+id/validate_sms_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:onClick="validateSms"
+            android:text="Envoyer sms" />
 
     </LinearLayout>
 
