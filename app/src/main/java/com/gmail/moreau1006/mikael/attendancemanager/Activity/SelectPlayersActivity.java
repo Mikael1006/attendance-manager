@@ -38,7 +38,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         playersDAO.open();
 
         // get match from previous activity
-        match = (Match) getIntent().getSerializableExtra(SelectTeamActivity.EXTRA_MATCH);
+        match = (Match) getIntent().getSerializableExtra(SelectDateMatchActivity.EXTRA_MATCH);
 
         // On récupère tous les joueurs de l'équipe
         players = playersDAO.getPlayersByTeam(match.getTeam());
