@@ -46,8 +46,8 @@ public class SelectPlayersActivity extends AppCompatActivity {
         SelectPlayerAdapter adapter = new SelectPlayerAdapter(SelectPlayersActivity.this, players);
         playersListView.setAdapter(adapter);
 
-        selectedPlayers = match.getPlayers();
         selectedPlayers = new ArrayList<Player>();
+        match.setSelectedPlayers(selectedPlayers);
     }
 
     public void checkPlayer(View view) {
@@ -70,7 +70,6 @@ public class SelectPlayersActivity extends AppCompatActivity {
 
         Intent intent = new Intent(SelectPlayersActivity.this, WriteSmsActivity.class);
         intent.putExtra(SelectDateMatchActivity.EXTRA_MATCH,match);
-        intent.putExtra(EXTRA_SELECTED_PLAYERS,(ArrayList<Player>) selectedPlayers);
         startActivityForResult(intent, SelectDateMatchActivity.RESQUEST_CODE);
     }
 

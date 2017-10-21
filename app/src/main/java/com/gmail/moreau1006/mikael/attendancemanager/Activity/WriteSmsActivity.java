@@ -33,7 +33,7 @@ public class WriteSmsActivity extends AppCompatActivity {
 
         // get match and players from previous activity
         match = (Match) getIntent().getSerializableExtra(SelectDateMatchActivity.EXTRA_MATCH);
-        selectedPlayers = (ArrayList<Player>) getIntent().getSerializableExtra(SelectPlayersActivity.EXTRA_SELECTED_PLAYERS);
+        selectedPlayers = match.getSelectedPlayers();
 
         DateFormat dateFormat = new SimpleDateFormat("EEEE, d MMM yyyy HH:mm", Locale.FRENCH);
         String dateMatch = dateFormat.format(match.getDateMatch());

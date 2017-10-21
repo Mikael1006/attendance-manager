@@ -1,7 +1,9 @@
 package com.gmail.moreau1006.mikael.attendancemanager.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
@@ -32,7 +34,10 @@ public class ListMatchsActivity extends AppCompatActivity {
 
         MatchAdapter adapter = new MatchAdapter(ListMatchsActivity.this, matchs);
         matchsListView.setAdapter(adapter);
+    }
 
-
+    public void CreateMatch(View view) {
+        Intent intent = new Intent(this, SelectDateMatchActivity.class);
+        startActivity(intent);
     }
 }
