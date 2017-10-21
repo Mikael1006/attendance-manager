@@ -11,7 +11,7 @@ import java.util.List;
 public class Match implements Serializable {
 
     private long id;
-//    private long idTeam;
+    private long idTeam;
     private Team team;
     private Date dateMatch;
     private Date dateRdv;
@@ -84,5 +84,13 @@ public class Match implements Serializable {
 
     public void setPlayers(List<Player> players) {
         this.players = players;
+    }
+
+    public long getIdTeam() {
+        return idTeam;
+    }
+
+    public void setIdTeam(long idTeam) {
+        this.idTeam = idTeam;
     }
 }

@@ -14,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.gmail.moreau1006.mikael.attendancemanager.DAO.TeamsDAO;
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Team;
 import com.gmail.moreau1006.mikael.attendancemanager.R;
 
 public class MainActivity extends AppCompatActivity
@@ -109,6 +111,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void CreateMatch(View view) {
+
+        TeamsDAO teamsDAO = new TeamsDAO(this);
+        teamsDAO.open();
+        Team team = teamsDAO.getTeamById(3);
+        teamsDAO.close();
+
         Intent intent = new Intent(this, ListMatchsActivity.class);
         startActivity(intent);
     }

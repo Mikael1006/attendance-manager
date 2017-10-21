@@ -30,9 +30,11 @@ public class MatchsDAO {
             MySQLiteHelper.MATCHS_COL_DATE, MySQLiteHelper.MATCHS_COL_DATE_RDV,
             MySQLiteHelper.MATCHS_COL_OPPONENT, MySQLiteHelper.MATCHS_COL_HOME,
             MySQLiteHelper.MATCHS_COL_TEAM_ID};
+    private TeamsDAO teamsDAO;
 
     public MatchsDAO(Context context) {
         dbHelper = new MySQLiteHelper(context);
+        teamsDAO = new TeamsDAO(context);
     }
 
     public void open() throws SQLException {
@@ -111,6 +113,12 @@ public class MatchsDAO {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Match macth = cursorToMatch(cursor);
+
+            teamsDAO.open();
+            Team team = teamsDAO.getTeamById(macth.getIdTeam());
+            macth.setTeam(team);
+            teamsDAO.close();
+
             matchs.add(macth);
             cursor.moveToNext();
         }
@@ -171,16 +179,7 @@ public class MatchsDAO {
 
         long idTeam = cursor.getLong(5);
 
-        // On récupère l'équipe
-//        Cursor cursorteam = database.query(MySQLiteHelper.TEAMS_TABLE,
-//                allColumns, MySQLiteHelper.TEAMS_COL_ID + " = " + idTeam, null,
-//                null, null, null);
-//
-//        cursorteam.moveToFirst();
-//        Team team = cursorToTeam(cursorteam);
-//        cursorteam.close();
-//
-//        match.setTeam(team);
+        match.setId(idTeam);
 
         return match;
     }

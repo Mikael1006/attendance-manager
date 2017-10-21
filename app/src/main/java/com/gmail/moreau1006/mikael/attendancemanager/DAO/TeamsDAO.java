@@ -79,6 +79,24 @@ public class TeamsDAO {
         return teams;
     }
 
+    public Team getTeamById(long idTeam){
+        Cursor cursor = database.query(MySQLiteHelper.TEAMS_TABLE,
+                allColumns, MySQLiteHelper.TEAMS_COL_ID + " = \"" + idTeam+"\"", null,
+                null, null, null);
+
+        cursor.moveToFirst();
+        Team team;
+        try{
+            team = cursorToTeam(cursor);
+        }catch (Exception e){
+            team = null;
+        }
+
+        cursor.close();
+
+        return team;
+    }
+
     private Team cursorToTeam(Cursor cursor) {
         Team team = new Team();
         team.setId(cursor.getLong(0));

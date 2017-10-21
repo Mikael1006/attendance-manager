@@ -41,7 +41,7 @@ public class MatchAdapter extends ArrayAdapter<Match> {
             viewHolder.match_textview_opponent = (TextView) convertView.findViewById(R.id.match_textview_opponent);
             viewHolder.match_textview_home = (TextView) convertView.findViewById(R.id.match_textview_home);
             viewHolder.match_textview_team = (TextView) convertView.findViewById(R.id.match_textview_team);
-            viewHolder.match_button_edit = (Button) convertView.findViewById(R.id.match_button_edit);
+            viewHolder.match_button_edit = (Button) convertView.findViewById(R.id.match_button_show);
             viewHolder.match_button_delete = (Button) convertView.findViewById(R.id.match_button_delete);
             convertView.setTag(viewHolder);
         }
@@ -69,7 +69,12 @@ public class MatchAdapter extends ArrayAdapter<Match> {
         }
 
         viewHolder.match_textview_home.setText(home);
-        viewHolder.match_textview_team.setText(match.getTeam().getName());
+        if(match.getTeam() == null){
+            viewHolder.match_textview_team.setText("Equipe suprimée");
+        }else {
+            viewHolder.match_textview_team.setText(match.getTeam().getName());
+        }
+
 
         return convertView;
     }

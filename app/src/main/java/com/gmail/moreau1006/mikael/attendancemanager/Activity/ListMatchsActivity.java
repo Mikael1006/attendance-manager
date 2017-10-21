@@ -32,5 +32,7 @@ public class ListMatchsActivity extends AppCompatActivity {
 
         MatchAdapter adapter = new MatchAdapter(ListMatchsActivity.this, matchs);
         matchsListView.setAdapter(adapter);
+
+
     }
 }
