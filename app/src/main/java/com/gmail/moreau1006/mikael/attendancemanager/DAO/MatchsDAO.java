@@ -179,7 +179,7 @@ public class MatchsDAO {
 
         long idTeam = cursor.getLong(5);
 
-        match.setId(idTeam);
+        match.setIdTeam(idTeam);
 
         return match;
     }

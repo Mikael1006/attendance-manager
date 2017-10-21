@@ -112,11 +112,6 @@ public class MainActivity extends AppCompatActivity
 
     public void CreateMatch(View view) {
 
-        TeamsDAO teamsDAO = new TeamsDAO(this);
-        teamsDAO.open();
-        Team team = teamsDAO.getTeamById(3);
-        teamsDAO.close();
-
         Intent intent = new Intent(this, ListMatchsActivity.class);
         startActivity(intent);
     }
