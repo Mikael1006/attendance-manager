@@ -125,7 +125,7 @@ public class MatchsDAO {
         List<Match> matchs = new ArrayList<Match>();
 
         Cursor cursor = database.query(MySQLiteHelper.MATCHS_TABLE,
-                allColumns, null, null, null, null, null);
+                allColumns, null, null, null, null, MySQLiteHelper.MATCHS_COL_DATE +" DESC");
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -156,8 +156,8 @@ public class MatchsDAO {
         Date today = new Date();
 
         Cursor cursor = database.query(MySQLiteHelper.MATCHS_TABLE,
-                allColumns, MySQLiteHelper.MATCHS_COL_DATE + " >= \"" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(today) + "\"", null,
-                null, null, null);
+                allColumns, MySQLiteHelper.MATCHS_COL_DATE + " >= \"" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(today) + "\"",
+                null, null, null, MySQLiteHelper.MATCHS_COL_DATE +" DESC");
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
