@@ -90,6 +90,16 @@ public class MatchsDAO {
 
         // add all the invitations
         List<Player> invitedPlayers = match.getInvitedPlayers();
+        Team team = match.getTeam();
+
+        cursor.moveToFirst();
+        match = cursorToMatch(cursor);
+        cursor.close();
+
+        // On ajoute la team car elle n'est pas ajoutée avec le curseur.
+        match.setTeam(team);
+        match.setInvitedPlayers(invitedPlayers);
+
         if (invitedPlayers != null){
             for(int i = 0; i < invitedPlayers.size(); i++){
                 values = new ContentValues();
@@ -100,16 +110,6 @@ public class MatchsDAO {
                 database.insert(MySQLiteHelper.INVITATION_TABLE, null, values);
             }
         }
-
-        Team team = match.getTeam();
-
-        cursor.moveToFirst();
-        match = cursorToMatch(cursor);
-        cursor.close();
-
-        // On ajoute la team car elle n'est pas ajoutée avec le curseur.
-        match.setTeam(team);
-        match.setInvitedPlayers(invitedPlayers);
 
         return match;
     }

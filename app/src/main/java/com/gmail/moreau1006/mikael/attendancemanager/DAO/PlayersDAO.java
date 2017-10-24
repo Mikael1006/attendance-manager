@@ -119,21 +119,15 @@ public class PlayersDAO {
     public List<Player> getPlayersByMatch(Match match){
         List<Player> players = new ArrayList<Player>();
 
-//        String query = "SELECT * FROM " + MySQLiteHelper.PLAYERS_TABLE + " P INNER JOIN "
-//                + MySQLiteHelper.INVITATION_TABLE + " I ON P." + MySQLiteHelper.PLAYERS_COL_ID
-//                + "=I." + MySQLiteHelper.INVITATION_COL_PLAYER_ID + " WHERE I."
-//                + MySQLiteHelper.INVITATION_COL_MATCH_ID +"="  + match.getId();
+        String query = "SELECT " + MySQLiteHelper.PLAYERS_COL_ID + ", " + MySQLiteHelper.PLAYERS_COL_NAME + ", "
+                + MySQLiteHelper.PLAYERS_COL_NUMBER + ", " + MySQLiteHelper.PLAYERS_COL_TEAM_ID + ", "
+                + MySQLiteHelper.INVITATION_COL_RESPONSE
+                + " FROM " + MySQLiteHelper.PLAYERS_TABLE + " P INNER JOIN "
+                + MySQLiteHelper.INVITATION_TABLE + " I ON P." + MySQLiteHelper.PLAYERS_COL_ID
+                + "=I." + MySQLiteHelper.INVITATION_COL_PLAYER_ID + " WHERE I."
+                + MySQLiteHelper.INVITATION_COL_MATCH_ID +"="  + match.getId();
 
-        String query = "SELECT ?, ?, ?, ?, ? FROM ? P INNER JOIN ? I ON P.?=I.? WHERE I.?="  + match.getId();
-
-        String[] columns = {MySQLiteHelper.PLAYERS_COL_ID,
-                MySQLiteHelper.PLAYERS_COL_NAME, MySQLiteHelper.PLAYERS_COL_NUMBER,
-                MySQLiteHelper.PLAYERS_COL_TEAM_ID, MySQLiteHelper.INVITATION_COL_RESPONSE,
-                MySQLiteHelper.PLAYERS_TABLE, MySQLiteHelper.INVITATION_TABLE,
-                MySQLiteHelper.PLAYERS_COL_ID, MySQLiteHelper.INVITATION_COL_PLAYER_ID,
-                MySQLiteHelper.INVITATION_COL_MATCH_ID};
-
-        Cursor cursor = database.rawQuery(query, columns);
+        Cursor cursor = database.rawQuery(query, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

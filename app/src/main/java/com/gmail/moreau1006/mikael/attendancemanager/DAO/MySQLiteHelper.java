@@ -12,6 +12,21 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
+//    passer en shell sur le device :
+//    ~/Android/Sdk/platform-tools/adb -s 28d3df2c shell
+//     acces database without rooting
+//    https://stackoverflow.com/questions/13006315/how-to-access-data-data-folder-in-android-device
+//    run-as com.gmail.moreau1006.mikael.attendancemanager
+//    cd /data/data/com.gmail.moreau1006.mikael.attendancemanager
+//
+//    ./adb shell
+//    run-as com.gmail.moreau1006.mikael.attendancemanager
+//    chmod 666 databases/attendance_manager.db
+//    exit
+//    cp /data/data/com.gmail.moreau1006.mikael.attendancemanager/databases/attendance_manager.db /sdcard/
+//    exit
+//    ./adb pull /sdcard/attendance_manager.db /home/mika/Téléchargements/attendance_manager.db
+
     public static final String PLAYERS_TABLE = "Players";
     public static final String PLAYERS_COL_ID = "_id";
     public static final String PLAYERS_COL_NAME = "Name";
@@ -36,7 +51,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String INVITATION_COL_MATCH_ID = "idMatch";
     public static final String INVITATION_COL_RESPONSE = "Response";
 
-    private static final String DATABASE_NAME = "attendance_manager8.db";
+    private static final String DATABASE_NAME = "attendance_manager.db";
     private static final int DATABASE_VERSION = 1;
 
     private static final String CREATE_BDD_PLAYERS = "CREATE TABLE " + PLAYERS_TABLE + " ("
