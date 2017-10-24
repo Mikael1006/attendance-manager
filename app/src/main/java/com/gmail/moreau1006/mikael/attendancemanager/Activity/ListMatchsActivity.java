@@ -46,4 +46,12 @@ public class ListMatchsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SelectDateMatchActivity.class);
         startActivity(intent);
     }
+
+    public void showMatch(View view) {
+        //TODO
+    }
+
+    public void deleteMatch(View view) {
+        //TODO
+    }
 }

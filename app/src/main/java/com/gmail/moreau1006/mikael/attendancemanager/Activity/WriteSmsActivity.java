@@ -58,6 +58,10 @@ public class WriteSmsActivity extends AppCompatActivity {
     public void validateSms(View view){
         match = matchsDAO.createMatch(match);
         matchsDAO.close();
+
+        // Send sms
+        //TODO
+
         setResult(RESULT_OK);
         finish();
     }
