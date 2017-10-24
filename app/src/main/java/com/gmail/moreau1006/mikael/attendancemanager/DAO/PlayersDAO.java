@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Team;
 
@@ -115,7 +116,43 @@ public class PlayersDAO {
         return player;
     }
 
-    private Player cursorToPlayer(Cursor cursor) {
+    public List<Player> getPlayersByMatch(Match match){
+        List<Player> players = new ArrayList<Player>();
+
+//        String query = "SELECT * FROM " + MySQLiteHelper.PLAYERS_TABLE + " P INNER JOIN "
+//                + MySQLiteHelper.INVITATION_TABLE + " I ON P." + MySQLiteHelper.PLAYERS_COL_ID
+//                + "=I." + MySQLiteHelper.INVITATION_COL_PLAYER_ID + " WHERE I."
+//                + MySQLiteHelper.INVITATION_COL_MATCH_ID +"="  + match.getId();
+
+        String query = "SELECT ?, ?, ?, ?, ? FROM ? P INNER JOIN ? I ON P.?=I.? WHERE I.?="  + match.getId();
+
+        String[] columns = {MySQLiteHelper.PLAYERS_COL_ID,
+                MySQLiteHelper.PLAYERS_COL_NAME, MySQLiteHelper.PLAYERS_COL_NUMBER,
+                MySQLiteHelper.PLAYERS_COL_TEAM_ID, MySQLiteHelper.INVITATION_COL_RESPONSE,
+                MySQLiteHelper.PLAYERS_TABLE, MySQLiteHelper.INVITATION_TABLE,
+                MySQLiteHelper.PLAYERS_COL_ID, MySQLiteHelper.INVITATION_COL_PLAYER_ID,
+                MySQLiteHelper.INVITATION_COL_MATCH_ID};
+
+        Cursor cursor = database.rawQuery(query, columns);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Player player = cursorToPlayer(cursor);
+            if(!cursor.isNull(4)){
+                player.setAttendant(cursor.getInt(4) > 0);
+            }else {
+                player.setAttendant(null);
+            }
+            players.add(player);
+            cursor.moveToNext();
+        }
+        // fermeture du curseur
+        cursor.close();
+
+        return players;
+    }
+
+    public Player cursorToPlayer(Cursor cursor) {
         Player player = new Player();
         player.setId(cursor.getLong(0));
         player.setName(cursor.getString(1));

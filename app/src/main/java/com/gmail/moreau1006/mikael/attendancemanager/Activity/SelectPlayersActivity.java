@@ -25,7 +25,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
     private Team team;
     private List<Player> players;
     private Match match;
-    private List<Player> selectedPlayers;
+    private List<Player> invitedPlayers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +46,8 @@ public class SelectPlayersActivity extends AppCompatActivity {
         SelectPlayerAdapter adapter = new SelectPlayerAdapter(SelectPlayersActivity.this, players);
         playersListView.setAdapter(adapter);
 
-        selectedPlayers = new ArrayList<Player>();
-        match.setSelectedPlayers(selectedPlayers);
+        invitedPlayers = new ArrayList<Player>();
+        match.setInvitedPlayers(invitedPlayers);
     }
 
     public void checkPlayer(View view) {
@@ -61,9 +61,9 @@ public class SelectPlayersActivity extends AppCompatActivity {
        boolean checked = ((CheckBox) view).isChecked();
 
        if (checked){
-           selectedPlayers.add(player);
+           invitedPlayers.add(player);
        }else{
-           selectedPlayers.remove(player);
+           invitedPlayers.remove(player);
        }
     }
     public void validateSelectPlayers(View view){

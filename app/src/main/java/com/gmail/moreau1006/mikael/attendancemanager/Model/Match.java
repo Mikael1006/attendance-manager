@@ -17,7 +17,7 @@ public class Match implements Serializable {
     private Date dateRdv;
     private String opponent;
     private boolean home;
-    private List<Player> selectedPlayers;
+    private List<Player> invitedPlayers;
 
     public Match() {
     }
@@ -78,12 +78,12 @@ public class Match implements Serializable {
         this.home = home;
     }
 
-    public List<Player> getSelectedPlayers() {
-        return selectedPlayers;
+    public List<Player> getInvitedPlayers() {
+        return invitedPlayers;
     }
 
-    public void setSelectedPlayers(List<Player> selectedPlayers) {
-        this.selectedPlayers = selectedPlayers;
+    public void setInvitedPlayers(List<Player> invitedPlayers) {
+        this.invitedPlayers = invitedPlayers;
     }
 
     public long getIdTeam() {

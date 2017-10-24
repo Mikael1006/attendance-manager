@@ -12,14 +12,13 @@ import com.gmail.moreau1006.mikael.attendancemanager.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class WriteSmsActivity extends AppCompatActivity {
 
     private Match match;
-    private List<Player> selectedPlayers;
+    private List<Player> invitedPlayers;
     private String sms;
     private EditText smsEditText;
     private MatchsDAO matchsDAO;
@@ -33,7 +32,7 @@ public class WriteSmsActivity extends AppCompatActivity {
 
         // get match and players from previous activity
         match = (Match) getIntent().getSerializableExtra(SelectDateMatchActivity.EXTRA_MATCH);
-        selectedPlayers = match.getSelectedPlayers();
+        invitedPlayers = match.getInvitedPlayers();
 
         DateFormat dateFormat = new SimpleDateFormat("EEEE, d MMM yyyy HH:mm", Locale.FRENCH);
         String dateMatch = dateFormat.format(match.getDateMatch());

@@ -12,6 +12,7 @@ public class Player implements Serializable {
     private String name;
     private String numberPhone;
     private long idTeam;
+    private Boolean attendant;
 
     public Player() {
     }
@@ -57,5 +58,13 @@ public class Player implements Serializable {
 
     public void setIdTeam(long idTeam) {
         this.idTeam = idTeam;
+    }
+
+    public Boolean isAttendant() {
+        return attendant;
+    }
+
+    public void setAttendant(Boolean attendant) {
+        this.attendant = attendant;
     }
 }

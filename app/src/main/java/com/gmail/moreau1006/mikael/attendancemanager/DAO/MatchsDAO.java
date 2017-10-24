@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.widget.TextView;
 
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Team;
 
 import java.text.DateFormat;
@@ -31,10 +32,12 @@ public class MatchsDAO {
             MySQLiteHelper.MATCHS_COL_OPPONENT, MySQLiteHelper.MATCHS_COL_HOME,
             MySQLiteHelper.MATCHS_COL_TEAM_ID};
     private TeamsDAO teamsDAO;
+    private PlayersDAO playersDAO;
 
     public MatchsDAO(Context context) {
         dbHelper = new MySQLiteHelper(context);
         teamsDAO = new TeamsDAO(context);
+        playersDAO = new PlayersDAO(context);
     }
 
     public void open() throws SQLException {
@@ -85,6 +88,19 @@ public class MatchsDAO {
                 allColumns, MySQLiteHelper.MATCHS_COL_ID + " = " + insertId, null,
                 null, null, null);
 
+        // add all the invitations
+        List<Player> invitedPlayers = match.getInvitedPlayers();
+        if (invitedPlayers != null){
+            for(int i = 0; i < invitedPlayers.size(); i++){
+                values = new ContentValues();
+                values.put(MySQLiteHelper.INVITATION_COL_PLAYER_ID, invitedPlayers.get(i).getId());
+                values.put(MySQLiteHelper.INVITATION_COL_MATCH_ID, match.getId());
+                values.put(MySQLiteHelper.INVITATION_COL_RESPONSE, invitedPlayers.get(i).isAttendant());
+
+                database.insert(MySQLiteHelper.INVITATION_TABLE, null, values);
+            }
+        }
+
         Team team = match.getTeam();
 
         cursor.moveToFirst();
@@ -93,6 +109,7 @@ public class MatchsDAO {
 
         // On ajoute la team car elle n'est pas ajoutée avec le curseur.
         match.setTeam(team);
+        match.setInvitedPlayers(invitedPlayers);
 
         return match;
     }
@@ -119,6 +136,11 @@ public class MatchsDAO {
             macth.setTeam(team);
             teamsDAO.close();
 
+            playersDAO.open();
+            List<Player> players = playersDAO.getPlayersByMatch(macth);
+            macth.setInvitedPlayers(players);
+            playersDAO.close();
+
             matchs.add(macth);
             cursor.moveToNext();
         }
@@ -140,6 +162,17 @@ public class MatchsDAO {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Match macth = cursorToMatch(cursor);
+
+            teamsDAO.open();
+            Team team = teamsDAO.getTeamById(macth.getIdTeam());
+            macth.setTeam(team);
+            teamsDAO.close();
+
+            playersDAO.open();
+            List<Player> players = playersDAO.getPlayersByMatch(macth);
+            macth.setInvitedPlayers(players);
+            playersDAO.close();
+
             matchs.add(macth);
             cursor.moveToNext();
         }
@@ -182,12 +215,5 @@ public class MatchsDAO {
         match.setIdTeam(idTeam);
 
         return match;
-    }
-
-    private Team cursorToTeam(Cursor cursor) {
-        Team team = new Team();
-        team.setId(cursor.getLong(0));
-        team.setName(cursor.getString(1));
-        return team;
     }
 }

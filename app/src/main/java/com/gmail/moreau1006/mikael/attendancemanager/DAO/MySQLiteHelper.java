@@ -30,6 +30,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String MATCHS_COL_HOME = "Domicile";
     public static final String MATCHS_COL_TEAM_ID = "idTeam";
 
+
+    public static final String INVITATION_TABLE = "Invitations";
+    public static final String INVITATION_COL_PLAYER_ID = "idPlayer";
+    public static final String INVITATION_COL_MATCH_ID = "idMatch";
+    public static final String INVITATION_COL_RESPONSE = "Response";
+
     private static final String DATABASE_NAME = "attendance_manager8.db";
     private static final int DATABASE_VERSION = 1;
 
@@ -45,6 +51,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + MATCHS_COL_DATE_RDV + " DATE NOT NULL, " + MATCHS_COL_OPPONENT + " TEXT,"
             + MATCHS_COL_HOME + " BOOLEAN," + MATCHS_COL_TEAM_ID + " INTEGER);\n";
 
+    private static final String CREATE_BDD_INVITATIONS = "CREATE TABLE " + INVITATION_TABLE + " ("
+            + INVITATION_COL_PLAYER_ID + " INTEGER, " + INVITATION_COL_MATCH_ID + " INTEGER, "
+            + INVITATION_COL_RESPONSE + " BOOLEAN);\n";
+
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -55,6 +65,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_BDD_PLAYERS);
         db.execSQL(CREATE_BDD_TEAMS);
         db.execSQL(CREATE_BDD_MATCHS);
+        db.execSQL(CREATE_BDD_INVITATIONS);
     }
 
     @Override
@@ -64,6 +75,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE " + PLAYERS_TABLE + ";");
         db.execSQL("DROP TABLE " + TEAMS_TABLE + ";");
         db.execSQL("DROP TABLE " + MATCHS_TABLE + ";");
+        db.execSQL("DROP TABLE " + INVITATION_TABLE + ";");
         onCreate(db);
     }
 }
