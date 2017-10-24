@@ -42,7 +42,7 @@ public class ListMatchsActivity extends AppCompatActivity {
         matchsListView.setAdapter(adapter);
     }
 
-    public void CreateMatch(View view) {
+    public void createMatch(View view) {
         Intent intent = new Intent(this, SelectDateMatchActivity.class);
         startActivity(intent);
     }
