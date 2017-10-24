@@ -31,12 +31,10 @@ public class ListMatchsActivity extends AppCompatActivity {
         matchsDAO = new MatchsDAO(this);
         matchsDAO.open();
 
-//        matchs = matchsDAO.getAllMatchs();
-//        Collections.reverse(matchs);
         try{
-            matchs = matchsDAO.getAllFutureMatchs();
+            matchs = matchsDAO.getAllMatchs();
         }catch (Exception e){
-            System.out.print(e);
+            e.printStackTrace();
         }
 
 

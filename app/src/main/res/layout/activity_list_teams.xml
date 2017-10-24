@@ -33,7 +33,7 @@
             android:layout_above="@+id/TeamsListView"
             android:ems="10"
             android:inputType="text"
-            android:text="Nouvelle équipe" />
+            android:text="" />
 
     </RelativeLayout>
 

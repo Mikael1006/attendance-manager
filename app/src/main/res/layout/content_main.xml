@@ -13,32 +13,16 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <TextView
-            android:id="@+id/NoEventTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pas d'évènement futur."
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.032"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="18dp" />
-
         <Button
-            android:id="@+id/NewEventButton"
+            android:id="@+id/addFutureMatchButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="CreateMatch"
-            android:text="Créer un nouvel évènement"
-            android:visibility="visible"
-            tools:layout_editor_absoluteX="76dp"
-            tools:layout_editor_absoluteY="44dp"
-            android:layout_marginTop="21dp"
-            android:layout_below="@+id/NoEventTextView"
+            android:text="Nouveau match"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
+
+
 
     </RelativeLayout>
 
