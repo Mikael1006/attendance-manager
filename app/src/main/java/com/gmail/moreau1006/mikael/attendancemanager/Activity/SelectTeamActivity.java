@@ -69,4 +69,9 @@ public class SelectTeamActivity extends AppCompatActivity {
         }
         super.onActivityResult (requestCode, resultCode, data);
     }
+
+    public void editTeam(View view){
+        Intent intent = new Intent(this, ListTeamsActivity.class);
+        startActivity(intent);
+    }
 }
