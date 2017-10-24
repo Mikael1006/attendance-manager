@@ -9,8 +9,10 @@ import android.widget.ListView;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Adapter.MatchAdapter;
 import com.gmail.moreau1006.mikael.attendancemanager.DAO.MatchsDAO;
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
 import com.gmail.moreau1006.mikael.attendancemanager.R;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ListMatchsActivity extends AppCompatActivity {
@@ -29,8 +31,14 @@ public class ListMatchsActivity extends AppCompatActivity {
         matchsDAO = new MatchsDAO(this);
         matchsDAO.open();
 
-        matchs = matchsDAO.getAllMatchs();
-        //matchs = matchsDAO.getAllFutureMatchs();
+//        matchs = matchsDAO.getAllMatchs();
+//        Collections.reverse(matchs);
+        try{
+            matchs = matchsDAO.getAllFutureMatchs();
+        }catch (Exception e){
+            System.out.print(e);
+        }
+
 
         MatchAdapter adapter = new MatchAdapter(ListMatchsActivity.this, matchs);
         matchsListView.setAdapter(adapter);
