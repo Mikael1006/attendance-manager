@@ -41,7 +41,7 @@ public class SelectDateRdvActivity extends AppCompatActivity {
         time = null;
 
         // get the match
-        match = (Match) getIntent().getSerializableExtra(SelectDateMatchActivity.EXTRA_MATCH);
+        match = (Match) getIntent().getSerializableExtra(ListMatchsActivity.EXTRA_MATCH);
     }
 
     public void onClickDate(View view){
@@ -109,8 +109,8 @@ public class SelectDateRdvActivity extends AppCompatActivity {
             match.setDateRdv(dateRdv);
 
             Intent intent = new Intent(this, SelectOpponentActivity.class);
-            intent.putExtra(SelectDateMatchActivity.EXTRA_MATCH,match);
-            startActivityForResult(intent, SelectDateMatchActivity.RESQUEST_CODE);
+            intent.putExtra(ListMatchsActivity.EXTRA_MATCH,match);
+            startActivityForResult(intent, ListMatchsActivity.RESQUEST_CODE);
 
 //            setResult(RESULT_OK);
 //            finish();
@@ -131,7 +131,7 @@ public class SelectDateRdvActivity extends AppCompatActivity {
     }
 
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if(requestCode==SelectDateMatchActivity.RESQUEST_CODE){
+        if(requestCode==ListMatchsActivity.RESQUEST_CODE){
             if(resultCode==RESULT_OK){
                 setResult(RESULT_OK);
                 finish();

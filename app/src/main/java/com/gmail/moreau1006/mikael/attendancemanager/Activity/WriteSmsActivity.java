@@ -31,7 +31,7 @@ public class WriteSmsActivity extends AppCompatActivity {
         smsEditText = (EditText) findViewById(R.id.sms_editText);
 
         // get match and players from previous activity
-        match = (Match) getIntent().getSerializableExtra(SelectDateMatchActivity.EXTRA_MATCH);
+        match = (Match) getIntent().getSerializableExtra(ListMatchsActivity.EXTRA_MATCH);
         invitedPlayers = match.getInvitedPlayers();
 
         DateFormat dateFormat = new SimpleDateFormat("EEEE, d MMM yyyy HH:mm", Locale.FRENCH);

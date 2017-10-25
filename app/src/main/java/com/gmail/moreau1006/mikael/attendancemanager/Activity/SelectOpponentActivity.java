@@ -25,7 +25,7 @@ public class SelectOpponentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_opponent);
 
         // get the match
-        match = (Match) getIntent().getSerializableExtra(SelectDateMatchActivity.EXTRA_MATCH);
+        match = (Match) getIntent().getSerializableExtra(ListMatchsActivity.EXTRA_MATCH);
 
         homeTrueRadioButton = (RadioButton) findViewById(R.id.home_true_radioButton);
         homeFalseRadioButton = (RadioButton) findViewById(R.id.home_false_radioButton);
@@ -54,8 +54,8 @@ public class SelectOpponentActivity extends AppCompatActivity {
             match.setOpponent(opponent);
 
             Intent intent = new Intent(this, SelectTeamActivity.class);
-            intent.putExtra(SelectDateMatchActivity.EXTRA_MATCH,match);
-            startActivityForResult(intent, SelectDateMatchActivity.RESQUEST_CODE);
+            intent.putExtra(ListMatchsActivity.EXTRA_MATCH,match);
+            startActivityForResult(intent, ListMatchsActivity.RESQUEST_CODE);
 
         }else {
             AlertDialog alertDialog = new AlertDialog.Builder(SelectOpponentActivity.this).create();
@@ -72,7 +72,7 @@ public class SelectOpponentActivity extends AppCompatActivity {
     }
 
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if(requestCode==SelectDateMatchActivity.RESQUEST_CODE){
+        if(requestCode==ListMatchsActivity.RESQUEST_CODE){
             if(resultCode==RESULT_OK){
                 setResult(RESULT_OK);
                 finish();

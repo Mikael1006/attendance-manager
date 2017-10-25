@@ -20,9 +20,6 @@ import java.util.Date;
 
 public class SelectDateMatchActivity extends AppCompatActivity {
 
-    public static final String EXTRA_MATCH = "com.gmail.moreau1006.mikael.attendancemanager.MATCH";
-    public static final int RESQUEST_CODE = 1000;
-
     private static final String FRAG_TAG_DATE_PICKER = "datePickerMatch";
     private static final String FRAG_TAG_TIME_PICKER = "timePickerMatch";
     private TextView dateTextView;
@@ -43,7 +40,8 @@ public class SelectDateMatchActivity extends AppCompatActivity {
         date = null;
         time = null;
 
-        match = new Match();
+        // get match from previous activity
+        match = (Match) getIntent().getSerializableExtra(ListMatchsActivity.EXTRA_MATCH);
     }
 
     public void onClickDate(View view){
@@ -111,8 +109,8 @@ public class SelectDateMatchActivity extends AppCompatActivity {
             match.setDateMatch(dateMatch);
 
             Intent intent = new Intent(this, SelectDateRdvActivity.class);
-            intent.putExtra(EXTRA_MATCH,match);
-            startActivityForResult(intent, RESQUEST_CODE);
+            intent.putExtra(ListMatchsActivity.EXTRA_MATCH,match);
+            startActivityForResult(intent, ListMatchsActivity.RESQUEST_CODE);
 
 
         }else{
@@ -130,7 +128,7 @@ public class SelectDateMatchActivity extends AppCompatActivity {
     }
 
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if(requestCode==SelectDateMatchActivity.RESQUEST_CODE){
+        if(requestCode==ListMatchsActivity.RESQUEST_CODE){
             if(resultCode==RESULT_OK){
                 setResult(RESULT_OK);
                 finish();

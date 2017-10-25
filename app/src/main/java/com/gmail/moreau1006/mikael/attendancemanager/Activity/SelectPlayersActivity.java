@@ -38,7 +38,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         playersDAO.open();
 
         // get match from previous activity
-        match = (Match) getIntent().getSerializableExtra(SelectDateMatchActivity.EXTRA_MATCH);
+        match = (Match) getIntent().getSerializableExtra(ListMatchsActivity.EXTRA_MATCH);
 
         // On récupère tous les joueurs de l'équipe
         players = playersDAO.getPlayersByTeam(match.getTeam());
@@ -69,12 +69,12 @@ public class SelectPlayersActivity extends AppCompatActivity {
     public void validateSelectPlayers(View view){
 
         Intent intent = new Intent(SelectPlayersActivity.this, WriteSmsActivity.class);
-        intent.putExtra(SelectDateMatchActivity.EXTRA_MATCH,match);
-        startActivityForResult(intent, SelectDateMatchActivity.RESQUEST_CODE);
+        intent.putExtra(ListMatchsActivity.EXTRA_MATCH,match);
+        startActivityForResult(intent, ListMatchsActivity.RESQUEST_CODE);
     }
 
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if(requestCode==SelectDateMatchActivity.RESQUEST_CODE){
+        if(requestCode==ListMatchsActivity.RESQUEST_CODE){
             if(resultCode==RESULT_OK){
                 setResult(RESULT_OK);
                 finish();
