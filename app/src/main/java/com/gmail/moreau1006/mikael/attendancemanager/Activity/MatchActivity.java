@@ -9,6 +9,7 @@ import com.gmail.moreau1006.mikael.attendancemanager.DAO.PlayersDAO;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
 import com.gmail.moreau1006.mikael.attendancemanager.R;
+import com.gmail.moreau1006.mikael.attendancemanager.View.DrawingSquare;
 
 import java.util.List;
 
@@ -32,5 +33,8 @@ public class MatchActivity extends AppCompatActivity {
 
         InvitedPlayersAdapter adapter = new InvitedPlayersAdapter(MatchActivity.this, invitedPlayers);
         invitedPlayersListView.setAdapter(adapter);
+
+//        DrawingSquare drawingSquare = new DrawingSquare(this);
+//        setContentView(drawingSquare);
     }
 }

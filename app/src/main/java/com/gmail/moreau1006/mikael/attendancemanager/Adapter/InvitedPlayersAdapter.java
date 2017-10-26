@@ -1,6 +1,8 @@
 package com.gmail.moreau1006.mikael.attendancemanager.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,7 @@ public class InvitedPlayersAdapter extends ArrayAdapter<Player> {
             viewHolder = new InvitedPlayerViewHolder();
             viewHolder.name = (TextView) convertView.findViewById(R.id.invited_player_textview_name);
             viewHolder.numberPhone = (TextView) convertView.findViewById(R.id.invited_player_textview_numberphone);
+            viewHolder.attendance = (View) convertView.findViewById(R.id.invited_player_square);
             convertView.setTag(viewHolder);
         }
 
@@ -44,12 +47,23 @@ public class InvitedPlayersAdapter extends ArrayAdapter<Player> {
         viewHolder.name.setText(player.getName());
         viewHolder.numberPhone.setText(player.getNumberPhone());
 
+        GradientDrawable bgShape = (GradientDrawable)viewHolder.attendance.getBackground();
+
+        if(player.isAttendant() == null){
+            bgShape.setColor(Color.GRAY);
+        }else if(player.isAttendant()){
+            bgShape.setColor(Color.GREEN);
+        }else if(!player.isAttendant()){
+            bgShape.setColor(Color.RED);
+        }
+
         return convertView;
     }
 
     private class InvitedPlayerViewHolder {
         public TextView name;
         public TextView numberPhone;
+        public View attendance;
     }
 }
 

@@ -3,23 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/invited_player_textview_name"
+    <LinearLayout
+        android:id="@+id/invited_player_linearlayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:paddingLeft="8dp"
-        android:textSize="22sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/invited_player_square"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/square" />
+
+        <TextView
+            android:id="@+id/invited_player_textview_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/invited_player_textview_numberphone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/select_player_textview_name"
-        android:layout_below="@+id/select_player_textview_name"
-        android:paddingLeft="8dp"
-        android:textSize="14sp"/>
+        android:layout_below="@+id/invited_player_linearlayout"
+        android:textSize="14sp"
+        android:paddingLeft="30dp"/>
+
 
 </RelativeLayout>
