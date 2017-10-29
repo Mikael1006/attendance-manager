@@ -110,7 +110,7 @@ public class SelectDateRdvActivity extends AppCompatActivity {
 
             Intent intent = new Intent(this, SelectOpponentActivity.class);
             intent.putExtra(ListMatchsActivity.EXTRA_MATCH,match);
-            startActivityForResult(intent, ListMatchsActivity.RESQUEST_CODE);
+            startActivityForResult(intent, ListMatchsActivity.CREATE_MATCH_RESQUEST_CODE);
 
 //            setResult(RESULT_OK);
 //            finish();
@@ -131,7 +131,7 @@ public class SelectDateRdvActivity extends AppCompatActivity {
     }
 
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if(requestCode==ListMatchsActivity.RESQUEST_CODE){
+        if(requestCode==ListMatchsActivity.CREATE_MATCH_RESQUEST_CODE){
             if(resultCode==RESULT_OK){
                 setResult(RESULT_OK);
                 finish();

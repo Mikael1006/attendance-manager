@@ -129,19 +129,19 @@ public class MatchsDAO {
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Match macth = cursorToMatch(cursor);
+            Match match = cursorToMatch(cursor);
 
             teamsDAO.open();
-            Team team = teamsDAO.getTeamById(macth.getIdTeam());
-            macth.setTeam(team);
+            Team team = teamsDAO.getTeamById(match.getIdTeam());
+            match.setTeam(team);
             teamsDAO.close();
 
             playersDAO.open();
-            List<Player> players = playersDAO.getPlayersByMatch(macth);
-            macth.setInvitedPlayers(players);
+            List<Player> players = playersDAO.getPlayersByMatch(match);
+            match.setInvitedPlayers(players);
             playersDAO.close();
 
-            matchs.add(macth);
+            matchs.add(match);
             cursor.moveToNext();
         }
         // fermeture du curseur
@@ -161,25 +161,57 @@ public class MatchsDAO {
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Match macth = cursorToMatch(cursor);
+            Match match = cursorToMatch(cursor);
 
             teamsDAO.open();
-            Team team = teamsDAO.getTeamById(macth.getIdTeam());
-            macth.setTeam(team);
+            Team team = teamsDAO.getTeamById(match.getIdTeam());
+            match.setTeam(team);
             teamsDAO.close();
 
             playersDAO.open();
-            List<Player> players = playersDAO.getPlayersByMatch(macth);
-            macth.setInvitedPlayers(players);
+            List<Player> players = playersDAO.getPlayersByMatch(match);
+            match.setInvitedPlayers(players);
             playersDAO.close();
 
-            matchs.add(macth);
+            matchs.add(match);
             cursor.moveToNext();
         }
         // fermeture du curseur
         cursor.close();
 
         return matchs;
+    }
+
+    public Match updateInvitation(Match match, Player player){
+
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.INVITATION_COL_MATCH_ID, match.getId());
+        values.put(MySQLiteHelper.INVITATION_COL_PLAYER_ID, player.getId());
+        values.put(MySQLiteHelper.INVITATION_COL_RESPONSE, player.isAttendant());
+
+        database.update(MySQLiteHelper.INVITATION_TABLE, values,
+                MySQLiteHelper.INVITATION_COL_MATCH_ID + " = " + match.getId() +
+                        " AND " + MySQLiteHelper.INVITATION_COL_PLAYER_ID + " = " + player.getId(), null);
+
+        Cursor cursor = database.query(MySQLiteHelper.MATCHS_TABLE,
+                allColumns, MySQLiteHelper.MATCHS_COL_ID + " = " + match.getId(), null,
+                null, null, null);
+
+        cursor.moveToFirst();
+        match = cursorToMatch(cursor);
+        cursor.close();
+
+        teamsDAO.open();
+        Team team = teamsDAO.getTeamById(match.getIdTeam());
+        match.setTeam(team);
+        teamsDAO.close();
+
+        playersDAO.open();
+        List<Player> players = playersDAO.getPlayersByMatch(match);
+        match.setInvitedPlayers(players);
+        playersDAO.close();
+
+        return match;
     }
 
     private Match cursorToMatch(Cursor cursor) {

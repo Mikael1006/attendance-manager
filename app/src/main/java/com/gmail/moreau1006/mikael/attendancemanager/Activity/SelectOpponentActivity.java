@@ -55,7 +55,7 @@ public class SelectOpponentActivity extends AppCompatActivity {
 
             Intent intent = new Intent(this, SelectTeamActivity.class);
             intent.putExtra(ListMatchsActivity.EXTRA_MATCH,match);
-            startActivityForResult(intent, ListMatchsActivity.RESQUEST_CODE);
+            startActivityForResult(intent, ListMatchsActivity.CREATE_MATCH_RESQUEST_CODE);
 
         }else {
             AlertDialog alertDialog = new AlertDialog.Builder(SelectOpponentActivity.this).create();
@@ -72,7 +72,7 @@ public class SelectOpponentActivity extends AppCompatActivity {
     }
 
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if(requestCode==ListMatchsActivity.RESQUEST_CODE){
+        if(requestCode==ListMatchsActivity.CREATE_MATCH_RESQUEST_CODE){
             if(resultCode==RESULT_OK){
                 setResult(RESULT_OK);
                 finish();

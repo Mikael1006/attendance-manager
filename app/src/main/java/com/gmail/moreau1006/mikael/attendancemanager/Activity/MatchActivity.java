@@ -19,6 +19,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.gmail.moreau1006.mikael.attendancemanager.Adapter.InvitedPlayersAdapter;
+import com.gmail.moreau1006.mikael.attendancemanager.DAO.MatchsDAO;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
 import com.gmail.moreau1006.mikael.attendancemanager.R;
@@ -28,26 +29,28 @@ import java.util.List;
 public class MatchActivity extends AppCompatActivity {
 
     private ListView invitedPlayersListView;
-    private List<Player> invitedPlayers;
     private Match match;
+    private MatchsDAO matchsDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
 
+        matchsDAO = new MatchsDAO(this);
+        matchsDAO.open();
+
         invitedPlayersListView = (ListView) findViewById(R.id.invitedPlayersListView);
 
         // get match from previous activity
         match = (Match) getIntent().getSerializableExtra(ListMatchsActivity.EXTRA_MATCH);
 
-        invitedPlayers = match.getInvitedPlayers();
+        updateListView();
+    }
 
-        InvitedPlayersAdapter adapter = new InvitedPlayersAdapter(MatchActivity.this, invitedPlayers);
+    private void updateListView(){
+        InvitedPlayersAdapter adapter = new InvitedPlayersAdapter(MatchActivity.this, match.getInvitedPlayers());
         invitedPlayersListView.setAdapter(adapter);
-
-//        DrawingSquare drawingSquare = new DrawingSquare(this);
-//        setContentView(drawingSquare);
     }
 
     /**
@@ -59,7 +62,7 @@ public class MatchActivity extends AppCompatActivity {
         // on récupère l'index de la liste
         int index = invitedPlayersListView.indexOfChild((View) view.getParent());
         // On récupère le bon joueur
-        final Player player = invitedPlayers.get(index);
+        final Player player = match.getInvitedPlayers().get(index);
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MatchActivity.this);
         alertDialog.setTitle("Editer la présence");
@@ -166,6 +169,14 @@ public class MatchActivity extends AppCompatActivity {
                         }else if(unknownRadioButton.isChecked()){
                             player.setAttendant(null);
                         }
+
+                        try{
+                            match = matchsDAO.updateInvitation(match,player);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                        updateListView();
                     }
                 });
 

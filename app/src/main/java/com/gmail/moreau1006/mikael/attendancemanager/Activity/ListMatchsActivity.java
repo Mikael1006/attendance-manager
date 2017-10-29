@@ -9,16 +9,15 @@ import android.widget.ListView;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Adapter.MatchAdapter;
 import com.gmail.moreau1006.mikael.attendancemanager.DAO.MatchsDAO;
-import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
 import com.gmail.moreau1006.mikael.attendancemanager.R;
 
-import java.util.Collections;
 import java.util.List;
 
 public class ListMatchsActivity extends AppCompatActivity {
 
     public static final String EXTRA_MATCH = "com.gmail.moreau1006.mikael.attendancemanager.MATCH";
-    public static final int RESQUEST_CODE = 1000;
+    public static final int CREATE_MATCH_RESQUEST_CODE = 1000;
+    public static final int MATCH_ACITIVITY_RESQUEST_CODE = 1001;
 
     private ListView matchsListView;
     private MatchsDAO matchsDAO;
@@ -45,11 +44,22 @@ public class ListMatchsActivity extends AppCompatActivity {
         matchsListView.setAdapter(adapter);
     }
 
+    private void updateListView(){
+        try{
+            matchs = matchsDAO.getAllMatchs();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        MatchAdapter adapter = new MatchAdapter(ListMatchsActivity.this, matchs);
+        matchsListView.setAdapter(adapter);
+    }
+
     public void createMatch(View view) {
         Match match = new Match();
         Intent intent = new Intent(this, SelectDateMatchActivity.class);
         intent.putExtra(ListMatchsActivity.EXTRA_MATCH,match);
-        startActivityForResult(intent, RESQUEST_CODE);
+        startActivityForResult(intent, CREATE_MATCH_RESQUEST_CODE);
     }
 
     public void showMatch(View view) {
@@ -62,7 +72,7 @@ public class ListMatchsActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, MatchActivity.class);
         intent.putExtra(ListMatchsActivity.EXTRA_MATCH,match);
-        startActivity(intent);
+        startActivityForResult(intent, MATCH_ACITIVITY_RESQUEST_CODE);
     }
 
     public void deleteMatch(View view) {
@@ -72,18 +82,12 @@ public class ListMatchsActivity extends AppCompatActivity {
     // When we have finished to create a match,
     // we update the list of matchs
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if(requestCode==ListMatchsActivity.RESQUEST_CODE){
+        if(requestCode==ListMatchsActivity.CREATE_MATCH_RESQUEST_CODE){
             if(resultCode==RESULT_OK){
-                try{
-                    matchs = matchsDAO.getAllMatchs();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-
-                MatchAdapter adapter = new MatchAdapter(ListMatchsActivity.this, matchs);
-                matchsListView.setAdapter(adapter);
+                updateListView();
             }
+        }else if(requestCode == ListMatchsActivity.MATCH_ACITIVITY_RESQUEST_CODE){
+            updateListView();
         }
         super.onActivityResult (requestCode, resultCode, data);
     }
