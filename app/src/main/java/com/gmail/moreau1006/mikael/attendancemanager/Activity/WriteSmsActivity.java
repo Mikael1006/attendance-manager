@@ -25,6 +25,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class WriteSmsActivity extends AppCompatActivity {
 
@@ -154,8 +155,12 @@ public class WriteSmsActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
+        
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         setResult(RESULT_OK);
         finish();
