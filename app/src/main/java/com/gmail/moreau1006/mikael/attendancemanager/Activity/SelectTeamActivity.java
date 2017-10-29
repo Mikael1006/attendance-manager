@@ -17,6 +17,7 @@ import java.util.List;
 
 public class SelectTeamActivity extends AppCompatActivity {
 
+    private static final int EDIT_TEAM_REQUEST_CODE = 1003;
     private ListView selectTeamListView;
     private List<Team> teams;
     private TeamsDAO teamsDAO;
@@ -38,6 +39,10 @@ public class SelectTeamActivity extends AppCompatActivity {
         playersDAO = new PlayersDAO(this);
         playersDAO.open();
 
+        updateListView();
+    }
+
+    private void updateListView(){
         // On rempli la liste
         teams = teamsDAO.getAllTeams();
         SelectTeamAdapter adapter = new SelectTeamAdapter(SelectTeamActivity.this, teams);
@@ -67,11 +72,14 @@ public class SelectTeamActivity extends AppCompatActivity {
                 finish();
             }
         }
+        if(requestCode==SelectTeamActivity.EDIT_TEAM_REQUEST_CODE){
+            updateListView();
+        }
         super.onActivityResult (requestCode, resultCode, data);
     }
 
     public void editTeam(View view){
         Intent intent = new Intent(this, ListTeamsActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,SelectTeamActivity.EDIT_TEAM_REQUEST_CODE);
     }
 }
