@@ -2,6 +2,7 @@ package com.gmail.moreau1006.mikael.attendancemanager.Activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -51,6 +52,13 @@ public class MatchActivity extends AppCompatActivity {
     private void updateListView(){
         InvitedPlayersAdapter adapter = new InvitedPlayersAdapter(MatchActivity.this, match.getInvitedPlayers());
         invitedPlayersListView.setAdapter(adapter);
+    }
+
+    public void addInvitedPlayers(View view){
+        //TODO
+//        Intent intent = new Intent(this, SelectPlayersActivity.class);
+//        intent.putExtra(ListMatchsActivity.EXTRA_MATCH,match);
+//        startActivityForResult(intent, ListMatchsActivity.CREATE_MATCH_RESQUEST_CODE);
     }
 
     /**
@@ -188,5 +196,14 @@ public class MatchActivity extends AppCompatActivity {
                 });
 
         alertDialog.show();
+    }
+
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        if(requestCode == ListMatchsActivity.CREATE_MATCH_RESQUEST_CODE){
+            if(resultCode==RESULT_OK){
+                updateListView();
+            }
+        }
+        super.onActivityResult (requestCode, resultCode, data);
     }
 }

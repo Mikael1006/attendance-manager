@@ -11,28 +11,33 @@
         android:layout_height="fill_parent">
 
 
+        <Button
+            android:id="@+id/add_invited_player_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Convoquer un joueur"
+            android:layout_below="@+id/show_match_textview_dateRdv"
+            android:layout_centerHorizontal="true"
+            android:onClick="addInvitedPlayers"/>
 
         <TextView
             android:id="@+id/show_match_textview_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
             android:text="Date Match" />
 
         <TextView
             android:id="@+id/show_match_textview_dateRdv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/invitedPlayersListView"
-            android:ems="10"
+            android:layout_below="@+id/show_match_textview_date"
             android:text="Date Rdv" />
 
         <ListView
             android:id="@+id/invitedPlayersListView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/show_match_textview_date"/>
+            android:layout_below="@+id/add_invited_player_button"/>
 
 
     </RelativeLayout>
