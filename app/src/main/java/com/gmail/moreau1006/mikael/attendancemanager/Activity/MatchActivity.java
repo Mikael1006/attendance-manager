@@ -2,10 +2,16 @@ package com.gmail.moreau1006.mikael.attendancemanager.Activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -44,7 +50,17 @@ public class MatchActivity extends AppCompatActivity {
 //        setContentView(drawingSquare);
     }
 
+    /**
+     * Create an alert dialog to change player's attendance.
+     * @param view
+     */
     public void editAttendance(View view){
+
+        // on récupère l'index de la liste
+        int index = invitedPlayersListView.indexOfChild((View) view.getParent());
+        // On récupère le bon joueur
+        final Player player = invitedPlayers.get(index);
+
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MatchActivity.this);
         alertDialog.setTitle("Editer la présence");
 
@@ -52,14 +68,59 @@ public class MatchActivity extends AppCompatActivity {
         final RadioButton noAttendantRadioButton = new RadioButton(MatchActivity.this);
         final RadioButton unknownRadioButton = new RadioButton(MatchActivity.this);
 
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.MATCH_PARENT,
-//                LinearLayout.LayoutParams.MATCH_PARENT);
-//        attendantRadioButton.setLayoutParams(lp);
-//        noAttendantRadioButton.setLayoutParams(lp);
-//        unknownRadioButton.setLayoutParams(lp);
-//
-//        alertDialog.setView(attendantRadioButton);
+        if(player.isAttendant() == null){
+            unknownRadioButton.setChecked(true);
+        }else if(player.isAttendant()){
+            attendantRadioButton.setChecked(true);
+        }else if(!player.isAttendant()){
+            noAttendantRadioButton.setChecked(true);
+        }
+
+        attendantRadioButton.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View view1) {
+                        unknownRadioButton.setChecked(false);
+                        noAttendantRadioButton.setChecked(false);
+                    }
+                }
+        );
+        noAttendantRadioButton.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View view1) {
+                        unknownRadioButton.setChecked(false);
+                        attendantRadioButton.setChecked(false);
+                    }
+                }
+        );
+        unknownRadioButton.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View view1) {
+                        attendantRadioButton.setChecked(false);
+                        noAttendantRadioButton.setChecked(false);
+                    }
+                }
+        );
+
+        GradientDrawable attendantSquare = (GradientDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.square, null);
+        GradientDrawable noAttendantSquare = (GradientDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.square, null);
+        GradientDrawable unknownSquare = (GradientDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.square, null);
+
+        attendantSquare.setColor(Color.GREEN);
+        noAttendantSquare.setColor(Color.RED);
+        unknownSquare.setColor(Color.GRAY);
+
+        View attendantView = new View(MatchActivity.this);
+        View noAttendantView = new View(MatchActivity.this);
+        View unknownView = new View(MatchActivity.this);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(30,30);
+
+        attendantView.setLayoutParams(params);
+        noAttendantView.setLayoutParams(params);
+        unknownView.setLayoutParams(params);
+
+        attendantView.setBackground(attendantSquare);
+        noAttendantView.setBackground(noAttendantSquare);
+        unknownView.setBackground(unknownSquare);
 
         Context context = view.getContext();
         LinearLayout verticalLayout = new LinearLayout(context);
@@ -67,6 +128,7 @@ public class MatchActivity extends AppCompatActivity {
 
         LinearLayout attendantHorizontalLayout = new LinearLayout(context);
         attendantHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+        attendantHorizontalLayout.addView(attendantView);
         attendantHorizontalLayout.addView(attendantRadioButton);
         TextView attendantTextView = new TextView(MatchActivity.this);
         attendantTextView.setText("Présent");
@@ -74,6 +136,7 @@ public class MatchActivity extends AppCompatActivity {
 
         LinearLayout noAttendantHorizontalLayout = new LinearLayout(context);
         noAttendantHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+        noAttendantHorizontalLayout.addView(noAttendantView);
         noAttendantHorizontalLayout.addView(noAttendantRadioButton);
         TextView noAttendantTextView = new TextView(MatchActivity.this);
         noAttendantTextView.setText("Absent");
@@ -81,6 +144,7 @@ public class MatchActivity extends AppCompatActivity {
 
         LinearLayout unknownHorizontalLayout = new LinearLayout(context);
         unknownHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+        unknownHorizontalLayout.addView(unknownView);
         unknownHorizontalLayout.addView(unknownRadioButton);
         TextView unknownTextView = new TextView(MatchActivity.this);
         unknownTextView.setText("Indéterminé");
@@ -95,7 +159,13 @@ public class MatchActivity extends AppCompatActivity {
         alertDialog.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
+                        if(attendantRadioButton.isChecked()){
+                            player.setAttendant(true);
+                        }else if(noAttendantRadioButton.isChecked()){
+                            player.setAttendant(false);
+                        }else if(unknownRadioButton.isChecked()){
+                            player.setAttendant(null);
+                        }
                     }
                 });
 
