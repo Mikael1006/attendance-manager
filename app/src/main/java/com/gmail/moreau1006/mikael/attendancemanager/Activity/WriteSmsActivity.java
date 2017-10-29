@@ -155,7 +155,7 @@ public class WriteSmsActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-        
+
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
