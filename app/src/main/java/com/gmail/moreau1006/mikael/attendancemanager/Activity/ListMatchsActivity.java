@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.gmail.moreau1006.mikael.attendancemanager.Adapter.TeamAdapter;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
@@ -31,6 +32,8 @@ public class ListMatchsActivity extends AppCompatActivity {
     private ListView matchsListView;
     private MatchsDAO matchsDAO;
     private List<Match> matchs;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

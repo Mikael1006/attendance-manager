@@ -25,7 +25,10 @@ import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
 import com.gmail.moreau1006.mikael.attendancemanager.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class MatchActivity extends AppCompatActivity {
 
@@ -33,10 +36,22 @@ public class MatchActivity extends AppCompatActivity {
     private Match match;
     private MatchsDAO matchsDAO;
 
+    private TextView match_textview_date;
+    private TextView match_textview_dateRdv;
+    private TextView match_textview_opponent;
+    private TextView match_textview_home;
+    private TextView match_textview_team;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
+
+        match_textview_date = (TextView) findViewById(R.id.show_match_textview_date);
+        match_textview_dateRdv = (TextView) findViewById(R.id.show_match_textview_dateRdv);
+        match_textview_opponent = (TextView) findViewById(R.id.show_match_textview_opponent);
+        match_textview_home = (TextView) findViewById(R.id.show_match_textview_home);
+        match_textview_team = (TextView) findViewById(R.id.show_match_textview_team);
 
         matchsDAO = new MatchsDAO(this);
         matchsDAO.open();
@@ -45,6 +60,31 @@ public class MatchActivity extends AppCompatActivity {
 
         // get match from previous activity
         match = (Match) getIntent().getSerializableExtra(ListMatchsActivity.EXTRA_MATCH);
+
+        DateFormat dateFormat = new SimpleDateFormat("EEEE, d MMM yyyy à HH:mm", Locale.FRENCH);
+
+        // Using DateFormat format method we can create a string
+        // representation of a date with the defined format.
+        String dateMatch = dateFormat.format(match.getDateMatch());
+        String dateRdv = dateFormat.format(match.getDateRdv());
+        
+        match_textview_date.setText(dateMatch);
+        match_textview_dateRdv.setText(dateRdv);
+        match_textview_opponent.setText(match.getOpponent());
+
+        String home;
+        if(match.isHome()){
+            home = "Domicile";
+        }else{
+            home = "Exterieur";
+        }
+
+        match_textview_home.setText(home);
+        if(match.getTeam() == null){
+            match_textview_team.setText("Equipe suprimée");
+        }else {
+            match_textview_team.setText(match.getTeam().getName());
+        }
 
         updateListView();
     }
