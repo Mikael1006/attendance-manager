@@ -66,7 +66,7 @@ public class TeamsDAO {
                 + MySQLiteHelper.PLAYERS_COL_TEAM_ID +"="  + id;
 
         database.rawQuery(query, null);
-        
+
         // Delete the players
         database.delete(MySQLiteHelper.PLAYERS_TABLE, MySQLiteHelper.PLAYERS_COL_TEAM_ID
                 + " = " + id, null);
