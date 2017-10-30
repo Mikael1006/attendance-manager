@@ -85,7 +85,8 @@ public class SelectDateMatchActivity extends AppCompatActivity {
 
                     @Override
                     public void onTimeSet(RadialTimePickerDialogFragment view, int selectedHour, int selectedMinute) {
-                        time = selectedHour + ":" + selectedMinute;
+                        String selectedMinuteString = String.format("%02d", selectedMinute);
+                        time = selectedHour + ":" + selectedMinuteString;
                         // set time in text view
                         timeTextView.setText(time);
                     }
