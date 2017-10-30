@@ -11,21 +11,33 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <Button
-            android:id="@+id/AddMatchButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="createMatch"
-            android:text="Nouveau match"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/MatchsListView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/AddMatchButton"/>
+            <Button
+                android:id="@+id/AddMatchButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="createMatch"
+                android:text="Nouveau match" />
+
+            <Spinner
+                android:id="@+id/list_matchs_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ListView
+                android:id="@+id/MatchsListView"
+                android:layout_height="0dip"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_below="@+id/AddMatchButton"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>

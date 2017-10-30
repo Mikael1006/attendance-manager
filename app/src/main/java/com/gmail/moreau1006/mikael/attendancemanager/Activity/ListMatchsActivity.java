@@ -6,22 +6,21 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
-import com.gmail.moreau1006.mikael.attendancemanager.Adapter.TeamAdapter;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Adapter.MatchAdapter;
 import com.gmail.moreau1006.mikael.attendancemanager.DAO.MatchsDAO;
-import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
-import com.gmail.moreau1006.mikael.attendancemanager.Model.Team;
 import com.gmail.moreau1006.mikael.attendancemanager.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.ExecutionException;
 
 public class ListMatchsActivity extends AppCompatActivity {
 
@@ -32,7 +31,7 @@ public class ListMatchsActivity extends AppCompatActivity {
     private ListView matchsListView;
     private MatchsDAO matchsDAO;
     private List<Match> matchs;
-
+    private Spinner spinner;
 
 
     @Override
@@ -41,24 +40,43 @@ public class ListMatchsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_matchs);
 
         matchsListView = (ListView) findViewById(R.id.MatchsListView);
+        spinner = (Spinner) findViewById(R.id.list_matchs_spinner);
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> SpinnerAdapter = ArrayAdapter.createFromResource(this,
+                R.array.type_list_matchs, R.layout.spinner_item);
+        // Specify the layout to use when the list of choices appears
+        SpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(SpinnerAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int pos, long id) {
+                updateListView();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         matchsDAO = new MatchsDAO(this);
         matchsDAO.open();
 
-        try{
-            matchs = matchsDAO.getAllMatchs();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-        MatchAdapter adapter = new MatchAdapter(ListMatchsActivity.this, matchs);
-        matchsListView.setAdapter(adapter);
+        updateListView();
     }
 
     private void updateListView(){
+        int pos = spinner.getSelectedItemPosition();
         try{
-            matchs = matchsDAO.getAllMatchs();
+            if(pos == 0){
+                matchs = matchsDAO.getAllFutursMatchs();
+            }else if(pos == 1){
+                matchs = matchsDAO.getAllMatchs();
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

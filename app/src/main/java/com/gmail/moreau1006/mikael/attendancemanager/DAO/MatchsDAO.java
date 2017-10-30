@@ -145,19 +145,17 @@ public class MatchsDAO {
             matchs.add(match);
             cursor.moveToNext();
         }
-        // fermeture du curseur
+        // close cursor
         cursor.close();
 
         return matchs;
     }
 
-    public List<Match> getAllFutureMatchs() {
+    public List<Match> getAllFutursMatchs() {
         List<Match> matchs = new ArrayList<Match>();
 
-        Date today = new Date();
-
         Cursor cursor = database.query(MySQLiteHelper.MATCHS_TABLE,
-                allColumns, MySQLiteHelper.MATCHS_COL_DATE + " >= \"" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(today) + "\"",
+                allColumns, MySQLiteHelper.MATCHS_COL_DATE + " >= datetime('now')",
                 null, null, null, MySQLiteHelper.MATCHS_COL_DATE +" DESC");
 
         cursor.moveToFirst();
