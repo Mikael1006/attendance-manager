@@ -45,7 +45,11 @@ public class ListTeamsActivity extends AppCompatActivity {
         playersDAO = new PlayersDAO(this);
         playersDAO.open();
 
-        // On rempli la liste
+        updateListView();
+
+    }
+
+    private void updateListView(){
         teams = teamsDAO.getAllTeams();
         TeamAdapter adapter = new TeamAdapter(ListTeamsActivity.this, teams);
         teamsListView.setAdapter(adapter);
@@ -80,18 +84,15 @@ public class ListTeamsActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
-                        List<Player> players = playersDAO.getPlayersByTeam(team);
-
-                        for(int i = 0; i < players.size(); i++){
-                            playersDAO.deletePlayer(players.get(i));
+                        try{
+                            teamsDAO.deleteTeam(team);
+                        }catch (Exception e){
+                            e.printStackTrace();
                         }
 
-                        teamsDAO.deleteTeam(team);
+                        // update List view
+                        updateListView();
 
-                        // On récupère tous les joueurs de l'équipe
-                        teams = teamsDAO.getAllTeams();
-                        TeamAdapter adapter = new TeamAdapter(ListTeamsActivity.this, teams);
-                        teamsListView.setAdapter(adapter);
                         dialog.dismiss();
                     }
                 });

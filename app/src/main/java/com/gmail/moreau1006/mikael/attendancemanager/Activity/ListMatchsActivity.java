@@ -1,17 +1,26 @@
 package com.gmail.moreau1006.mikael.attendancemanager.Activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
+import com.gmail.moreau1006.mikael.attendancemanager.Adapter.TeamAdapter;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Adapter.MatchAdapter;
 import com.gmail.moreau1006.mikael.attendancemanager.DAO.MatchsDAO;
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Team;
 import com.gmail.moreau1006.mikael.attendancemanager.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 public class ListMatchsActivity extends AppCompatActivity {
 
@@ -76,7 +85,42 @@ public class ListMatchsActivity extends AppCompatActivity {
     }
 
     public void deleteMatch(View view) {
-        //TODO
+
+        // on récupère l'index de la liste
+        int index = matchsListView.indexOfChild((View)view.getParent());
+
+        // On récupère la bonne équipe de la liste
+        final Match match = matchs.get(index);
+
+        DateFormat dateFormat = new SimpleDateFormat("EEEE, d MMM yyyy à HH:mm", Locale.FRENCH);
+        String dateMatch = dateFormat.format(match.getDateMatch());
+
+        // confirm ?
+        AlertDialog alertDialog = new AlertDialog.Builder(ListMatchsActivity.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Supprimer le match contre " + match.getOpponent() + " du " + dateMatch + " ?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        try{
+                            matchsDAO.deleteMatch(match);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                        updateListView();
+
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Annuler",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
     // When we have finished to create a match,

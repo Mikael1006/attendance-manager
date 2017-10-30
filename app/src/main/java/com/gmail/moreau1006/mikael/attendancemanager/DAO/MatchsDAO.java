@@ -116,8 +116,9 @@ public class MatchsDAO {
 
     public void deleteMatch(Match match) {
         long id = match.getId();
-        System.out.println("Match deleted with id: " + id);
         database.delete(MySQLiteHelper.MATCHS_TABLE, MySQLiteHelper.MATCHS_COL_ID
+                + " = " + id, null);
+        database.delete(MySQLiteHelper.INVITATION_TABLE, MySQLiteHelper.INVITATION_COL_MATCH_ID
                 + " = " + id, null);
     }
 

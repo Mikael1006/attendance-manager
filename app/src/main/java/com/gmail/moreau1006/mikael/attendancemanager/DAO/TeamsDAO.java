@@ -56,8 +56,9 @@ public class TeamsDAO {
 
     public void deleteTeam(Team team) {
         long id = team.getId();
-        System.out.println("Team deleted with id: " + id);
         database.delete(MySQLiteHelper.TEAMS_TABLE, MySQLiteHelper.TEAMS_COL_ID
+                + " = " + id, null);
+        database.delete(MySQLiteHelper.PLAYERS_TABLE, MySQLiteHelper.PLAYERS_COL_TEAM_ID
                 + " = " + id, null);
     }
 

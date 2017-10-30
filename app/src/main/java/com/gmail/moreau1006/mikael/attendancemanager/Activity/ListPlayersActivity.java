@@ -60,14 +60,6 @@ public class ListPlayersActivity extends AppCompatActivity {
 
     public void deletePlayer(View view) {
 
-//        RelativeLayout relativeLayout = (RelativeLayout)view.getParent();
-//
-//        TextView numberTextView = (TextView)relativeLayout.getChildAt(1);
-//
-//        String number = numberTextView.getText().toString();
-//
-//        final Player player = playersDAO.getPlayerByNumber(number);
-
         // on récupère l'index de la liste
         int index = playersListView.indexOfChild((View)view.getParent());
 

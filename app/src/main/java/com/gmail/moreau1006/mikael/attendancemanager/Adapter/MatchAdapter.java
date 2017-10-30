@@ -49,7 +49,7 @@ public class MatchAdapter extends ArrayAdapter<Match> {
         //getItem(position) va récupérer l'item [position] de la List
         Match match = getItem(position);
 
-        DateFormat dateFormat = new SimpleDateFormat("EEEE, d MMM yyyy HH:mm", Locale.FRENCH);
+        DateFormat dateFormat = new SimpleDateFormat("EEEE, d MMM yyyy à HH:mm", Locale.FRENCH);
 
         // Using DateFormat format method we can create a string
         // representation of a date with the defined format.
