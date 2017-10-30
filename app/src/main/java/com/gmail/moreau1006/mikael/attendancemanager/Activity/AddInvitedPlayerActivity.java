@@ -30,7 +30,6 @@ public class AddInvitedPlayerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_add_invited_player);
         setContentView(R.layout.activity_select_players);
 
         playersListView = (ListView) findViewById(R.id.SelectPlayersListView);

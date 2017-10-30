@@ -181,6 +181,15 @@ public class MatchsDAO {
         return matchs;
     }
 
+    public void invitePlayerToMatch(Player player, Match match){
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.INVITATION_COL_PLAYER_ID, player.getId());
+        values.put(MySQLiteHelper.INVITATION_COL_MATCH_ID, match.getId());
+        values.put(MySQLiteHelper.INVITATION_COL_RESPONSE, player.isAttendant());
+
+        database.insert(MySQLiteHelper.INVITATION_TABLE, null, values);
+    }
+
     public Match updateInvitation(Match match, Player player){
 
         ContentValues values = new ContentValues();

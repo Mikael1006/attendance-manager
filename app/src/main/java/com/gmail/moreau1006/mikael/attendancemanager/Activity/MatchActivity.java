@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.gmail.moreau1006.mikael.attendancemanager.Adapter.InvitedPlayersAdapter;
 import com.gmail.moreau1006.mikael.attendancemanager.DAO.MatchsDAO;
+import com.gmail.moreau1006.mikael.attendancemanager.DAO.PlayersDAO;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
 import com.gmail.moreau1006.mikael.attendancemanager.R;
@@ -35,6 +36,7 @@ public class MatchActivity extends AppCompatActivity {
     private ListView invitedPlayersListView;
     private Match match;
     private MatchsDAO matchsDAO;
+    private PlayersDAO playersDAO;
 
     private TextView match_textview_date;
     private TextView match_textview_dateRdv;
@@ -55,6 +57,8 @@ public class MatchActivity extends AppCompatActivity {
 
         matchsDAO = new MatchsDAO(this);
         matchsDAO.open();
+        playersDAO = new PlayersDAO(this);
+        playersDAO.open();
 
         invitedPlayersListView = (ListView) findViewById(R.id.invitedPlayersListView);
 
@@ -90,6 +94,8 @@ public class MatchActivity extends AppCompatActivity {
     }
 
     private void updateListView(){
+        List<Player> players = playersDAO.getPlayersByMatch(match);
+        match.setInvitedPlayers(players);
         InvitedPlayersAdapter adapter = new InvitedPlayersAdapter(MatchActivity.this, match.getInvitedPlayers());
         invitedPlayersListView.setAdapter(adapter);
     }

@@ -93,7 +93,7 @@ public class PlayersDAO {
             players.add(player);
             cursor.moveToNext();
         }
-        // assurez-vous de la fermeture du curseur
+        // close sursor
         cursor.close();
 
         return players;
