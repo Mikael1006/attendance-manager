@@ -67,7 +67,7 @@ public class MatchActivity extends AppCompatActivity {
         // representation of a date with the defined format.
         String dateMatch = dateFormat.format(match.getDateMatch());
         String dateRdv = dateFormat.format(match.getDateRdv());
-        
+
         match_textview_date.setText(dateMatch);
         match_textview_dateRdv.setText(dateRdv);
         match_textview_opponent.setText(match.getOpponent());
