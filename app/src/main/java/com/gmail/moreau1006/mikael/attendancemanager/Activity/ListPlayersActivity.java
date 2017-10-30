@@ -60,13 +60,19 @@ public class ListPlayersActivity extends AppCompatActivity {
 
     public void deletePlayer(View view) {
 
-        RelativeLayout relativeLayout = (RelativeLayout)view.getParent();
+//        RelativeLayout relativeLayout = (RelativeLayout)view.getParent();
+//
+//        TextView numberTextView = (TextView)relativeLayout.getChildAt(1);
+//
+//        String number = numberTextView.getText().toString();
+//
+//        final Player player = playersDAO.getPlayerByNumber(number);
 
-        TextView numberTextView = (TextView)relativeLayout.getChildAt(1);
+        // on récupère l'index de la liste
+        int index = playersListView.indexOfChild((View)view.getParent());
 
-        String number = numberTextView.getText().toString();
-
-        final Player player = playersDAO.getPlayerByNumber(number);
+        // On récupère la bonne équipe de la liste
+        final Player player = players.get(index);
 
         // l'alert pour confirmer
         AlertDialog alertDialog = new AlertDialog.Builder(ListPlayersActivity.this).create();

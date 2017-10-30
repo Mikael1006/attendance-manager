@@ -156,11 +156,11 @@ public class WriteSmsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            TimeUnit.SECONDS.sleep(5);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         setResult(RESULT_OK);
         finish();
