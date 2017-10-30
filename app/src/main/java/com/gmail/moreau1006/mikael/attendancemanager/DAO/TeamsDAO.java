@@ -58,6 +58,16 @@ public class TeamsDAO {
         long id = team.getId();
         database.delete(MySQLiteHelper.TEAMS_TABLE, MySQLiteHelper.TEAMS_COL_ID
                 + " = " + id, null);
+
+        // Delete the invitations of these players
+        String query = "DELETE I FROM " + MySQLiteHelper.INVITATION_TABLE + " I INNER JOIN "
+                + MySQLiteHelper.PLAYERS_TABLE + " P ON P." + MySQLiteHelper.PLAYERS_COL_ID
+                + "=I." + MySQLiteHelper.INVITATION_COL_PLAYER_ID + " WHERE P."
+                + MySQLiteHelper.PLAYERS_COL_TEAM_ID +"="  + id;
+
+        database.rawQuery(query, null);
+        
+        // Delete the players
         database.delete(MySQLiteHelper.PLAYERS_TABLE, MySQLiteHelper.PLAYERS_COL_TEAM_ID
                 + " = " + id, null);
     }
