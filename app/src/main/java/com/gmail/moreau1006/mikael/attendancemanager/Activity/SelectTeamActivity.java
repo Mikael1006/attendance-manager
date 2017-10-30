@@ -52,8 +52,10 @@ public class SelectTeamActivity extends AppCompatActivity {
     public void selectTeam(View view){
         //https://developer.android.com/training/basics/firstapp/starting-activity.html
 
+        int firstListItemPosition = selectTeamListView.getFirstVisiblePosition();
+
         // on récupère l'index de la liste
-        int index = selectTeamListView.indexOfChild((View)view.getParent());
+        int index = selectTeamListView.indexOfChild((View)view.getParent()) + firstListItemPosition;
         // On récupère la bonne équipe de la liste
         Team team = teams.get(index);
 

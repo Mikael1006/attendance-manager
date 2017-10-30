@@ -95,8 +95,10 @@ public class ListMatchsActivity extends AppCompatActivity {
     public void showMatch(View view) {
         //https://developer.android.com/training/basics/firstapp/starting-activity.html
 
+        int firstListItemPosition = matchsListView.getFirstVisiblePosition();
+
         // on récupère l'index de la liste
-        int index = matchsListView.indexOfChild((View)view.getParent());
+        int index = matchsListView.indexOfChild((View)view.getParent()) + firstListItemPosition;
         // On récupère la bonne équipe de la liste
         Match match = matchs.get(index);
 

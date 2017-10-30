@@ -50,8 +50,11 @@ public class AddInvitedPlayerActivity extends AppCompatActivity {
     }
 
     public void checkPlayer(View view) {
+
+        int firstListItemPosition = playersListView.getFirstVisiblePosition();
+
         // on récupère l'index de la liste
-        int index = playersListView.indexOfChild((View) view.getParent());
+        int index = playersListView.indexOfChild((View) view.getParent()) + firstListItemPosition;
 
         // On récupère le bon joueur
         Player player = players.get(index);

@@ -61,8 +61,10 @@ public class ListPlayersActivity extends AppCompatActivity {
 
     public void deletePlayer(View view) {
 
+        int firstListItemPosition = playersListView.getFirstVisiblePosition();
+
         // on récupère l'index de la liste
-        int index = playersListView.indexOfChild((View)view.getParent());
+        int index = playersListView.indexOfChild((View)view.getParent()) + firstListItemPosition;
 
         // On récupère la bonne équipe de la liste
         final Player player = players.get(index);
