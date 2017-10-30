@@ -96,9 +96,9 @@ public class MatchActivity extends AppCompatActivity {
 
     public void addInvitedPlayers(View view){
         //TODO
-//        Intent intent = new Intent(this, SelectPlayersActivity.class);
-//        intent.putExtra(ListMatchsActivity.EXTRA_MATCH,match);
-//        startActivityForResult(intent, ListMatchsActivity.CREATE_MATCH_RESQUEST_CODE);
+        Intent intent = new Intent(this, AddInvitedPlayerActivity.class);
+        intent.putExtra(ListMatchsActivity.EXTRA_MATCH,match);
+        startActivityForResult(intent, ListMatchsActivity.CREATE_MATCH_RESQUEST_CODE);
     }
 
     /**

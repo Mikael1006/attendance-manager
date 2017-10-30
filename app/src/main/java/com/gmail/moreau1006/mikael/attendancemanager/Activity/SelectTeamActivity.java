@@ -60,7 +60,7 @@ public class SelectTeamActivity extends AppCompatActivity {
         // match == null
         match.setTeam(team);
 
-        Intent intent = new Intent(this, SelectPlayersActivity.class);
+        Intent intent = new Intent(this, SelectInvitedPlayersActivity.class);
         intent.putExtra(ListMatchsActivity.EXTRA_MATCH,match);
         startActivityForResult(intent, ListMatchsActivity.CREATE_MATCH_RESQUEST_CODE);
     }

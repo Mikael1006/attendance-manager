@@ -6,23 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ListView;
-
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
 import com.gmail.moreau1006.mikael.attendancemanager.DAO.PlayersDAO;
 import com.gmail.moreau1006.mikael.attendancemanager.R;
 import com.gmail.moreau1006.mikael.attendancemanager.Adapter.SelectPlayerAdapter;
-import com.gmail.moreau1006.mikael.attendancemanager.Model.Team;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectPlayersActivity extends AppCompatActivity {
+public class SelectInvitedPlayersActivity extends AppCompatActivity {
 
-    public static final String EXTRA_SELECTED_PLAYERS = "com.gmail.moreau1006.mikael.attendancemanager.SELECTED_PLAYERS";
     private ListView playersListView;
     private PlayersDAO playersDAO;
-    private Team team;
     private List<Player> players;
     private Match match;
     private List<Player> invitedPlayers;
@@ -43,7 +38,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         // On récupère tous les joueurs de l'équipe
         players = playersDAO.getPlayersByTeam(match.getTeam());
 
-        SelectPlayerAdapter adapter = new SelectPlayerAdapter(SelectPlayersActivity.this, players);
+        SelectPlayerAdapter adapter = new SelectPlayerAdapter(SelectInvitedPlayersActivity.this, players);
         playersListView.setAdapter(adapter);
 
         invitedPlayers = new ArrayList<Player>();
@@ -66,9 +61,10 @@ public class SelectPlayersActivity extends AppCompatActivity {
            invitedPlayers.remove(player);
        }
     }
+
     public void validateSelectPlayers(View view){
 
-        Intent intent = new Intent(SelectPlayersActivity.this, WriteSmsActivity.class);
+        Intent intent = new Intent(SelectInvitedPlayersActivity.this, WriteSmsActivity.class);
         intent.putExtra(ListMatchsActivity.EXTRA_MATCH,match);
         startActivityForResult(intent, ListMatchsActivity.CREATE_MATCH_RESQUEST_CODE);
     }

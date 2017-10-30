@@ -62,8 +62,41 @@ public class PlayersDAO {
     public void deletePlayer(Player player) {
         long id = player.getId();
         System.out.println("Player deleted with id: " + id);
+        // delete player
         database.delete(MySQLiteHelper.PLAYERS_TABLE, MySQLiteHelper.PLAYERS_COL_ID
                 + " = " + id, null);
+        // delete all invitations of the player
+        database.delete(MySQLiteHelper.INVITATION_TABLE, MySQLiteHelper.INVITATION_COL_PLAYER_ID
+                + " = " + id, null);
+    }
+
+    public List<Player> getNotInvitedPlayersInMatch(Match match){
+        List<Player> players = new ArrayList<Player>();
+
+//        SELECT * FROM 'Players' P where P.idTeam=1 AND P._id NOT IN
+// (SELECT P._id FROM 'Players' P Inner join 'Invitations' I on P._id=I.idPlayer Where I.idMatch=3)
+
+        String query = "SELECT * FROM '"+ MySQLiteHelper.PLAYERS_TABLE
+                +"' P where P."+MySQLiteHelper.PLAYERS_COL_TEAM_ID+"="+match.getIdTeam()
+                +" AND P." + MySQLiteHelper.PLAYERS_COL_ID + " NOT IN (SELECT P."
+                + MySQLiteHelper.PLAYERS_COL_ID + " FROM '"+ MySQLiteHelper.PLAYERS_TABLE
+                + "' P Inner join '" + MySQLiteHelper.INVITATION_TABLE
+                + "' I on P." + MySQLiteHelper.PLAYERS_COL_ID + "=I."
+                + MySQLiteHelper.INVITATION_COL_PLAYER_ID + " Where I."
+                + MySQLiteHelper.INVITATION_COL_MATCH_ID + "=" + match.getId() + ")";
+
+        Cursor cursor = database.rawQuery(query, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Player player = cursorToPlayer(cursor);
+            players.add(player);
+            cursor.moveToNext();
+        }
+        // assurez-vous de la fermeture du curseur
+        cursor.close();
+
+        return players;
     }
 
     public List<Player> getPlayersByTeam(Team team) {

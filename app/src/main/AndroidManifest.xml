@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gmail.moreau1006.mikael.attendancemanager">
 
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/soccer_ball"
@@ -23,12 +23,14 @@
         <activity android:name=".Activity.ListTeamsActivity" />
         <activity android:name=".Activity.ListMatchsActivity" />
         <activity android:name=".Activity.SelectTeamActivity" />
-        <activity android:name=".Activity.SelectPlayersActivity" />
+        <activity android:name=".Activity.SelectInvitedPlayersActivity" />
         <activity android:name=".Activity.SelectDateMatchActivity" />
         <activity android:name=".Activity.SelectDateRdvActivity" />
         <activity android:name=".Activity.SelectOpponentActivity" />
         <activity android:name=".Activity.WriteSmsActivity" />
-        <activity android:name=".Activity.MatchActivity"></activity>
+        <activity android:name=".Activity.MatchActivity" />
+        <activity android:name=".Activity.AddInvitedPlayerActivity" />
+        <activity android:name=".Activity.WriteSmsForNewInvitedPlayersActivity"></activity>
     </application>
 
 </manifest>
