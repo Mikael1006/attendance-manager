@@ -20,11 +20,25 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
-        <ListView
-            android:id="@+id/PlayersListView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/AddPlayerButton"/>
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@+id/AddPlayerButton">
+
+            <ListView
+                android:id="@+id/PlayersListView"
+                android:layout_height="0dip"
+                android:layout_width="match_parent"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/list_players_ok_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="OK"
+                android:onClick="onClickOk"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 

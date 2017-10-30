@@ -1,5 +1,6 @@
 package com.gmail.moreau1006.mikael.attendancemanager.Activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -140,5 +141,10 @@ public class ListPlayersActivity extends AppCompatActivity {
                 playersListView.setAdapter(adapter);
             }
         }
+    }
+
+    public void onClickOk(View view){
+        setResult(Activity.RESULT_OK);
+        finish();
     }
 }

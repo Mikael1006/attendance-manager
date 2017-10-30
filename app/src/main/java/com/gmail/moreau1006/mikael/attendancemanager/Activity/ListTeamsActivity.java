@@ -1,5 +1,6 @@
 package com.gmail.moreau1006.mikael.attendancemanager.Activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -34,6 +36,10 @@ public class ListTeamsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_teams);
+
+        // https://stackoverflow.com/questions/4149415/onscreen-keyboard-opens-automatically-when-activity-starts
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         teamsListView = (ListView) findViewById(R.id.TeamsListView);
 
@@ -127,5 +133,10 @@ public class ListTeamsActivity extends AppCompatActivity {
             InputMethodManager inputManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
             inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
+    }
+
+    public void onClickOk(View view){
+        setResult(Activity.RESULT_OK);
+        finish();
     }
 }

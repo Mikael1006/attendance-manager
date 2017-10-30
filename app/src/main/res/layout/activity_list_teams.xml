@@ -20,20 +20,36 @@
             android:onClick="addTeam"
             android:text="Ajouter l'équipe" />
 
-        <ListView
-            android:id="@+id/TeamsListView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/AddPlayerButton"/>
-
         <EditText
             android:id="@+id/team_name_editText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/TeamsListView"
             android:ems="10"
             android:inputType="text"
             android:text="" />
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@+id/AddPlayerButton">
+
+            <ListView
+                android:id="@+id/TeamsListView"
+                android:layout_height="0dip"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                />
+
+            <Button
+                android:id="@+id/list_players_ok_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="OK"
+                android:onClick="onClickOk"/>
+
+        </LinearLayout>
+
+
 
     </RelativeLayout>
 
