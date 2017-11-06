@@ -31,6 +31,13 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"/>
 
+        <ProgressBar
+            android:id="@+id/write_sms_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"/>
+
         <Button
             android:id="@+id/validate_sms_button"
             android:layout_width="match_parent"
