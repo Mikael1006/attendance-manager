@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.provider.Telephony;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
@@ -23,8 +24,10 @@ import android.widget.TextView;
 import com.gmail.moreau1006.mikael.attendancemanager.Adapter.InvitedPlayersAdapter;
 import com.gmail.moreau1006.mikael.attendancemanager.DAO.MatchsDAO;
 import com.gmail.moreau1006.mikael.attendancemanager.DAO.PlayersDAO;
+import com.gmail.moreau1006.mikael.attendancemanager.DAO.SmsDAO;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Sms;
 import com.gmail.moreau1006.mikael.attendancemanager.R;
 
 import java.text.DateFormat;
@@ -38,6 +41,7 @@ public class MatchActivity extends AppCompatActivity {
     private Match match;
     private MatchsDAO matchsDAO;
     private PlayersDAO playersDAO;
+    private SmsDAO smsDAO;
 
     private TextView match_textview_date;
     private TextView match_textview_dateRdv;
@@ -60,6 +64,7 @@ public class MatchActivity extends AppCompatActivity {
         matchsDAO.open();
         playersDAO = new PlayersDAO(this);
         playersDAO.open();
+        smsDAO = new SmsDAO(getContentResolver());
 
         invitedPlayersListView = (ListView) findViewById(R.id.invitedPlayersListView);
 
@@ -91,6 +96,7 @@ public class MatchActivity extends AppCompatActivity {
             match_textview_team.setText(match.getTeam().getName());
         }
 
+        updateAttendanceFromSMS();
         updateListView();
     }
 
@@ -259,9 +265,39 @@ public class MatchActivity extends AppCompatActivity {
         // http://www.itcuties.com/android/read-sms/
         // http://pulse7.net/android/read-sms-message-inbox-sent-draft-android/
 
-        final String SMS_URI_ALL = "content://sms/";
+        Sms question, answer = null;
 
-        // all sms
-        Uri message = Uri.parse(SMS_URI_ALL);
+        for (int i = 0; i < match.getInvitedPlayers().size(); i++){
+            Player player = match.getInvitedPlayers().get(i);
+            String number = player.getNumberPhone();
+
+            // Edit the attendance only if
+            // it was not determined
+            if(player.isAttendant() == null){
+                try {
+                    question = smsDAO.getSmsByIdMatchAndNumber(match.getId(), number);
+                    // check if a sms is found
+                    if(question != null){
+                        answer = smsDAO.getFirstInboxSmsAfterDateByNymber(question.getDate(), number);
+
+                        // check if a sms is found
+                        if (answer != null){
+                            Boolean attendance = null;
+
+                            if(answer.getBody().toLowerCase().contains("oui".toLowerCase())){
+                                attendance = true;
+                            }else if (answer.getBody().toLowerCase().contains("non".toLowerCase())){
+                                attendance = false;
+                            }
+
+                            player.setAttendant(attendance);
+                            match = matchsDAO.updateInvitation(match,player);
+                        }
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
