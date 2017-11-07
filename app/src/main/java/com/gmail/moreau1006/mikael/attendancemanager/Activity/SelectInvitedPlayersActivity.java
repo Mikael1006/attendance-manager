@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
@@ -20,6 +21,7 @@ public class SelectInvitedPlayersActivity extends AppCompatActivity {
     private PlayersDAO playersDAO;
     private List<Player> players;
     private Match match;
+    private Button validateButton;
     private List<Player> invitedPlayers;
 
     @Override
@@ -28,6 +30,7 @@ public class SelectInvitedPlayersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_players);
 
         playersListView = (ListView) findViewById(R.id.SelectPlayersListView);
+        validateButton = (Button) findViewById(R.id.select_players_validate_button);
 
         playersDAO = new PlayersDAO(this);
         playersDAO.open();
@@ -62,6 +65,12 @@ public class SelectInvitedPlayersActivity extends AppCompatActivity {
            invitedPlayers.add(player);
        }else{
            invitedPlayers.remove(player);
+       }
+
+       if(invitedPlayers.isEmpty()){
+            validateButton.setVisibility(View.GONE);
+       }else {
+           validateButton.setVisibility(View.VISIBLE);
        }
     }
 
