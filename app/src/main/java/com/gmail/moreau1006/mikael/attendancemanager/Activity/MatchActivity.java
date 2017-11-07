@@ -1,13 +1,16 @@
 package com.gmail.moreau1006.mikael.attendancemanager.Activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.provider.Telephony;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
@@ -37,6 +40,7 @@ import java.util.Locale;
 
 public class MatchActivity extends AppCompatActivity {
 
+    private static final int MY_PERMISSION_REQUEST_READ_SMS = 2;
     private ListView invitedPlayersListView;
     private Match match;
     private MatchsDAO matchsDAO;
@@ -265,37 +269,43 @@ public class MatchActivity extends AppCompatActivity {
         // http://www.itcuties.com/android/read-sms/
         // http://pulse7.net/android/read-sms-message-inbox-sent-draft-android/
 
-        Sms question, answer = null;
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS},
+                    MY_PERMISSION_REQUEST_READ_SMS);
+        } else {
+            Sms question, answer = null;
 
-        for (int i = 0; i < match.getInvitedPlayers().size(); i++){
-            Player player = match.getInvitedPlayers().get(i);
-            String number = player.getNumberPhone();
+            for (int i = 0; i < match.getInvitedPlayers().size(); i++){
+                Player player = match.getInvitedPlayers().get(i);
+                String number = player.getNumberPhone();
 
-            // Edit the attendance only if
-            // it was not determined
-            if(player.isAttendant() == null){
-                try {
-                    question = smsDAO.getSmsByIdMatchAndNumber(match.getId(), number);
-                    // check if a sms is found
-                    if(question != null){
-                        answer = smsDAO.getFirstInboxSmsAfterDateByNymber(question.getDate(), number);
-
+                // Edit the attendance only if
+                // it was not determined
+                if(player.isAttendant() == null){
+                    try {
+                        question = smsDAO.getSmsByIdMatchAndNumber(match.getId(), number);
                         // check if a sms is found
-                        if (answer != null){
-                            Boolean attendance = null;
+                        if(question != null){
+                            answer = smsDAO.getFirstInboxSmsAfterDateByNymber(question.getDate(), number);
 
-                            if(answer.getBody().toLowerCase().contains("oui".toLowerCase())){
-                                attendance = true;
-                            }else if (answer.getBody().toLowerCase().contains("non".toLowerCase())){
-                                attendance = false;
+                            // check if a sms is found
+                            if (answer != null){
+                                Boolean attendance = null;
+
+                                if(answer.getBody().toLowerCase().contains("oui".toLowerCase())){
+                                    attendance = true;
+                                }else if (answer.getBody().toLowerCase().contains("non".toLowerCase())){
+                                    attendance = false;
+                                }
+
+                                player.setAttendant(attendance);
+                                match = matchsDAO.updateInvitation(match,player);
                             }
-
-                            player.setAttendant(attendance);
-                            match = matchsDAO.updateInvitation(match,player);
                         }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
-                }catch (Exception e){
-                    e.printStackTrace();
                 }
             }
         }

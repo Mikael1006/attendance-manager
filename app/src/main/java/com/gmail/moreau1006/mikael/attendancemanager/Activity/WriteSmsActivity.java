@@ -190,13 +190,12 @@ public class WriteSmsActivity extends AppCompatActivity {
     }
 
     private void sendSMS(Match match){
-
-        for (int i = 0; i < invitedPlayers.size(); i++){
-            if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
-                    != PackageManager.PERMISSION_GRANTED){
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS},
-                        MY_PERMISSION_REQUEST_SEND_SMS);
-            } else {
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS},
+                    MY_PERMISSION_REQUEST_SEND_SMS);
+        } else {
+            for (int i = 0; i < invitedPlayers.size(); i++){
                 SmsManager smsManager = SmsManager.getDefault();
                 smsManager.sendTextMessage(invitedPlayers.get(i).getNumberPhone(), null, sms, sentPI, null);
             }
