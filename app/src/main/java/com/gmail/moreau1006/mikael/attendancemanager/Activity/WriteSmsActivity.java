@@ -43,9 +43,8 @@ public class WriteSmsActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private String SENT = "SMS_SENT";
-    private String DELIVERED= "SMS_DELIVERED";
-    private PendingIntent sentPI, deliveredPI;
-    private BroadcastReceiver smsSentReceiver, smsDeliveredReceveir;
+    private PendingIntent sentPI;
+    private BroadcastReceiver smsSentReceiver;
     private int nbSentSmsResponseOK;
     private int nbSentSmsResponseError;
 
@@ -56,7 +55,6 @@ public class WriteSmsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_write_sms);
 
         sentPI = PendingIntent.getBroadcast(this, 0, new Intent(SENT), 0);
-        deliveredPI = PendingIntent.getBroadcast(this, 0, new Intent(DELIVERED), 0);
         nbSentSmsResponseOK = 0;
         nbSentSmsResponseError = 0;
 
@@ -93,7 +91,6 @@ public class WriteSmsActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        unregisterReceiver(smsDeliveredReceveir);
         unregisterReceiver(smsSentReceiver);
     }
 
@@ -110,19 +107,15 @@ public class WriteSmsActivity extends AppCompatActivity {
                         nbSentSmsResponseOK++;
                         break;
                     case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-//                        Toast.makeText(WriteSmsActivity.this, "Generic Failure!", Toast.LENGTH_SHORT).show();
                         nbSentSmsResponseError++;
                         break;
                     case SmsManager.RESULT_ERROR_NO_SERVICE:
-//                        Toast.makeText(WriteSmsActivity.this, "No service !", Toast.LENGTH_SHORT).show();
                         nbSentSmsResponseError++;
                         break;
                     case SmsManager.RESULT_ERROR_NULL_PDU:
-//                        Toast.makeText(WriteSmsActivity.this, "Pull PDU !", Toast.LENGTH_SHORT).show();
                         nbSentSmsResponseError++;
                         break;
                     case SmsManager.RESULT_ERROR_RADIO_OFF:
-//                        Toast.makeText(WriteSmsActivity.this, "Radio off !", Toast.LENGTH_SHORT).show();
                         nbSentSmsResponseError++;
                         break;
                 }
@@ -177,22 +170,7 @@ public class WriteSmsActivity extends AppCompatActivity {
             }
         };
 
-        smsDeliveredReceveir = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                switch (getResultCode()){
-                    case Activity.RESULT_OK:
-//                        Toast.makeText(WriteSmsActivity.this, "Sms delivered !", Toast.LENGTH_SHORT).show();
-                        break;
-                    case Activity.RESULT_CANCELED:
-//                        Toast.makeText(WriteSmsActivity.this, "Sms not delivered !", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-            }
-        };
-
         registerReceiver(smsSentReceiver, new IntentFilter(SENT));
-        registerReceiver(smsDeliveredReceveir, new IntentFilter(DELIVERED));
     }
 
     public void validateSms(View view){
@@ -220,7 +198,7 @@ public class WriteSmsActivity extends AppCompatActivity {
                         MY_PERMISSION_REQUEST_SEND_SMS);
             } else {
                 SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(invitedPlayers.get(i).getNumberPhone(), null, sms, sentPI, deliveredPI);
+                smsManager.sendTextMessage(invitedPlayers.get(i).getNumberPhone(), null, sms, sentPI, null);
             }
         }
     }
