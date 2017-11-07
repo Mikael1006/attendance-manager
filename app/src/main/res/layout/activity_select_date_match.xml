@@ -6,99 +6,90 @@
     android:layout_height="match_parent"
     tools:context="com.gmail.moreau1006.mikael.attendancemanager.Activity.SelectDateMatchActivity">
 
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="Sélectionnez une date de match :"
-        android:textSize="20dp"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/date_match_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:background="#d4d4d4"
-        android:hint="Select Date..."
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="@+id/time_match_button"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="93dp"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="88dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/date_match_button"
-        android:textSize="30sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sélectionnez une date de match :"
+                android:textSize="20dp"
+                android:layout_margin="10dp"/>
 
-    <TextView
-        android:id="@+id/time_match_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:background="#d4d4d4"
-        android:hint="Select Time..."
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="335dp"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        android:textSize="30sp"/>
+            <Button
+                android:id="@+id/date_match_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Selectionnez la date"
+                android:onClick="onClickDate"
+                android:layout_margin="10dp"/>
 
-    <Button
-        android:id="@+id/date_match_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Selectionnez la date"
-        android:onClick="onClickDate"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_constraintTop_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/time_match_button"
-        android:layout_marginTop="102dp"
-        android:layout_marginBottom="102dp"/>
+            <TextView
+                android:id="@+id/date_match_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d4d4d4"
+                android:textSize="30sp"
+                android:layout_margin="10dp"
+                android:onClick="onClickDate"/>
 
-    <Button
-        android:id="@+id/time_match_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Selectionnez l'heure"
-        android:onClick="onClickTime"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/time_match_textView"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="35dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+            <Button
+                android:id="@+id/time_match_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Selectionnez l'heure du match"
+                android:onClick="onClickTimeMatch"
+                android:layout_margin="10dp"/>
 
-    <Button
-        android:id="@+id/validate_date_match_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Valider"
-        android:onClick="validateDateMatch"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+            <TextView
+                android:id="@+id/time_match_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d4d4d4"
+                android:textSize="30sp"
+                android:layout_margin="10dp"
+                android:onClick="onClickTimeMatch"/>
+
+            <Button
+                android:id="@+id/time_rdv_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Selectionnez l'heure de rendez vous"
+                android:onClick="onClickTimeRdv"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:id="@+id/time_rdv_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d4d4d4"
+                android:textSize="30sp"
+                android:layout_margin="10dp"
+                android:onClick="onClickTimeRdv"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/validate_date_match_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="validateDateMatch"
+            android:text="Valider"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+
+
+
+
+
+
 
 </android.support.constraint.ConstraintLayout>

@@ -23,10 +23,12 @@ public class SelectDateMatchActivity extends AppCompatActivity {
     private static final String FRAG_TAG_DATE_PICKER = "datePickerMatch";
     private static final String FRAG_TAG_TIME_PICKER = "timePickerMatch";
     private TextView dateTextView;
-    private TextView timeTextView;
+    private TextView timeMatchTextView;
+    private TextView timeRdvTextView;
     private Match match;
     private String date;
-    private String time;
+    private String timeMatch;
+    private String timeRdv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +37,12 @@ public class SelectDateMatchActivity extends AppCompatActivity {
 
         // initiate TextViews
         dateTextView = (TextView) findViewById(R.id.date_match_textView);
-        timeTextView = (TextView) findViewById(R.id.time_match_textView);
+        timeMatchTextView = (TextView) findViewById(R.id.time_match_textView);
+        timeRdvTextView = (TextView) findViewById(R.id.time_rdv_textView);
 
         date = null;
-        time = null;
+        timeMatch = null;
+        timeRdv = null;
 
         // get match from previous activity
         match = (Match) getIntent().getSerializableExtra(ListMatchsActivity.EXTRA_MATCH);
@@ -78,7 +82,7 @@ public class SelectDateMatchActivity extends AppCompatActivity {
 
     }
 
-    public void onClickTime(View view){
+    public void onClickTimeMatch(View view){
 
         RadialTimePickerDialogFragment rtpd = new RadialTimePickerDialogFragment()
                 .setOnTimeSetListener(new RadialTimePickerDialogFragment.OnTimeSetListener() {
@@ -86,9 +90,29 @@ public class SelectDateMatchActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(RadialTimePickerDialogFragment view, int selectedHour, int selectedMinute) {
                         String selectedMinuteString = String.format("%02d", selectedMinute);
-                        time = selectedHour + ":" + selectedMinuteString;
-                        // set time in text view
-                        timeTextView.setText(time);
+                        timeMatch = selectedHour + ":" + selectedMinuteString;
+                        // set timeMatch in text view
+                        timeMatchTextView.setText(timeMatch);
+                    }
+
+                })
+                .setStartTime(20, 0)
+                .setDoneText("Valider")
+                .setCancelText("Annuler");
+        rtpd.show(getSupportFragmentManager(), FRAG_TAG_TIME_PICKER);
+    }
+
+    public void onClickTimeRdv(View view){
+
+        RadialTimePickerDialogFragment rtpd = new RadialTimePickerDialogFragment()
+                .setOnTimeSetListener(new RadialTimePickerDialogFragment.OnTimeSetListener() {
+
+                    @Override
+                    public void onTimeSet(RadialTimePickerDialogFragment view, int selectedHour, int selectedMinute) {
+                        String selectedMinuteString = String.format("%02d", selectedMinute);
+                        timeRdv = selectedHour + ":" + selectedMinuteString;
+                        // set timeMatch in text view
+                        timeRdvTextView.setText(timeRdv);
                     }
 
                 })
@@ -100,19 +124,21 @@ public class SelectDateMatchActivity extends AppCompatActivity {
 
     public void validateDateMatch(View view){
 
-        if (date != null && time != null){
+        if (date != null && timeMatch != null){
             Date dateMatch = null;
+            Date dateRdv = null;
             try {
-                dateMatch = new SimpleDateFormat("dd/MM/yyyy, HH:mm").parse(date + ", " + time);
+                dateMatch = new SimpleDateFormat("dd/MM/yyyy, HH:mm").parse(date + ", " + timeMatch);
+                dateRdv = new SimpleDateFormat("dd/MM/yyyy, HH:mm").parse(date + ", " + timeRdv);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             match.setDateMatch(dateMatch);
+            match.setDateRdv(dateRdv);
 
-            Intent intent = new Intent(this, SelectDateRdvActivity.class);
+            Intent intent = new Intent(this, SelectOpponentActivity.class);
             intent.putExtra(ListMatchsActivity.EXTRA_MATCH,match);
             startActivityForResult(intent, ListMatchsActivity.CREATE_MATCH_RESQUEST_CODE);
-
 
         }else{
             AlertDialog alertDialog = new AlertDialog.Builder(SelectDateMatchActivity.this).create();
