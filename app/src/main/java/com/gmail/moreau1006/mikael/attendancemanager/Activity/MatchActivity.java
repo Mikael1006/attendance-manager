@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
@@ -251,5 +252,16 @@ public class MatchActivity extends AppCompatActivity {
             }
         }
         super.onActivityResult (requestCode, resultCode, data);
+    }
+
+    private void updateAttendanceFromSMS(){
+        // https://stackoverflow.com/questions/10870230/read-all-sms-from-a-particular-sender
+        // http://www.itcuties.com/android/read-sms/
+        // http://pulse7.net/android/read-sms-message-inbox-sent-draft-android/
+
+        final String SMS_URI_ALL = "content://sms/";
+
+        // all sms
+        Uri message = Uri.parse(SMS_URI_ALL);
     }
 }

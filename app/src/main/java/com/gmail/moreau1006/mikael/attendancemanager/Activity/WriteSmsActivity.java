@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -153,9 +154,23 @@ public class WriteSmsActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
                                         WriteSmsActivity.this.setResult(RESULT_OK);
-                                        finish();
+                                        WriteSmsActivity.this.finish();
                                     }
                                 });
+                        // on back button
+                        alertDialog.setOnKeyListener(new AlertDialog.OnKeyListener() {
+                            @Override
+                            public boolean onKey(DialogInterface dialog, int keyCode,
+                                                 KeyEvent event) {
+
+                                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                                    dialog.dismiss();
+                                    WriteSmsActivity.this.setResult(RESULT_OK);
+                                    WriteSmsActivity.this.finish();
+                                }
+                                return true;
+                            }
+                        });
                         alertDialog.show();
                     }
                 }
