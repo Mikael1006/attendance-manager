@@ -67,4 +67,20 @@ public class Player implements Serializable {
     public void setAttendant(Boolean attendant) {
         this.attendant = attendant;
     }
+
+    public boolean readSmsToEditAttendance(String sms){
+        Boolean attendance = null;
+
+        if(sms.toLowerCase().contains("#present".toLowerCase())
+                || sms.toLowerCase().contains("#présent".toLowerCase())  ){
+            attendance = true;
+            this.setAttendant(attendance);
+            return true;
+        }else if (sms.toLowerCase().contains("#absent".toLowerCase())){
+            attendance = false;
+            this.setAttendant(attendance);
+            return true;
+        }
+        return false;
+    }
 }

@@ -49,6 +49,7 @@ public class WriteSmsForNewInvitedPlayersActivity extends AppCompatActivity {
     private BroadcastReceiver smsSentReceiver;
     private int nbSentSmsResponseOK;
     private int nbSentSmsResponseError;
+    private int smsSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,20 +69,7 @@ public class WriteSmsForNewInvitedPlayersActivity extends AppCompatActivity {
         validateButton = (Button) findViewById(R.id.validate_sms_button);
         progressBar = (ProgressBar) findViewById(R.id.write_sms_progressbar);
 
-        DateFormat dateFormat = new SimpleDateFormat("EEEE, d MMM yyyy HH:mm", Locale.FRENCH);
-        String dateMatch = dateFormat.format(match.getDateMatch());
-        String dateRdv = dateFormat.format(match.getDateRdv());
-        String home;
-        if(match.isHome()){
-            home = "Domicile";
-        }else{
-            home = "Exterieur";
-        }
-
-        sms =   "Date Match : " + dateMatch + "\n"
-                + "Date Rdv : " + dateRdv + "\n"
-                + "Adversaire : " + match.getOpponent() + "\n"
-                + "Lieu : " + home + "\n";
+        sms = match.getDefaultSms();
 
         smsEditText.setText(sms);
 
@@ -123,7 +111,7 @@ public class WriteSmsForNewInvitedPlayersActivity extends AppCompatActivity {
                 }
 
                 // If all the response were returned
-                if(nbSentSmsResponseOK + nbSentSmsResponseError == playersToInvite.size()){
+                if(nbSentSmsResponseOK + nbSentSmsResponseError == playersToInvite.size()*smsSize){
 
                     if(nbSentSmsResponseError == 0){
                         Toast.makeText(WriteSmsForNewInvitedPlayersActivity.this, nbSentSmsResponseOK + " sms envoyés", Toast.LENGTH_SHORT).show();
@@ -134,7 +122,7 @@ public class WriteSmsForNewInvitedPlayersActivity extends AppCompatActivity {
                         // Re-try ?
                         AlertDialog alertDialog = new AlertDialog.Builder(WriteSmsForNewInvitedPlayersActivity.this).create();
                         alertDialog.setTitle("Alert");
-                        alertDialog.setMessage("Erreur réseau : " + nbSentSmsResponseError
+                        alertDialog.setMessage("Erreur réseau : " + nbSentSmsResponseError/smsSize
                                 + " sms n'ont pas été envoyés");
                         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Réessayer",
                                 new DialogInterface.OnClickListener() {
@@ -186,7 +174,7 @@ public class WriteSmsForNewInvitedPlayersActivity extends AppCompatActivity {
         }
 
         try{
-            sms = "idMatch=" + match.getId() + "\n" + sms;
+            sms = match.prepareSms(sms);
 
             progressBar.setVisibility(View.VISIBLE);
             validateButton.setVisibility(View.GONE);
@@ -205,7 +193,19 @@ public class WriteSmsForNewInvitedPlayersActivity extends AppCompatActivity {
         } else {
             for (int i = 0; i < playersToInvite.size(); i++){
                 SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(playersToInvite.get(i).getNumberPhone(), null, sms, sentPI, null);
+
+                ArrayList<String> multipartSmsText = smsManager.divideMessage(sms);
+                smsSize = multipartSmsText.size();
+
+                //Create the arraylist PendingIntents for use it.
+                ArrayList<PendingIntent> sentPiList =
+                        new ArrayList<PendingIntent>(smsSize);
+
+                for (int j=0; j<smsSize; j++) {
+                    sentPiList.add(sentPI);
+                }
+                smsManager.sendMultipartTextMessage(playersToInvite.get(i).getNumberPhone(), null, multipartSmsText, sentPiList, null);
+//                smsManager.sendTextMessage(playersToInvite.get(i).getNumberPhone(), null, sms, sentPI, null);
             }
         }
     }

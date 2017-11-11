@@ -107,7 +107,7 @@ public class ListPlayersActivity extends AppCompatActivity {
                 // Get the URI that points to the selected contact
                 Uri contactUri = data.getData();
                 // We only need the NUMBER column, because there will be only one row in the result
-                String[] projection = {Phone.NUMBER,Phone.DISPLAY_NAME};
+                String[] projection = {Phone.NORMALIZED_NUMBER,Phone.DISPLAY_NAME};
 
                 // Perform the query on the contact to get the NUMBER column
                 // We don't need a selection or sort order (there's only one result for the given URI)
@@ -119,11 +119,17 @@ public class ListPlayersActivity extends AppCompatActivity {
                 cursor.moveToFirst();
 
                 // Retrieve the phone number from the NUMBER column
-                int column = cursor.getColumnIndex(Phone.NUMBER);
+                int column = cursor.getColumnIndex(Phone.NORMALIZED_NUMBER);
                 String number = cursor.getString(column);
+                if(number==null){
+                    number="";
+                }
 
                 column = cursor.getColumnIndex(Phone.DISPLAY_NAME);
                 String name = cursor.getString(column);
+                if(name==null){
+                    name="";
+                }
 
                 // on vérifie que le contact n'as pas déjà été ajouté
                 boolean alreadyAdded = false;

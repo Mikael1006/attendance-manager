@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Sms;
 
 import java.util.Date;
@@ -14,7 +15,7 @@ import java.util.Date;
 
 public class SmsDAO {
 
-    private String[] allColumns = new String[] {"address", "body", "date"};
+    private String[] allColumns = new String[] {"address", "body", "date", "person"};
     private final String SMS_URI_ALL = "content://sms/";
     private final String SMS_URI_INBOX = "content://sms/inbox";
     private final String SMS_URI_SENT = "content://sms/sent";
@@ -25,10 +26,10 @@ public class SmsDAO {
         this.contentResolver = contentResolver;
     }
 
-    public Sms getSmsByIdMatchAndNumber(long idMatch, String number){
+    public Sms getSmsBySmsCodeAndNumber(String smsCode, String number){
         Uri uri = Uri.parse(SMS_URI_SENT);
         Cursor cursor = contentResolver.query(uri, allColumns ,
-                "body LIKE %idMatch="+idMatch+"% AND address = ?",
+                "body LIKE '"+smsCode+"%' AND address = ?",
                 new String[] {number}, "date desc limit 1");
 
         Sms smsInbox = null;

@@ -6,10 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.net.Uri;
-import android.provider.Telephony;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
@@ -18,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -41,6 +37,7 @@ import java.util.Locale;
 public class MatchActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSION_REQUEST_READ_SMS = 2;
+    private static final int MY_PERMISSION_REQUEST_READ_CONTACTS = 3;
     private ListView invitedPlayersListView;
     private Match match;
     private MatchsDAO matchsDAO;
@@ -273,6 +270,10 @@ public class MatchActivity extends AppCompatActivity {
                 != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS},
                     MY_PERMISSION_REQUEST_READ_SMS);
+        } else if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS},
+                    MY_PERMISSION_REQUEST_READ_CONTACTS);
         } else {
             Sms question, answer = null;
 
@@ -284,23 +285,18 @@ public class MatchActivity extends AppCompatActivity {
                 // it was not determined
                 if(player.isAttendant() == null){
                     try {
-                        question = smsDAO.getSmsByIdMatchAndNumber(match.getId(), number);
+                        question = smsDAO.getSmsBySmsCodeAndNumber(match.getSmsCode(), number);
                         // check if a sms is found
                         if(question != null){
                             answer = smsDAO.getFirstInboxSmsAfterDateByNymber(question.getDate(), number);
 
                             // check if a sms is found
                             if (answer != null){
-                                Boolean attendance = null;
+                                if(player.readSmsToEditAttendance(answer.getBody())){
+                                    match = matchsDAO.updateInvitation(match,player);
+                                }else{
 
-                                if(answer.getBody().toLowerCase().contains("oui".toLowerCase())){
-                                    attendance = true;
-                                }else if (answer.getBody().toLowerCase().contains("non".toLowerCase())){
-                                    attendance = false;
                                 }
-
-                                player.setAttendant(attendance);
-                                match = matchsDAO.updateInvitation(match,player);
                             }
                         }
                     }catch (Exception e){

@@ -66,20 +66,7 @@ public class WriteSmsActivity extends AppCompatActivity {
         match = (Match) getIntent().getSerializableExtra(ListMatchsActivity.EXTRA_MATCH);
         invitedPlayers = match.getInvitedPlayers();
 
-        DateFormat dateFormat = new SimpleDateFormat("EEEE, d MMM yyyy HH:mm", Locale.FRENCH);
-        String dateMatch = dateFormat.format(match.getDateMatch());
-        String dateRdv = dateFormat.format(match.getDateRdv());
-        String home;
-        if(match.isHome()){
-            home = "Domicile";
-        }else{
-            home = "Exterieur";
-        }
-
-        sms =   "Date Match : " + dateMatch + "\n"
-                + "Date Rdv : " + dateRdv + "\n"
-                + "Adversaire : " + match.getOpponent() + "\n"
-                + "Lieu : " + home + "\n";
+        sms = match.getDefaultSms();
 
         smsEditText.setText(sms);
 
@@ -178,7 +165,7 @@ public class WriteSmsActivity extends AppCompatActivity {
             match = matchsDAO.createMatch(match);
             matchsDAO.close();
 
-            sms = "idMatch=" + match.getId() + "\n" + sms;
+            sms = match.prepareSms(sms);
 
             progressBar.setVisibility(View.VISIBLE);
             validateButton.setVisibility(View.GONE);

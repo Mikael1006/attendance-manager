@@ -1,8 +1,11 @@
 package com.gmail.moreau1006.mikael.attendancemanager.Model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by mika on 16/09/17.
@@ -92,5 +95,45 @@ public class Match implements Serializable {
 
     public void setIdTeam(long idTeam) {
         this.idTeam = idTeam;
+    }
+
+    public String getDefaultSms(){
+        DateFormat dateFormat = new SimpleDateFormat("EEEE, d MMM yyyy", Locale.FRENCH);
+        DateFormat timeFormat = new SimpleDateFormat("HH'h'mm", Locale.FRENCH);
+        String dateMatch = dateFormat.format(getDateMatch());
+        String timeRdv = timeFormat.format(getDateRdv());
+        String timeMatch = timeFormat.format(getDateMatch());
+        String home;
+        if(isHome()){
+            home = "Domicile";
+        }else{
+            home = "Exterieur";
+        }
+
+        String sms =   "CONVOCATION\n"
+                + "RDV\t\t\t: "  + timeRdv + "\n"
+                + "MATCH\t\t: "  + dateMatch + "\n"
+                + "HEURE\t\t: "  + timeMatch + "\n"
+                + "ADVERSAIRE\t: " + getOpponent() + "\n"
+                + "LIEU\t\t: " + home + "\n"
+                ;
+        return sms;
+    }
+
+    public String prepareSms(String sms){
+        sms = getSmsCode() + "\n"
+                + sms
+                + "***************\n"
+                + "VOTRE REPONSE\n"
+                + "format:\n"
+                + getSmsCode() + "#present" + "\n"
+                + "OU\n"
+                + getSmsCode() + "#absent" + "\n"
+                + "ex: " + getSmsCode() + "#present je prends les maillots";
+        return sms;
+    }
+
+    public String getSmsCode(){
+        return "#match-" + getId();
     }
 }

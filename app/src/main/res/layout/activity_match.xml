@@ -15,7 +15,7 @@
             android:id="@+id/add_invited_player_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Convoquer un autre joueur"
+            android:text="Convoquer d'autres joueur"
             android:layout_below="@+id/show_match_textview_team"
             android:layout_centerHorizontal="true"
             android:onClick="addInvitedPlayers"/>
