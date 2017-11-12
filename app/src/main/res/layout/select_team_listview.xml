@@ -12,14 +12,14 @@
         android:textSize="22sp"
         android:textStyle="bold" />
 
-    <Button
+    <ImageButton
         android:id="@+id/select_team_button_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="5dp"
-        android:text="Sélectionner"
+        android:src="@android:drawable/ic_menu_view"
         android:textSize="18sp"
         android:onClick="selectTeam" />
 

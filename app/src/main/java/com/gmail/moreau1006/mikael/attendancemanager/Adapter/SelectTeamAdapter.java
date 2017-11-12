@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.gmail.moreau1006.mikael.attendancemanager.R;
@@ -34,7 +35,7 @@ public class SelectTeamAdapter extends ArrayAdapter<Team> {
         if(viewHolder == null){
             viewHolder = new SelectTeamAdapter.TeamViewHolder();
             viewHolder.name = (TextView) convertView.findViewById(R.id.select_team_textview_name);
-            viewHolder.select_btn = (Button) convertView.findViewById(R.id.select_team_button_select);
+            viewHolder.select_btn = (ImageButton) convertView.findViewById(R.id.select_team_button_select);
             convertView.setTag(viewHolder);
         }
 
@@ -48,6 +49,6 @@ public class SelectTeamAdapter extends ArrayAdapter<Team> {
 
     private class TeamViewHolder{
         public TextView name;
-        public Button select_btn;
+        public ImageButton select_btn;
     }
 }

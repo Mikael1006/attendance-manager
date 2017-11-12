@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:onClick="editTeam"
             android:text="Modifier les équipes"
-            android:drawableLeft="@android:drawable/ic_menu_edit"
+            android:drawableLeft="@android:drawable/ic_menu_manage"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
