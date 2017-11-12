@@ -124,7 +124,7 @@ public class SelectDateMatchActivity extends AppCompatActivity {
 
     public void validateDateMatch(View view){
 
-        if (date != null && timeMatch != null){
+        if (date != null && timeMatch != null && timeRdv != null){
             Date dateMatch = null;
             Date dateRdv = null;
             try {
