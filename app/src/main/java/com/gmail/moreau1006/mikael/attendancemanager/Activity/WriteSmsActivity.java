@@ -58,6 +58,7 @@ public class WriteSmsActivity extends AppCompatActivity {
     private ArrayList<String> numberPhoneToSendList;
     private int numberPhoneToSendListCount;
     private boolean error;
+    private int contactWithoutNumberPhoneCount;
 
 
     @Override
@@ -202,7 +203,7 @@ public class WriteSmsActivity extends AppCompatActivity {
     }
 
     private boolean thereAreSmsToSend(){
-        return numberPhoneToSendListCount + mMessageSentCount < invitedPlayers.size();
+        return numberPhoneToSendListCount + mMessageSentCount < invitedPlayers.size() - contactWithoutNumberPhoneCount;
     }
 
     private void showAlertDialog(){
@@ -243,10 +244,13 @@ public class WriteSmsActivity extends AppCompatActivity {
     }
 
     private void initializeListNumberPhone(){
-        numberPhoneToSendList = new ArrayList<>(invitedPlayers.size());
+        contactWithoutNumberPhoneCount = 0;
+        numberPhoneToSendList = new ArrayList<>();
         for (int i = 0; i < invitedPlayers.size(); i++){
             if(!invitedPlayers.get(i).getNumberPhone().isEmpty()){
                 numberPhoneToSendList.add(invitedPlayers.get(i).getNumberPhone());
+            }else {
+                contactWithoutNumberPhoneCount++;
             }
         }
     }

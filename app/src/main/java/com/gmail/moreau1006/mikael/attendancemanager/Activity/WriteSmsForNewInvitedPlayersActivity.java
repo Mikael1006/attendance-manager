@@ -56,6 +56,7 @@ public class WriteSmsForNewInvitedPlayersActivity extends AppCompatActivity {
     private ArrayList<String> numberPhoneToSendList;
     private int numberPhoneToSendListCount;
     private boolean error;
+    private int contactWithoutNumberPhoneCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,7 +206,7 @@ public class WriteSmsForNewInvitedPlayersActivity extends AppCompatActivity {
     }
 
     private boolean thereAreSmsToSend(){
-        return numberPhoneToSendListCount + mMessageSentCount < playersToInvite.size();
+        return numberPhoneToSendListCount + mMessageSentCount < playersToInvite.size() - contactWithoutNumberPhoneCount;
     }
 
     private void showAlertDialog(){
@@ -246,10 +247,13 @@ public class WriteSmsForNewInvitedPlayersActivity extends AppCompatActivity {
     }
 
     private void initializeListNumberPhone(){
-        numberPhoneToSendList = new ArrayList<>(playersToInvite.size());
+        contactWithoutNumberPhoneCount = 0;
+        numberPhoneToSendList = new ArrayList<>();
         for (int i = 0; i < playersToInvite.size(); i++){
             if(!playersToInvite.get(i).getNumberPhone().isEmpty()){
                 numberPhoneToSendList.add(playersToInvite.get(i).getNumberPhone());
+            }else {
+                contactWithoutNumberPhoneCount++;
             }
         }
     }
