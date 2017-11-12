@@ -27,11 +27,8 @@ import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
 import com.gmail.moreau1006.mikael.attendancemanager.R;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class WriteSmsForNewInvitedPlayersActivity extends AppCompatActivity {
 
@@ -43,13 +40,22 @@ public class WriteSmsForNewInvitedPlayersActivity extends AppCompatActivity {
     private MatchsDAO matchsDAO;
     private Button validateButton;
     private ProgressBar progressBar;
+    private int progressStatus;
+    private int step;
 
     private String SENT = "SMS_SENT";
     private PendingIntent sentPI;
     private BroadcastReceiver smsSentReceiver;
-    private int nbSentSmsResponseOK;
-    private int nbSentSmsResponseError;
-    private int smsSize;
+    private int mMessageSentTotalParts;
+    private int mMessageSentCount;
+    private int mMessageSentParts;
+    private ArrayList<String> multipartSmsText;
+    private ArrayList<PendingIntent> sentPiList;
+    private SmsManager smsManager;
+
+    private ArrayList<String> numberPhoneToSendList;
+    private int numberPhoneToSendListCount;
+    private boolean error;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +63,6 @@ public class WriteSmsForNewInvitedPlayersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_write_sms);
 
         sentPI = PendingIntent.getBroadcast(this, 0, new Intent(SENT), 0);
-        nbSentSmsResponseOK = 0;
-        nbSentSmsResponseError = 0;
-
 
         // get match and players from previous activity
         match = (Match) getIntent().getSerializableExtra(ListMatchsActivity.EXTRA_MATCH);
@@ -94,68 +97,35 @@ public class WriteSmsForNewInvitedPlayersActivity extends AppCompatActivity {
 
                 switch (getResultCode()){
                     case Activity.RESULT_OK:
-                        nbSentSmsResponseOK++;
                         break;
                     case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-                        nbSentSmsResponseError++;
+                        error = true;
                         break;
                     case SmsManager.RESULT_ERROR_NO_SERVICE:
-                        nbSentSmsResponseError++;
+                        error = true;
                         break;
                     case SmsManager.RESULT_ERROR_NULL_PDU:
-                        nbSentSmsResponseError++;
+                        error = true;
                         break;
                     case SmsManager.RESULT_ERROR_RADIO_OFF:
-                        nbSentSmsResponseError++;
+                        error = true;
                         break;
                 }
 
-                // If all the response were returned
-                if(nbSentSmsResponseOK + nbSentSmsResponseError == playersToInvite.size()*smsSize){
+                // update progressBar
+                progressStatus += step;
+                progressBar.setProgress(progressStatus);
 
-                    if(nbSentSmsResponseError == 0){
-                        Toast.makeText(WriteSmsForNewInvitedPlayersActivity.this, nbSentSmsResponseOK + " sms envoyés", Toast.LENGTH_SHORT).show();
-
-                        WriteSmsForNewInvitedPlayersActivity.this.setResult(RESULT_OK);
-                        finish();
-                    }else{
-                        // Re-try ?
-                        AlertDialog alertDialog = new AlertDialog.Builder(WriteSmsForNewInvitedPlayersActivity.this).create();
-                        alertDialog.setTitle("Alert");
-                        alertDialog.setMessage("Erreur réseau : " + nbSentSmsResponseError/smsSize
-                                + " sms n'ont pas été envoyés");
-                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Réessayer",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        nbSentSmsResponseError = 0;
-                                        nbSentSmsResponseOK = 0;
-                                        sendSMS(match);
-                                    }
-                                });
-                        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Abandonner",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                        WriteSmsForNewInvitedPlayersActivity.this.setResult(RESULT_OK);
-                                        WriteSmsForNewInvitedPlayersActivity.this.finish();
-                                    }
-                                });
-                        // on back button
-                        alertDialog.setOnKeyListener(new AlertDialog.OnKeyListener() {
-                            @Override
-                            public boolean onKey(DialogInterface dialog, int keyCode,
-                                                 KeyEvent event) {
-
-                                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                                    dialog.dismiss();
-                                    WriteSmsForNewInvitedPlayersActivity.this.setResult(RESULT_OK);
-                                    WriteSmsForNewInvitedPlayersActivity.this.finish();
-                                }
-                                return true;
-                            }
-                        });
-                        alertDialog.show();
+                mMessageSentParts++;
+                if ( mMessageSentParts == mMessageSentTotalParts ) {
+                    if(error){
+                        numberPhoneToSendListCount++;
+                    }else {
+                        numberPhoneToSendList.remove(numberPhoneToSendListCount);
+                        mMessageSentCount++;
                     }
+                    error = false;
+                    sendNextMessage();
                 }
             }
         };
@@ -179,34 +149,102 @@ public class WriteSmsForNewInvitedPlayersActivity extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             validateButton.setVisibility(View.GONE);
 
-            sendSMS(match);
+            initializeListNumberPhone();
+            startSendMessages();
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    private void sendSMS(Match match){
+    private void startSendMessages(){
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
                 != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS},
                     MY_PERMISSION_REQUEST_SEND_SMS);
         } else {
-            for (int i = 0; i < playersToInvite.size(); i++){
-                SmsManager smsManager = SmsManager.getDefault();
-
-                ArrayList<String> multipartSmsText = smsManager.divideMessage(sms);
-                smsSize = multipartSmsText.size();
-
-                //Create the arraylist PendingIntents for use it.
-                ArrayList<PendingIntent> sentPiList =
-                        new ArrayList<PendingIntent>(smsSize);
-
-                for (int j=0; j<smsSize; j++) {
+            mMessageSentCount = 0;
+            numberPhoneToSendListCount = 0;
+            error=false;
+            if(numberPhoneToSendList.size()>0){
+                smsManager = SmsManager.getDefault();
+                multipartSmsText = smsManager.divideMessage(sms);
+                mMessageSentTotalParts = multipartSmsText.size();
+                sentPiList = new ArrayList<PendingIntent>(mMessageSentTotalParts);
+                for (int j = 0; j< mMessageSentTotalParts; j++) {
                     sentPiList.add(sentPI);
                 }
-                smsManager.sendMultipartTextMessage(playersToInvite.get(i).getNumberPhone(), null, multipartSmsText, sentPiList, null);
-//                smsManager.sendTextMessage(playersToInvite.get(i).getNumberPhone(), null, sms, sentPI, null);
+                progressStatus = 0;
+                step=(progressBar.getMax()/numberPhoneToSendList.size())/mMessageSentTotalParts;
+                progressBar.setProgress(progressStatus);
+                sendSMS();
             }
+        }
+    }
+
+    private void sendSMS() {
+        mMessageSentParts = 0;
+        smsManager.sendMultipartTextMessage(numberPhoneToSendList.get(numberPhoneToSendListCount), null, multipartSmsText, sentPiList, null);
+    }
+
+    private void sendNextMessage(){
+        if(thereAreSmsToSend()){
+            sendSMS();
+        }else{
+            if(!numberPhoneToSendList.isEmpty()){
+                showAlertDialog();
+            }else{
+                Toast.makeText(WriteSmsForNewInvitedPlayersActivity.this, mMessageSentCount + " sms envoyés", Toast.LENGTH_LONG).show();
+                WriteSmsForNewInvitedPlayersActivity.this.setResult(RESULT_OK);
+                finish();
+            }
+        }
+    }
+
+    private boolean thereAreSmsToSend(){
+        return numberPhoneToSendListCount + mMessageSentCount < playersToInvite.size();
+    }
+
+    private void showAlertDialog(){
+//         Re-try ?
+        AlertDialog alertDialog = new AlertDialog.Builder(WriteSmsForNewInvitedPlayersActivity.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Erreur réseau : " + numberPhoneToSendList.size()
+                + " sms n'ont pas été envoyés");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Réessayer",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        startSendMessages();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Abandonner",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        WriteSmsForNewInvitedPlayersActivity.this.setResult(RESULT_OK);
+                        WriteSmsForNewInvitedPlayersActivity.this.finish();
+                    }
+                });
+        // on back button
+        alertDialog.setOnKeyListener(new AlertDialog.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode,
+                                 KeyEvent event) {
+
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    dialog.dismiss();
+                    WriteSmsForNewInvitedPlayersActivity.this.setResult(RESULT_OK);
+                    WriteSmsForNewInvitedPlayersActivity.this.finish();
+                }
+                return true;
+            }
+        });
+        alertDialog.show();
+    }
+
+    private void initializeListNumberPhone(){
+        numberPhoneToSendList = new ArrayList<>(playersToInvite.size());
+        for (int i = 0; i < playersToInvite.size(); i++){
+            numberPhoneToSendList.add(playersToInvite.get(i).getNumberPhone());
         }
     }
 }
