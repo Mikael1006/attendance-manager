@@ -20,7 +20,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="createMatch"
-                android:text="Nouveau match" />
+                android:text="Nouveau match"
+                android:drawableLeft="@android:drawable/ic_input_add"/>
 
             <Spinner
                 android:id="@+id/list_matchs_spinner"

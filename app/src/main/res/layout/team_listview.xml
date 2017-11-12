@@ -13,25 +13,26 @@
         android:textSize="22sp"
         android:textStyle="bold" />
 
-    <Button
+    <ImageButton
         android:id="@+id/team_button_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
-        android:text="Editer"
+        android:src="@android:drawable/ic_menu_edit"
         android:onClick="editTeam"
         android:layout_alignBaseline="@+id/team_button_delete"
         android:layout_alignBottom="@+id/team_button_delete"
         android:layout_toStartOf="@+id/team_button_delete" />
 
-    <Button
+    <ImageButton
         android:id="@+id/team_button_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="5dp"
-        android:text="Supprimer"
+        android:src="@android:drawable/ic_menu_delete"
+        android:tint="@color/bpRed"
         android:onClick="deleteTeam"/>
 
 </RelativeLayout>

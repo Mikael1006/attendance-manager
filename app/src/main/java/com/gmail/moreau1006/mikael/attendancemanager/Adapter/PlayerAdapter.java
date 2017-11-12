@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
@@ -35,7 +36,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
             viewHolder = new PlayerViewHolder();
             viewHolder.name = (TextView) convertView.findViewById(R.id.player_textview_name);
             viewHolder.numberPhone = (TextView) convertView.findViewById(R.id.player_textview_numberphone);
-            viewHolder.delete_btn = (Button) convertView.findViewById(R.id.player_button_delete);
+            viewHolder.delete_btn = (ImageButton) convertView.findViewById(R.id.player_button_delete);
             convertView.setTag(viewHolder);
         }
 
@@ -52,6 +53,6 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
     private class PlayerViewHolder{
         public TextView name;
         public TextView numberPhone;
-        public Button delete_btn;
+        public ImageButton delete_btn;
     }
 }

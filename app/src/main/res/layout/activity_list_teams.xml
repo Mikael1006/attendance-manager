@@ -20,7 +20,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="addTeam"
-                android:text="Ajouter une équipe" />
+                android:text="Ajouter une équipe"
+                android:drawableLeft="@android:drawable/ic_input_add"/>
 
             <ListView
                 android:id="@+id/TeamsListView"

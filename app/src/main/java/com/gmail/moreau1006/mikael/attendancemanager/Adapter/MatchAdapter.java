@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
@@ -41,8 +42,8 @@ public class MatchAdapter extends ArrayAdapter<Match> {
             viewHolder.match_textview_opponent = (TextView) convertView.findViewById(R.id.match_textview_opponent);
             viewHolder.match_textview_home = (TextView) convertView.findViewById(R.id.match_textview_home);
             viewHolder.match_textview_team = (TextView) convertView.findViewById(R.id.match_textview_team);
-            viewHolder.match_button_edit = (Button) convertView.findViewById(R.id.match_button_show);
-            viewHolder.match_button_delete = (Button) convertView.findViewById(R.id.match_button_delete);
+            viewHolder.match_button_edit = (ImageButton) convertView.findViewById(R.id.match_button_show);
+            viewHolder.match_button_delete = (ImageButton) convertView.findViewById(R.id.match_button_delete);
             convertView.setTag(viewHolder);
         }
 
@@ -85,8 +86,8 @@ public class MatchAdapter extends ArrayAdapter<Match> {
         public TextView match_textview_opponent;
         public TextView match_textview_home;
         public TextView match_textview_team;
-        public Button match_button_edit;
-        public Button match_button_delete;
+        public ImageButton match_button_edit;
+        public ImageButton match_button_delete;
     }
 
 }

@@ -11,22 +11,20 @@
         android:layout_height="fill_parent">
 
 
-        <Button
+        <ImageButton
             android:id="@+id/refresh_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@android:drawable/ic_menu_refresh"
-            android:text="Actualiser"
+            android:src="@android:drawable/ic_menu_rotate"
             android:onClick="refreshAttendance"
-            android:layout_alignBaseline="@+id/add_invited_player_button"
-            android:layout_alignBottom="@+id/add_invited_player_button"
-            android:layout_toEndOf="@+id/show_match_textview_team" />
+            android:layout_below="@+id/show_match_textview_team" />
 
         <Button
             android:id="@+id/add_invited_player_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Convoquer d'autres joueur"
+            android:drawableLeft="@android:drawable/ic_input_add"
             android:onClick="addInvitedPlayers"
             android:layout_below="@+id/show_match_textview_team"
             android:layout_alignParentEnd="true" />
