@@ -30,20 +30,13 @@ public class ListTeamsActivity extends AppCompatActivity {
     private List<Team> teams;
     private TeamsDAO teamsDAO;
     private PlayersDAO playersDAO;
-    private EditText teamNameEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_teams);
 
-        // https://stackoverflow.com/questions/4149415/onscreen-keyboard-opens-automatically-when-activity-starts
-        getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
         teamsListView = (ListView) findViewById(R.id.TeamsListView);
-
-        teamNameEditText = (EditText) findViewById(R.id.team_name_editText);
 
         teamsDAO = new TeamsDAO(this);
         teamsDAO.open();
@@ -114,27 +107,33 @@ public class ListTeamsActivity extends AppCompatActivity {
     }
 
     public void addTeam(View view){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(ListTeamsActivity.this);
+        alertDialog.setTitle("Ajouter une équipe");
 
-        String text = teamNameEditText.getText().toString();
+        final EditText newTeamEditText = new EditText(ListTeamsActivity.this);
 
-        // Si le champ n'est pas vide
-        if (!text.isEmpty()){
-            teamsDAO.createTeam(text);
+        alertDialog.setView(newTeamEditText);
 
-            // On rempli la liste
-            teams = teamsDAO.getAllTeams();
-            TeamAdapter adapter = new TeamAdapter(ListTeamsActivity.this, teams);
-            teamsListView.setAdapter(adapter);
+        alertDialog.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String text = newTeamEditText.getText().toString();
+                        // Si le champ n'est pas vide
+                        if (!text.isEmpty()) {
+                            teamsDAO.createTeam(text);
+                            updateListView();
+                        }
+                    }
+                });
 
-            // Vide le textEdit
-            teamNameEditText.setText("");
+        alertDialog.setNegativeButton("Annuler",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
 
-            // Ferme le clavier
-            // https://stackoverflow.com/questions/2342620/how-to-hide-keyboard-after-typing-in-edittext-in-android
-            Context context = teamNameEditText.getContext();
-            InputMethodManager inputManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
+        alertDialog.show();
     }
 
     public void onClickOk(View view){

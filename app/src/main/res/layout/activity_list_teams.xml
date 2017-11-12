@@ -11,27 +11,16 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <Button
-            android:id="@+id/AddPlayerButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:onClick="addTeam"
-            android:text="Ajouter l'équipe" />
-
-        <EditText
-            android:id="@+id/team_name_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text"
-            android:text="" />
-
         <LinearLayout android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_below="@+id/AddPlayerButton">
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/AddPlayerButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="addTeam"
+                android:text="Ajouter une équipe" />
 
             <ListView
                 android:id="@+id/TeamsListView"
