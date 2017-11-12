@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
@@ -41,6 +43,12 @@ public class ListMatchsActivity extends AppCompatActivity {
 
         matchsListView = (ListView) findViewById(R.id.MatchsListView);
         spinner = (Spinner) findViewById(R.id.list_matchs_spinner);
+
+        // empty view
+        final TextView emptyTextView = new TextView(ListMatchsActivity.this);
+        emptyTextView.setText("Aucun match");
+        ((ViewGroup)matchsListView.getParent()).addView(emptyTextView);
+        matchsListView.setEmptyView(emptyTextView);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> SpinnerAdapter = ArrayAdapter.createFromResource(this,

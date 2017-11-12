@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
 import com.gmail.moreau1006.mikael.attendancemanager.DAO.PlayersDAO;
@@ -31,6 +34,11 @@ public class SelectInvitedPlayersActivity extends AppCompatActivity {
 
         playersListView = (ListView) findViewById(R.id.SelectPlayersListView);
         validateButton = (Button) findViewById(R.id.select_players_validate_button);
+
+        final TextView emptyTextView = new TextView(SelectInvitedPlayersActivity.this);
+        emptyTextView.setText("Aucun joueur dans l'équipe");
+        ((ViewGroup)playersListView.getParent()).addView(emptyTextView);
+        playersListView.setEmptyView(emptyTextView);
 
         playersDAO = new PlayersDAO(this);
         playersDAO.open();
