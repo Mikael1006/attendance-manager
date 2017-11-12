@@ -288,7 +288,7 @@ public class MatchActivity extends AppCompatActivity {
                         question = smsDAO.getSmsBySmsCodeAndNumber(match.getSmsCode(), number);
                         // check if a sms is found
                         if(question != null){
-                            answer = smsDAO.getFirstInboxSmsAfterDateByNymber(question.getDate(), number);
+                            answer = smsDAO.getSmsAfterDateByNumberAndSmsCode(match.getSmsCode(), question.getDate(), number);
 
                             // check if a sms is found
                             if (answer != null){

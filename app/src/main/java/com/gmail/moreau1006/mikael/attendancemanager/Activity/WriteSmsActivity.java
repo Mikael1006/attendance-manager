@@ -174,6 +174,10 @@ public class WriteSmsActivity extends AppCompatActivity {
                 step=(progressBar.getMax()/numberPhoneToSendList.size())/mMessageSentTotalParts;
                 progressBar.setProgress(progressStatus);
                 sendSMS();
+            }else {
+                Toast.makeText(WriteSmsActivity.this, "Aucun sms envoyé", Toast.LENGTH_LONG).show();
+                WriteSmsActivity.this.setResult(RESULT_OK);
+                finish();
             }
         }
     }
@@ -241,7 +245,9 @@ public class WriteSmsActivity extends AppCompatActivity {
     private void initializeListNumberPhone(){
         numberPhoneToSendList = new ArrayList<>(invitedPlayers.size());
         for (int i = 0; i < invitedPlayers.size(); i++){
-            numberPhoneToSendList.add(invitedPlayers.get(i).getNumberPhone());
+            if(!invitedPlayers.get(i).getNumberPhone().isEmpty()){
+                numberPhoneToSendList.add(invitedPlayers.get(i).getNumberPhone());
+            }
         }
     }
 }

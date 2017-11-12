@@ -15,7 +15,7 @@ import java.util.Date;
 
 public class SmsDAO {
 
-    private String[] allColumns = new String[] {"address", "body", "date", "person"};
+    private String[] allColumns = new String[] {"address", "body", "date"};
     private final String SMS_URI_ALL = "content://sms/";
     private final String SMS_URI_INBOX = "content://sms/inbox";
     private final String SMS_URI_SENT = "content://sms/sent";
@@ -29,7 +29,7 @@ public class SmsDAO {
     public Sms getSmsBySmsCodeAndNumber(String smsCode, String number){
         Uri uri = Uri.parse(SMS_URI_SENT);
         Cursor cursor = contentResolver.query(uri, allColumns ,
-                "body LIKE '"+smsCode+"%' AND address = ?",
+                "body LIKE '%"+smsCode+"%' AND address = ?",
                 new String[] {number}, "date desc limit 1");
 
         Sms smsInbox = null;
@@ -41,10 +41,10 @@ public class SmsDAO {
         return smsInbox;
     }
 
-    public Sms getFirstInboxSmsAfterDateByNymber(Date date, String number){
+    public Sms getSmsAfterDateByNumberAndSmsCode(String smsCode, Date date, String number){
         Uri uri = Uri.parse(SMS_URI_INBOX);
         Cursor cursor = contentResolver.query(uri, allColumns ,
-                "date>=" + date.getTime() + " AND address = ?",
+                "date>=" + date.getTime() + " AND body LIKE '%"+smsCode+"%' AND address = ?",
                 new String[] {number}, "date desc limit 1");
 
         Sms smsInbox = null;
