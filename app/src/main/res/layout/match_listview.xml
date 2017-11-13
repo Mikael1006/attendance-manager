@@ -13,6 +13,7 @@
             android:id="@+id/match_textview_opponent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:textSize="20sp"
             android:textStyle="bold"
             android:text="opponent"/>
@@ -21,6 +22,7 @@
             android:id="@+id/match_textview_team"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:textSize="18sp"
             android:text="team name"
             />
@@ -29,6 +31,7 @@
             android:id="@+id/match_textview_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:textSize="16sp"
             android:text="dateMatch"/>
 
@@ -36,6 +39,7 @@
             android:id="@+id/match_textview_dateRdv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:textSize="14sp"
             android:text="dateRdv"
             android:visibility="gone"
@@ -45,6 +49,7 @@
             android:id="@+id/match_textview_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:textSize="14sp"
             android:text="home"
             android:visibility="gone"
