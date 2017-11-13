@@ -31,7 +31,7 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message);
 
         messageListview = (ListView) findViewById(R.id.message_listview);
-        
+
         // empty view
         messageListview.setEmptyView((TextView) findViewById(android.R.id.empty));
 
