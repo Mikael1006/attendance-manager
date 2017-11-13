@@ -44,6 +44,7 @@ public class SelectPlayerAdapter extends ArrayAdapter<Player> {
         //il ne reste plus qu'à remplir notre vue
         viewHolder.name.setText(player.getName());
         viewHolder.numberPhone.setText(player.getNumberPhone());
+        // https://stackoverflow.com/questions/5444355/android-listview-with-checkbox-problem
 
         return convertView;
     }

@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gmail.moreau1006.mikael.attendancemanager.Adapter.InvitedPlayersAdapter;
 import com.gmail.moreau1006.mikael.attendancemanager.DAO.MatchsDAO;
@@ -120,8 +121,10 @@ public class MatchActivity extends AppCompatActivity {
      */
     public void editAttendance(View view){
 
+        int firstListItemPosition = invitedPlayersListView.getFirstVisiblePosition();
+
         // on récupère l'index de la liste
-        int index = invitedPlayersListView.indexOfChild((View) view.getParent());
+        int index = invitedPlayersListView.indexOfChild((View) view.getParent()) + firstListItemPosition;
         // On récupère le bon joueur
         final Player player = match.getInvitedPlayers().get(index);
 
@@ -309,5 +312,6 @@ public class MatchActivity extends AppCompatActivity {
     public void refreshAttendance(View view){
         updateAttendanceFromSMS();
         updateListView();
+        Toast.makeText(MatchActivity.this, "Présence actualisée", Toast.LENGTH_SHORT).show();
     }
 }
