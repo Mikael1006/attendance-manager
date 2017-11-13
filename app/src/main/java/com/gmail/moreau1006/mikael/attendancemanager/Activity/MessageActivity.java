@@ -31,12 +31,9 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message);
 
         messageListview = (ListView) findViewById(R.id.message_listview);
-
+        
         // empty view
-        final TextView emptyTextView = new TextView(MessageActivity.this);
-        emptyTextView.setText("Aucun message");
-        ((ViewGroup)messageListview.getParent()).addView(emptyTextView);
-        messageListview.setEmptyView(emptyTextView);
+        messageListview.setEmptyView((TextView) findViewById(android.R.id.empty));
 
         // get match from previous activity
         match = (Match) getIntent().getSerializableExtra(ListMatchsActivity.EXTRA_MATCH);
