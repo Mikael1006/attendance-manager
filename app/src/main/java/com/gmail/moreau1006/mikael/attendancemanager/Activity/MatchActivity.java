@@ -13,7 +13,6 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -40,6 +39,7 @@ public class MatchActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSION_REQUEST_READ_SMS = 2;
     private static final int MY_PERMISSION_REQUEST_READ_CONTACTS = 3;
+    public static final String EXTRA_PLAYER = "com.gmail.moreau1006.mikael.attendancemanager.PLAYER";
     private ListView invitedPlayersListView;
     private Match match;
     private MatchsDAO matchsDAO;
@@ -119,6 +119,19 @@ public class MatchActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddInvitedPlayerActivity.class);
         intent.putExtra(ListMatchsActivity.EXTRA_MATCH,match);
         startActivityForResult(intent, ListMatchsActivity.CREATE_MATCH_RESQUEST_CODE);
+    }
+
+    public void viewMessages(View view){
+
+        int firstListItemPosition = invitedPlayersListView.getFirstVisiblePosition();
+
+        // on récupère l'index de la liste
+        int index = invitedPlayersListView.indexOfChild((View) view.getParent()) + firstListItemPosition;
+
+        Intent intent = new Intent(this, MessageActivity.class);
+        intent.putExtra(ListMatchsActivity.EXTRA_MATCH,match);
+        intent.putExtra(MatchActivity.EXTRA_PLAYER,match.getInvitedPlayers().get(index));
+        startActivity(intent);
     }
 
     /**
@@ -293,7 +306,7 @@ public class MatchActivity extends AppCompatActivity {
                 // it was not determined
                 if(player.isAttendant() == null){
                     try {
-                        question = smsDAO.getSmsBySmsCodeAndNumber(match.getSmsCode(), number);
+                        question = smsDAO.getLastSmsBySmsCodeAndNumber(match.getSmsCode(), number);
                         // check if a sms is found
                         if(question != null){
                             answer = smsDAO.getSmsAfterDateByNumberAndSmsCode(match.getSmsCode(), question.getDate(), number);

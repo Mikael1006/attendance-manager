@@ -3,8 +3,8 @@
     package="com.gmail.moreau1006.mikael.attendancemanager">
 
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -31,7 +31,8 @@
         <activity android:name=".Activity.WriteSmsActivity" />
         <activity android:name=".Activity.MatchActivity" />
         <activity android:name=".Activity.AddInvitedPlayerActivity" />
-        <activity android:name=".Activity.WriteSmsForNewInvitedPlayersActivity"></activity>
+        <activity android:name=".Activity.WriteSmsForNewInvitedPlayersActivity" />
+        <activity android:name=".Activity.MessageActivity"></activity>
     </application>
 
 </manifest>

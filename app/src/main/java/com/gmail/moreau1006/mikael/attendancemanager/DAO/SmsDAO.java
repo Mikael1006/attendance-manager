@@ -7,7 +7,9 @@ import android.net.Uri;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Match;
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Sms;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by mika on 07/11/17.
@@ -26,7 +28,27 @@ public class SmsDAO {
         this.contentResolver = contentResolver;
     }
 
-    public Sms getSmsBySmsCodeAndNumber(String smsCode, String number){
+    public List<Sms> getAllSmsBySmsCodeAndNumber(String smsCode, String number){
+        List<Sms> smss = new ArrayList<Sms>();
+
+        Uri uri = Uri.parse(SMS_URI_INBOX);
+        Cursor cursor = contentResolver.query(uri, allColumns ,
+                "body LIKE '%"+smsCode+"%' AND address = ?",
+                new String[] {number}, "date desc");
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Sms sms = cursorToSms(cursor);
+            smss.add(sms);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+        return smss;
+    }
+
+    public Sms getLastSmsBySmsCodeAndNumber(String smsCode, String number){
         Uri uri = Uri.parse(SMS_URI_SENT);
         Cursor cursor = contentResolver.query(uri, allColumns ,
                 "body LIKE '%"+smsCode+"%' AND address = ?",
