@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.gmail.moreau1006.mikael.attendancemanager.Model.Player;
@@ -19,12 +20,18 @@ import java.util.List;
 
 public class SelectPlayerAdapter extends ArrayAdapter<Player> {
 
+    private boolean checked[];
+
     public SelectPlayerAdapter(Context context, List<Player> players) {
         super(context, 0, players);
+        checked = new boolean[players.size()];
+        for (int i = 0; i < checked.length; i++){
+            checked[i] = false;
+        }
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.select_player_listview,parent, false);
@@ -44,7 +51,15 @@ public class SelectPlayerAdapter extends ArrayAdapter<Player> {
         //il ne reste plus qu'à remplir notre vue
         viewHolder.name.setText(player.getName());
         viewHolder.numberPhone.setText(player.getNumberPhone());
+
         // https://stackoverflow.com/questions/5444355/android-listview-with-checkbox-problem
+        viewHolder.player_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                checked[position] = isChecked;
+            }
+        });
+        viewHolder.player_checkbox.setChecked(checked[position]);
 
         return convertView;
     }
