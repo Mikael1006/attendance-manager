@@ -83,4 +83,10 @@ public class Player implements Serializable {
         }
         return false;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Player player1 = (Player) obj;
+        return player1.getId() == this.getId();
+    }
 }
