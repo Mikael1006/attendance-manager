@@ -10,6 +10,69 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
+        <LinearLayout
+            android:id="@+id/match_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/show_match_textview_opponent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:text="Opponent"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/show_match_textview_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="home"
+                />
+        </LinearLayout>
+
+
+
+            <TextView
+                android:id="@+id/show_match_textview_team"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:text="team name"
+                />
+
+            <TextView
+                android:id="@+id/show_match_textview_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="dateMatch"
+                />
+
+            <TextView
+                android:id="@+id/show_match_textview_dateRdv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="date RDV"
+                />
+
+
+
+
+        </LinearLayout>
+
 
         <ImageButton
             android:id="@+id/refresh_button"
@@ -17,7 +80,7 @@
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_rotate"
             android:onClick="refreshAttendance"
-            android:layout_below="@+id/show_match_textview_team" />
+            android:layout_below="@+id/match_linear_layout" />
 
         <Button
             android:id="@+id/add_invited_player_button"
@@ -26,44 +89,10 @@
             android:text="Convoquer d'autres joueur"
             android:drawableLeft="@android:drawable/ic_input_add"
             android:onClick="addInvitedPlayers"
-            android:layout_below="@+id/show_match_textview_team"
+            android:layout_below="@+id/match_linear_layout"
             android:layout_alignParentEnd="true" />
 
-        <TextView
-            android:id="@+id/show_match_textview_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
 
-        <TextView
-            android:id="@+id/show_match_textview_dateRdv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/show_match_textview_date"
-            />
-
-        <TextView
-            android:id="@+id/show_match_textview_opponent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/show_match_textview_dateRdv"
-            />
-
-
-        <TextView
-            android:id="@+id/show_match_textview_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/show_match_textview_opponent"
-            />
-
-
-        <TextView
-            android:id="@+id/show_match_textview_team"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/show_match_textview_home"
-            />
 
         <ListView
             android:id="@+id/invitedPlayersListView"

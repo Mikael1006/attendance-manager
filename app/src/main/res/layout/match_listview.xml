@@ -2,53 +2,55 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/match_textview_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/match_textview_dateRdv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/match_textview_date"
-        android:layout_below="@+id/match_textview_date"
-        android:paddingLeft="8dp"
-        android:textSize="14sp"
-        />
-
-    <TextView
-        android:id="@+id/match_textview_opponent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/match_textview_dateRdv"
-        android:layout_below="@+id/match_textview_dateRdv"
-        android:paddingLeft="8dp"
-        android:textSize="14sp" />
 
 
-    <TextView
-        android:id="@+id/match_textview_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/match_textview_opponent"
-        android:layout_below="@+id/match_textview_opponent"
-        android:paddingLeft="8dp"
-        android:textSize="14sp"
-        />
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="left">
 
+        <TextView
+            android:id="@+id/match_textview_opponent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="opponent"/>
 
-    <TextView
-        android:id="@+id/match_textview_team"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/match_textview_home"
-        android:layout_below="@+id/match_textview_home"
-        android:paddingLeft="8dp"
-        android:textSize="14sp"
-        />
+        <TextView
+            android:id="@+id/match_textview_team"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="team name"
+            />
+
+        <TextView
+            android:id="@+id/match_textview_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="dateMatch"/>
+
+        <TextView
+            android:id="@+id/match_textview_dateRdv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="dateRdv"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/match_textview_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="home"
+            android:visibility="gone"
+            />
+
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/match_button_show"

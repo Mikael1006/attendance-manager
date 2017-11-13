@@ -13,6 +13,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -73,16 +74,20 @@ public class MatchActivity extends AppCompatActivity {
         // get match from previous activity
         match = (Match) getIntent().getSerializableExtra(ListMatchsActivity.EXTRA_MATCH);
 
+        setupIHM();
+
+        updateAttendanceFromSMS();
+        updateListView();
+    }
+
+    private void setupIHM(){
         DateFormat dateFormat = new SimpleDateFormat("EEEE, d MMM yyyy à HH:mm", Locale.FRENCH);
+        DateFormat timeFormat = new SimpleDateFormat("'RDV à' HH:mm", Locale.FRENCH);
 
         // Using DateFormat format method we can create a string
         // representation of a date with the defined format.
         String dateMatch = dateFormat.format(match.getDateMatch());
-        String dateRdv = dateFormat.format(match.getDateRdv());
-
-        match_textview_date.setText(dateMatch);
-        match_textview_dateRdv.setText(dateRdv);
-        match_textview_opponent.setText(match.getOpponent());
+        String timeRdv = timeFormat.format(match.getDateRdv());
 
         String home;
         if(match.isHome()){
@@ -91,15 +96,16 @@ public class MatchActivity extends AppCompatActivity {
             home = "Exterieur";
         }
 
-        match_textview_home.setText(home);
+        match_textview_date.setText(dateMatch);
+        match_textview_dateRdv.setText(timeRdv);
+        match_textview_opponent.setText(match.getOpponent());
+        match_textview_home.setText("(" + home + ")");
+
         if(match.getTeam() == null){
             match_textview_team.setText("Equipe suprimée");
         }else {
             match_textview_team.setText(match.getTeam().getName());
         }
-
-        updateAttendanceFromSMS();
-        updateListView();
     }
 
     private void updateListView(){
