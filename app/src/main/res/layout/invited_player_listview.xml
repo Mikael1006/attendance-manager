@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/invited_player_textview_numberphone"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="43dp"
+        android:layout_marginEnd="25dp"
         app:srcCompat="@android:drawable/sym_action_chat"
         android:tint="@color/bpBlue"
         android:onClick="viewMessages"/>

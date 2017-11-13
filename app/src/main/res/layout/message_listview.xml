@@ -23,7 +23,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="20dp"
             android:padding="10dp"
-            android:background="@color/radial_gray_light"
+            android:background="@color/colorGrayMessage"
             android:textSize="18sp"
             android:text="body du message qui est très long et qui fait plusieurs lignes"/>
 

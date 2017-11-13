@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.gmail.moreau1006.mikael.attendancemanager.Adapter.MessageAdapter;
 import com.gmail.moreau1006.mikael.attendancemanager.DAO.SmsDAO;
@@ -29,6 +31,12 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message);
 
         messageListview = (ListView) findViewById(R.id.message_listview);
+
+        // empty view
+        final TextView emptyTextView = new TextView(MessageActivity.this);
+        emptyTextView.setText("Aucun message");
+        ((ViewGroup)messageListview.getParent()).addView(emptyTextView);
+        messageListview.setEmptyView(emptyTextView);
 
         // get match from previous activity
         match = (Match) getIntent().getSerializableExtra(ListMatchsActivity.EXTRA_MATCH);

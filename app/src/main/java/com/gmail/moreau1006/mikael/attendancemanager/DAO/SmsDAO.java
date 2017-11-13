@@ -34,7 +34,7 @@ public class SmsDAO {
         Uri uri = Uri.parse(SMS_URI_INBOX);
         Cursor cursor = contentResolver.query(uri, allColumns ,
                 "body LIKE '%"+smsCode+"%' AND address = ?",
-                new String[] {number}, "date desc");
+                new String[] {number}, "date asc");
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
