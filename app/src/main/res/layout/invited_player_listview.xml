@@ -25,7 +25,9 @@
             android:layout_weight="1"
             android:paddingLeft="10dp"
             android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:text="name"/>
+
     </LinearLayout>
 
     <TextView
@@ -34,7 +36,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/invited_player_linearlayout"
         android:textSize="14sp"
-        android:paddingLeft="30dp"/>
+        android:paddingLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:text="numero"/>
 
 
 </RelativeLayout>
