@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Attendance Manager</string>
+
+    <string name="my_matches">Mes matchs</string>
+    <string name="my_teams">Mes équipes</string>
+    <string name="add_team">Ajouter une équipe</string>
+    <string name="delete_team">Supprimer l\'équipe %1$s ?</string>
+    <string name="delete_alert_title">Attention</string>
+    <string name="ok">Ok</string>
+    <string name="add_player">Ajouter un joueur</string>
+    <string name="delete_player">Supprimer le contact %1$s ?</string>
+    <string name="delete_player_alert_title">Attention</string>
+    <string name="new_match">Nouveau match</string>
+    <string name="no_match">Aucun match</string>
+    <string-array name="type_list_matchs">
+        <item>Futurs matchs</item>
+        <item>Tous les matchs</item>
+    </string-array>
+    <string name="delete_match_alert">Supprimer le match contre %1$s du %1$s ?</string>
+    <string name="select_date_title">Selectionnez une date de match</string>
+    <string name="select_date">Selectionnez la date</string>
+    <string name="select_time_match">Selectionnez l\'heure du match</string>
+    <string name="select_time_appointment">Selectionnez l\'heure de rendez-vous</string>
+    <string name="select_date_alert">Veuillez sélectionner une date et une heure de match.</string>
+    <string name="validate">Valider</string>
+    <string name="opponent">Adversaire :</string>
+    <string name="place">Lieu :</string>
+    <string name="home">Domicile</string>
+    <string name="away">Extérieur</string>
+    <string name="select_opponent_aler">Veuillez entrer un adversaire.</string>
+    <string name="edit_team">Modifier les équipes</string>
+    <string name="invite">Convoquer</string>
+    <string name="no_player_in_team">Aucun joueur dans l\'équipe</string>
+    <string name="no_player_not_invited">Tous les joueurs de l\'équipe sont déjà convoqués</string>
+    <string name="write_sms">Rédigez le sms</string>
+    <string name="sms">CONVOCATION
+        \nRDV\t\t\t: %1$s
+        \nMATCH\t\t:%2$s
+        \nHEURE\t\t:%3$s
+        \nADVERSAIRE\t:%4$s
+        \nLIEU\t\t:%5$s</string>
+    <string name="sms_extra">%1$s
+        \n %2$s
+        \n***************
+        \nVOTRE REPONSE
+        \nformat:
+        \n%1$s#present
+        \nOU
+        \n%1$s#absent
+        \nex: %1$s#present je prends les maillots</string>
+    <string name="send_sms">Envoyer sms</string>
+    <!-- https://stackoverflow.com/questions/2397613/are-parameters-in-strings-xml-possible -->
+    <string name="alert_error_send_sms">Erreur réseaux : %1$d sms n\'ont pas été envoyés.</string>
+    <string name="alert_error_retry">Réessayer</string>
+    <string name="alert_error_cancel">Abandonner</string>
+    <string name="alert_error_title">Attention</string>
+    <string name="toast_sms_sent">%1$d sms envoyé(s)</string>
+    <string name="toast_none_sms_sent">Aucun sms envoyé</string>
+    <!-- voir match -->
+    <string name="appointment_at">RDV à %1$s</string>
+    <string name="invite_more_players">Convoquer d\'autres joueurs</string>
+    <string name="toast_attendance_updated">Présences actualisées</string>
+    <string name="edit_attendance">Editer la présence</string>
+    <string name="attendant">Présent</string>
+    <string name="absent">Absent</string>
+    <string name="Unknown">Indéterminé</string>
+    <string name="cancel">Annuler</string>
+    <string name="no_msg">Aucun message</string>
+</resources>

@@ -8,9 +8,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="66dp">
+        android:layout_height="fill_parent">
 
         <Button
             android:id="@+id/showListMatchButton"
@@ -19,16 +17,16 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:onClick="ShowListMatch"
-            android:text="Mes matchs" />
+            android:text="@string/my_matches" />
 
         <Button
             android:id="@+id/manageTeamsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="ManageTeams"
-            android:text="Mes équipes"
+            android:text="@string/my_teams"
             android:layout_below="@+id/showListMatchButton"
-            android:layout_alignStart="@+id/showListMatchButton" />
+            android:layout_centerHorizontal="true" />
 
 
     </RelativeLayout>

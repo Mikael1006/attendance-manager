@@ -1,13 +1,54 @@
 <resources>
     <string name="app_name">Attendance Manager</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_settings">Settings</string>
-
     <string-array name="type_list_matchs">
-        <item>Futurs matchs</item>
-        <item>Tous les matchs</item>
+        <item>Futures matches</item>
+        <item>All matches</item>
     </string-array>
+    <string name="Unknown">Unknown</string>
+    <string name="absent">Absent</string>
+    <string name="add_player">Add a new player</string>
+    <string name="add_team">Add a new team</string>
+    <string name="alert_error_cancel">Cancel</string>
+    <string name="alert_error_retry">Try again</string>
+    <string name="alert_error_send_sms">Network error : %1$d sms have not been sent.</string>
+    <string name="alert_error_title">Alert</string>
+    <string name="appointment_at">Appointment at %1$s</string>
+    <string name="attendant">Attendant</string>
+    <string name="away">Away</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_alert_title">Alert</string>
+    <string name="delete_match_alert">Delete match against %1$s the %1$s ?</string>
+    <string name="delete_player">Delete player %1$s ?</string>
+    <string name="delete_player_alert_title">Alert</string>
+    <string name="delete_team">Delete team %1$s ?</string>
+    <string name="edit_attendance">Edit attendance</string>
+    <string name="edit_team">Edit teams</string>
+    <string name="home">Home</string>
+    <string name="invite">Invite</string>
+    <string name="invite_more_players">Invite more players</string>
+    <string name="my_matches">My matches</string>
+    <string name="my_teams">My teams</string>
+    <string name="new_match">New match</string>
+    <string name="no_match">No match</string>
+    <string name="no_msg">No message</string>
+    <string name="no_player_in_team">No player in the team</string>
+    <string name="no_player_not_invited">All players of the team have already been invited.</string>
+    <string name="ok">Ok</string>
+    <string name="opponent">Opponent :</string>
+    <string name="place">Place :</string>
+    <string name="select_date">Select date</string>
+    <string name="select_date_alert">You have not selected the date or the time for the match.</string>
+    <string name="select_date_title">Select a date for the match</string>
+    <string name="select_opponent_aler">The opponent is missing.</string>
+    <string name="select_time_appointment">Select the time for the appointment</string>
+    <string name="select_time_match">Select the time for the match</string>
+    <string name="send_sms">Send sms</string>
+    <string name="toast_attendance_updated">Attendances updated</string>
+    <string name="toast_none_sms_sent">No sms has been sent</string>
+    <string name="toast_sms_sent">%1$d sms have been sent</string>
+    <string name="validate">Validate</string>
+    <string name="write_sms">Write sms</string>
+    <string name="sms">INVITATION</string>
+    <string name="sms_extra">RESPONSE</string>
 </resources>
