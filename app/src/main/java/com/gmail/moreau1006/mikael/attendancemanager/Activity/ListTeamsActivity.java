@@ -79,7 +79,7 @@ public class ListTeamsActivity extends AppCompatActivity {
 
         // l'alert pour confirmer
         AlertDialog alertDialog = new AlertDialog.Builder(ListTeamsActivity.this).create();
-        alertDialog.setTitle("Alert");
+        alertDialog.setTitle(getString(R.string.alert_error_title));
         alertDialog.setMessage(getString(R.string.delete_team, team.getName()));
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
@@ -97,7 +97,7 @@ public class ListTeamsActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Annuler",
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -108,13 +108,13 @@ public class ListTeamsActivity extends AppCompatActivity {
 
     public void addTeam(View view){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(ListTeamsActivity.this);
-        alertDialog.setTitle("Ajouter une équipe");
+        alertDialog.setTitle(getString(R.string.add_team));
 
         final EditText newTeamEditText = new EditText(ListTeamsActivity.this);
 
         alertDialog.setView(newTeamEditText);
 
-        alertDialog.setPositiveButton("Ok",
+        alertDialog.setPositiveButton(getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String text = newTeamEditText.getText().toString();
@@ -126,7 +126,7 @@ public class ListTeamsActivity extends AppCompatActivity {
                     }
                 });
 
-        alertDialog.setNegativeButton("Annuler",
+        alertDialog.setNegativeButton(getString(R.string.cancel),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
