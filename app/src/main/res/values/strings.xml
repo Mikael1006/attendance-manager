@@ -18,7 +18,7 @@
     <string name="away">Away</string>
     <string name="cancel">Cancel</string>
     <string name="delete_alert_title">Alert</string>
-    <string name="delete_match_alert">Delete match against %1$s the %1$s ?</string>
+    <string name="delete_match_alert">Delete match against %1$s the %2$s ?</string>
     <string name="delete_player">Delete player %1$s ?</string>
     <string name="delete_player_alert_title">Alert</string>
     <string name="delete_team">Delete team %1$s ?</string>

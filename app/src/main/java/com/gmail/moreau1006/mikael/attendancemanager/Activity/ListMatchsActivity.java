@@ -46,7 +46,7 @@ public class ListMatchsActivity extends AppCompatActivity {
 
         // empty view
         final TextView emptyTextView = new TextView(ListMatchsActivity.this);
-        emptyTextView.setText("Aucun match");
+        emptyTextView.setText(getString(R.string.no_match));
         ((ViewGroup)matchsListView.getParent()).addView(emptyTextView);
         matchsListView.setEmptyView(emptyTextView);
 
@@ -128,9 +128,10 @@ public class ListMatchsActivity extends AppCompatActivity {
 
         // confirm ?
         AlertDialog alertDialog = new AlertDialog.Builder(ListMatchsActivity.this).create();
-        alertDialog.setTitle("Alert");
-        alertDialog.setMessage("Supprimer le match contre " + match.getOpponent() + " du " + dateMatch + " ?");
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+        alertDialog.setTitle(getString(R.string.delete_alert_title));
+        alertDialog.setMessage(getString(R.string.delete_match_alert, match.getOpponent(), dateMatch));
+//        alertDialog.setMessage("Supprimer le match contre " + match.getOpponent() + " du " + dateMatch + " ?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -145,7 +146,7 @@ public class ListMatchsActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Annuler",
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
