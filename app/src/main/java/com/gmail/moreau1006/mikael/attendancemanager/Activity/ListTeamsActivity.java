@@ -80,8 +80,8 @@ public class ListTeamsActivity extends AppCompatActivity {
         // l'alert pour confirmer
         AlertDialog alertDialog = new AlertDialog.Builder(ListTeamsActivity.this).create();
         alertDialog.setTitle("Alert");
-        alertDialog.setMessage("Supprimer l'équipe " + team.getName() + " ?");
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+        alertDialog.setMessage(getString(R.string.delete_team, team.getName()));
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 

@@ -130,7 +130,6 @@ public class ListMatchsActivity extends AppCompatActivity {
         AlertDialog alertDialog = new AlertDialog.Builder(ListMatchsActivity.this).create();
         alertDialog.setTitle(getString(R.string.delete_alert_title));
         alertDialog.setMessage(getString(R.string.delete_match_alert, match.getOpponent(), dateMatch));
-//        alertDialog.setMessage("Supprimer le match contre " + match.getOpponent() + " du " + dateMatch + " ?");
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

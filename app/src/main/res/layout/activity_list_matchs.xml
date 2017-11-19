@@ -33,8 +33,7 @@
                 android:id="@+id/MatchsListView"
                 android:layout_height="0dip"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_below="@+id/AddMatchButton"/>
+                android:layout_weight="1"/>
 
         </LinearLayout>
 
