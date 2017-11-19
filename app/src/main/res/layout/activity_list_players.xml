@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="addPlayer"
-            android:text="Ajouter un joueur"
+            android:text="@string/add_player"
             android:layout_alignParentTop="true"
             android:drawableLeft="@android:drawable/ic_input_add" />
 
@@ -35,7 +35,7 @@
                 android:id="@+id/list_players_ok_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="OK"
+                android:text="@string/ok"
                 android:onClick="onClickOk"/>
 
         </LinearLayout>

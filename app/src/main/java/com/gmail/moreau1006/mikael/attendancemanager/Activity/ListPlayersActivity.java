@@ -71,9 +71,9 @@ public class ListPlayersActivity extends AppCompatActivity {
 
         // l'alert pour confirmer
         AlertDialog alertDialog = new AlertDialog.Builder(ListPlayersActivity.this).create();
-        alertDialog.setTitle("Alert");
-        alertDialog.setMessage("Supprimer le contact " + player.getName() + " ?");
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+        alertDialog.setTitle(getString(R.string.alert_error_title));
+        alertDialog.setMessage(getString(R.string.delete_player, player.getName()));
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // On supprime le joueur
@@ -86,7 +86,7 @@ public class ListPlayersActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Annuler",
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel),
                 new OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
