@@ -1,2 +1,2 @@
 # attendance-manager
-Android application to manage player's attendance at sports games.
+Android application to manage players' attendance at sports games.
