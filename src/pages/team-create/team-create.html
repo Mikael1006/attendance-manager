@@ -1,0 +1,43 @@
+<ion-header>
+
+  <ion-navbar>
+
+    <ion-title>{{ 'TEAM_CREATE_TITLE' | translate }}</ion-title>
+
+    <ion-buttons start showWhen="ios">
+      <button ion-button  (click)="cancel()">
+        <span color="primary">
+          {{ 'CANCEL_BUTTON' | translate }}
+        </span>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons end>
+      <button ion-button showWhen="android, windows, core" (click)="cancel()">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+      <button ion-button showWhen="ios" (click)="done()" [disabled]="!teamForm.valid" strong>
+        <span color="primary">
+          {{ 'DONE_BUTTON' | translate }}
+        </span>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <form #teamForm="ngForm" (submit)="done()">
+    <ion-list>
+      <ion-item>
+        <ion-label color="primary" stacked>{{ 'TEAM_NAME' | translate }}</ion-label>
+        <ion-input type="text" [(ngModel)]="team.name" name="teamName" required></ion-input>
+      </ion-item>
+      <div showWhen="android, windows, core" padding>
+        <button ion-button color="primary" [disabled]="!teamForm.valid" block>{{ 'DONE_BUTTON' | translate }}</button>
+      </div>
+    </ion-list>
+  </form>
+</ion-content>

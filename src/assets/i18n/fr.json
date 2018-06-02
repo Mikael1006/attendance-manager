@@ -1,0 +1,21 @@
+{
+  "BACK_BUTTON_TEXT": "Retour",
+  "DONE_BUTTON": "Valider",
+  "CANCEL_BUTTON": "Annuler",
+  "DELETE_BUTTON": "Supprimer",
+  "EDIT_BUTTON": "Modifier",
+
+  "DATABASE_ERROR": "Erreur de connexion à la base de données",
+
+  "TEAM_HOME_TITLE": "Mes équipes",
+  "TEAM_MANAGEMENT_TITLE": "Gestion des équipes",
+  "TEAM_MANAGEMENT_ON_ERROR": "Erreur de connexion à la base de données",
+  "TEAM_MANAGEMENT_DELETE_ALERT_TITLE": "Supprimer l'équipe {{team}} ?",
+  "TEAM_MANAGEMENT_DELETE_SUCESS": "L'équipe a été supprimée avec succés",
+  "TEAM_MANAGEMENT_TEAM_USED_ERROR": "L'équipe est encore utilisé par certains joueurs, impossible de la supprimer",
+  "TEAM_CREATE_TITLE": "Créer une équipe",
+  "TEAM_NAME": "Nom de l'équipe",
+  "TEAM_CREATE_SUCCESS": "L'équipe a été créée avec succés",
+  "TEAM_DETAIL_TITLE": "Editer l'équipe",
+  "TEAM_EDIT_SUCCESS": "Les changements ont été enregistrés"
+}
