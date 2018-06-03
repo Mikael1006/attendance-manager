@@ -2,9 +2,7 @@
 export class MySQLiteHelper {
 
     public static readonly PLAYERS_TABLE : string = "Players";
-    public static readonly PLAYERS_COL_ID : string = "_id";
-    public static readonly PLAYERS_COL_NAME : string = "Name";
-    public static readonly PLAYERS_COL_NUMBER : string = "Number";
+    public static readonly PLAYERS_COL_ID_CONTACT : string = "idContact";
     public static readonly PLAYERS_COL_TEAM_ID : string = "idTeam";
 
     public static readonly TEAMS_TABLE : string = "Teams";
@@ -27,11 +25,10 @@ export class MySQLiteHelper {
     public static readonly DATABASE_NAME : string = "attendance_manager.db";
 
     public static readonly CREATE_TABLE_PLAYERS : string = "CREATE TABLE IF NOT EXISTS " + MySQLiteHelper.PLAYERS_TABLE + " ("
-            + MySQLiteHelper.PLAYERS_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + MySQLiteHelper.PLAYERS_COL_NAME + " TEXT NOT NULL, "
-            + MySQLiteHelper.PLAYERS_COL_NUMBER + " TEXT NOT NULL, " + MySQLiteHelper.PLAYERS_COL_TEAM_ID + " INTEGER);\n";
+            + MySQLiteHelper.PLAYERS_COL_ID_CONTACT + " TEXT NOT NULL, " + MySQLiteHelper.PLAYERS_COL_TEAM_ID + " INTEGER);\n";
 
     public static readonly CREATE_TABLE_TEAMS : string = "CREATE TABLE IF NOT EXISTS " + MySQLiteHelper.TEAMS_TABLE + " ("
-            + MySQLiteHelper.TEAMS_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + MySQLiteHelper.TEAMS_COL_NAME + " TEXT NOT NULL);\n";
+            + MySQLiteHelper.TEAMS_COL_ID + " INTEGER, " + MySQLiteHelper.TEAMS_COL_NAME + " TEXT NOT NULL);\n";
 
     public static readonly CREATE_TABLE_MATCHS : string = "CREATE TABLE IF NOT EXISTS " + MySQLiteHelper.MATCHS_TABLE + " ("
             + MySQLiteHelper.MATCHS_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + MySQLiteHelper.MATCHS_COL_DATE + " DATE, "

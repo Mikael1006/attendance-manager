@@ -8,3 +8,4 @@ export const MainPage = 'HomePage';
 export const TeamManagementPage = 'TeamManagementPage';
 export const TeamCreatePage = 'TeamCreatePage';
 export const TeamDetailPage = 'TeamDetailPage';
+export const PickContactsPage = 'PickContactsPage';

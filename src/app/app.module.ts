@@ -6,12 +6,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { DatabaseRepository } from '../providers/repositories/database.repository';
+import { ContactRepository } from '../providers/repositories/contact.repository';
 import { TeamService } from '../providers/services/team.service';
+import { PlayerService } from '../providers/services/player.service';
 import { TeamRepository } from "../providers/repositories/team.repository";
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SQLite } from '@ionic-native/sqlite';
-import { SQLiteMock } from '../mocks/sqlite.mock'
+// import { SQLiteMock } from '../mocks/sqlite.mock';
+import { Contacts } from '@ionic-native/contacts';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -44,8 +47,12 @@ export function createTranslateLoader(http: HttpClient) {
     SplashScreen,
     DatabaseRepository,
     TeamRepository,
+    ContactRepository,
     TeamService,
-    {provide: SQLite, useClass: SQLiteMock},
+    PlayerService,
+    Contacts,
+    SQLite,
+    // {provide: SQLite, useClass: SQLiteMock},
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

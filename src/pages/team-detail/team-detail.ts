@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the TeamDetailPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { PickContactsPage } from '../pages'
 
 @IonicPage()
 @Component({
@@ -15,11 +9,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class TeamDetailPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  PickContactsPage : any = PickContactsPage;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TeamDetailPage');
+  constructor(public navCtrl: NavController,
+      public navParams: NavParams) {
   }
-
 }
