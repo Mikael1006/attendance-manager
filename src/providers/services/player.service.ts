@@ -64,6 +64,7 @@ export class PlayerService {
       player.name = contactName;
       player.preferedPhoneNumber = phoneNumber.value;
       player.phoneNumbers = contact.phoneNumbers;
+      player.id = contact.id;
 
       return player;
     }

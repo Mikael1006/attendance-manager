@@ -3,7 +3,7 @@ import { IContactField } from '@ionic-native/contacts';
 
 export class Player implements BaseEntity {
     constructor(
-        public id?: number,
+        public id?: string,
         public name?: string,
         public preferedPhoneNumber?: string,
         public phoneNumbers?: IContactField[],

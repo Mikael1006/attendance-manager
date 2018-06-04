@@ -17,5 +17,8 @@
   "TEAM_NAME": "Nom de l'équipe",
   "TEAM_CREATE_SUCCESS": "L'équipe a été créée avec succés",
   "TEAM_DETAIL_TITLE": "Editer l'équipe",
-  "TEAM_EDIT_SUCCESS": "Les changements ont été enregistrés"
+  "TEAM_EDIT_SUCCESS": "Les changements ont été enregistrés",
+
+  "PICK_CONTACTS_PAGE_TITLE": "Importer depuis mes contacts",
+  "NO_CONTACT_FOUND": "Aucun résultat"
 }

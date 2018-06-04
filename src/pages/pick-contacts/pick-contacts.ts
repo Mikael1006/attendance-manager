@@ -12,6 +12,7 @@ import { Player } from '../../models/player.model';
 export class PickContactsPage {
   groupedContacts = [];
   noContactFound: boolean = false;
+  selectedContacts: Player[] = [];
 
   constructor(public navCtrl: NavController,
       public navParams: NavParams,
@@ -27,8 +28,12 @@ export class PickContactsPage {
     });
   }
 
+  /**
+   * Update the list of contacts
+   */
   findContact(ev:any) {
 
+    // mock if it's on browser
     if(this.platform.is('core')){
       let contacts : Player[] = []
       let contact1 : Player = new Player();
@@ -65,7 +70,9 @@ export class PickContactsPage {
 
     // sort contacts in alphabeltical order
     contacts .sort(function(a, b) {
-        return a.name < b.name ? -1 : 1;
+      if(a.name.length==0) return 1;
+      if(b.name.length==0) return -1;
+      return a.name < b.name ? -1 : 1;
     });
     let currentLetter;
     let currentContacts;
@@ -87,15 +94,14 @@ export class PickContactsPage {
 
         let newGroup = {
           letter: currentLetter,
-          contacts: [],
-          preferedPhoneNumbers: []
+          contacts: []
         };
 
         currentContacts = newGroup.contacts;
         groupedContacts.push(newGroup);
       }
 
-      currentContacts.push(player);
+      currentContacts.push({value: player, checked: false});
     });
     return groupedContacts;
   }
