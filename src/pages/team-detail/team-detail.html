@@ -9,6 +9,7 @@
 
 <ion-content padding>
 
-  <button ion-button [navPush]="PickContactsPage">pick contact</button>
+  <button ion-button (click)="pickContacts()">pick contact</button>
+  <h3>{{selectedContacts.length}} contacts selected</h3>
 
 </ion-content>

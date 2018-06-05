@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Contacts, Contact, IContactField, ContactFieldType, ContactFindOptions } from '@ionic-native/contacts';
+import { Contacts, Contact, ContactFieldType } from '@ionic-native/contacts';
 
 @Injectable()
 export class ContactRepository {

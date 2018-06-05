@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>{{'PICK_CONTACTS_PAGE_TITLE' | translate}}</ion-title>
+    <button end ion-button (click)="done()" strong>
+      <span color="primary">
+        {{ 'DONE_BUTTON' | translate }}
+      </span>
+    </button>
   </ion-navbar>
 </ion-header>
 
