@@ -25,10 +25,10 @@ export class MySQLiteHelper {
     public static readonly DATABASE_NAME : string = "attendance_manager.db";
 
     public static readonly CREATE_TABLE_PLAYERS : string = "CREATE TABLE IF NOT EXISTS " + MySQLiteHelper.PLAYERS_TABLE + " ("
-            + MySQLiteHelper.PLAYERS_COL_ID_CONTACT + " TEXT NOT NULL, " + MySQLiteHelper.PLAYERS_COL_TEAM_ID + " INTEGER);\n";
+            + MySQLiteHelper.PLAYERS_COL_ID_CONTACT + " TEXT NOT NULL, " + MySQLiteHelper.PLAYERS_COL_TEAM_ID + " INTEGER NOT NULL);\n";
 
     public static readonly CREATE_TABLE_TEAMS : string = "CREATE TABLE IF NOT EXISTS " + MySQLiteHelper.TEAMS_TABLE + " ("
-            + MySQLiteHelper.TEAMS_COL_ID + " INTEGER, " + MySQLiteHelper.TEAMS_COL_NAME + " TEXT NOT NULL);\n";
+            + MySQLiteHelper.TEAMS_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + MySQLiteHelper.TEAMS_COL_NAME + " TEXT NOT NULL);\n";
 
     public static readonly CREATE_TABLE_MATCHS : string = "CREATE TABLE IF NOT EXISTS " + MySQLiteHelper.MATCHS_TABLE + " ("
             + MySQLiteHelper.MATCHS_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + MySQLiteHelper.MATCHS_COL_DATE + " DATE, "
@@ -36,6 +36,6 @@ export class MySQLiteHelper {
             + MySQLiteHelper.MATCHS_COL_HOME + " BOOLEAN," + MySQLiteHelper.MATCHS_COL_TEAM_ID + " INTEGER);\n";
 
     public static readonly CREATE_TABLE_INVITATIONS : string = "CREATE TABLE IF NOT EXISTS " + MySQLiteHelper.INVITATION_TABLE + " ("
-            + MySQLiteHelper.INVITATION_COL_PLAYER_ID + " INTEGER, " + MySQLiteHelper.INVITATION_COL_MATCH_ID + " INTEGER, "
+            + MySQLiteHelper.INVITATION_COL_PLAYER_ID + " INTEGER NOT NULL, " + MySQLiteHelper.INVITATION_COL_MATCH_ID + " INTEGER NOT NULL, "
             + MySQLiteHelper.INVITATION_COL_RESPONSE + " BOOLEAN);\n";
 }

@@ -86,4 +86,5 @@
     <plugin name="cordova-plugin-contacts" spec="^3.0.1" />
     <allow-navigation href="http://192.168.8.100:8100" />
     <engine name="android" spec="~6.4.0" />
+    <allow-navigation href="http://192.168.8.101:8100" />
 </widget>

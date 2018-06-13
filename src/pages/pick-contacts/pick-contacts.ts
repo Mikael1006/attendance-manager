@@ -21,7 +21,6 @@ export class PickContactsPage {
       public platform: Platform,
       private playerService: PlayerService) {
     this.passSelectedContacts = this.navParams.get("passSelectedContacts");
-    console.log(typeof(this.passSelectedContacts));
 
     // mock if it's on browser
     if(this.platform.is('core')){
@@ -81,7 +80,6 @@ export class PickContactsPage {
     });
     let selectedValue: Player[] = [];
     selectedContacts.forEach((contact, index) => selectedValue.push(contact.value));
-    console.log(selectedContacts.length);
     // pass the selected contacts to the previous page
     this.passSelectedContacts(selectedValue).then(()=> {
       this.navCtrl.pop();

@@ -19,6 +19,12 @@
   "TEAM_DETAIL_TITLE": "Editer l'équipe",
   "TEAM_EDIT_SUCCESS": "Les changements ont été enregistrés",
 
+  "PLAYER_MANAGEMENT_TITLE": "Gestion des joueurs",
+  "PLAYER_MANAGEMENT_ON_ERROR": "Erreur de connexion à la base de données",
+  "PLAYER_MANAGEMENT_DELETE_ALERT_TITLE": "Supprimer le joueur {{player}} ?",
+  "PLAYER_MANAGEMENT_DELETE_SUCESS": "Le joueur a été supprimé avec succés",
+  "PLAYER_MANAGEMENT_PLAYER_USED_ERROR": "Le joueur est encore utilisé par certaines données, impossible de le supprimer",
+
   "PICK_CONTACTS_PAGE_TITLE": "Importer depuis mes contacts",
   "NO_CONTACT_FOUND": "Aucun résultat"
 }

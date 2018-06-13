@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Player } from '../../models/player.model';
+import { Team } from '../../models/team.model';
 import { Contact } from '@ionic-native/contacts';
 import { Platform } from 'ionic-angular';
 import { ContactRepository } from '../repositories/contact.repository';
+import { PlayerRepository } from '../repositories/player.repository';
 
 @Injectable()
 export class PlayerService {
 
     constructor(private contactRepository: ContactRepository,
+      private playerRepository: PlayerRepository,
                 public platform: Platform) {}
 
-    createPlayer(team: Player): Promise<void> {
+    createPlayer(player: Player): Promise<void> {
         return;
     }
 
@@ -39,6 +42,32 @@ export class PlayerService {
         players.push(this.convertContactToPlayer(contact));
       });
       return players;
+    }
+
+    async getPlayersByTeam(team: Team): Promise<Player[]> {
+      let players: Player[] = [];
+      let contactIds :string[] = await this.playerRepository.getAllContactIdsByTeam(team);
+      for(let i = 0; i < contactIds.length; i ++){
+        let player: Player;
+        let contacts = await this.contactRepository.findContact(contactIds[i]);
+        if(contacts.length > 0){
+          player = this.convertContactToPlayer(contacts[0]);
+        }
+        players.push(player);
+      }
+      return players;
+    }
+
+    addPlayerToTeam(team: Team, player: Player): Promise<void> {
+        return this.playerRepository.addPlayerToTeam(team, player);
+    }
+
+    addPlayersToTeam(team: Team, players: Player[]): Promise<void> {
+        return this.playerRepository.addPlayersToTeam(team, players);
+    }
+
+    deletePlayerFromTeam(team: Team, player: Player): Promise<void> {
+      return this.playerRepository.deletePlayerFromTeam(team, player);
     }
 
     private convertContactToPlayer(contact: Contact){

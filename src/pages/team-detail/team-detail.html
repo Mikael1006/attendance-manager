@@ -1,15 +1,28 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>team-detail</ion-title>
+    <ion-title>{{'PLAYER_MANAGEMENT_TITLE' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
   <button ion-button (click)="pickContacts()">pick contact</button>
-  <h3>{{selectedContacts.length}} contacts selected</h3>
-
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <ion-item-sliding *ngFor="let player of players">
+      <button ion-item>
+        <h2>{{player.name}}</h2>
+        <p>{{player.preferedPhoneNumber}}</p>
+      </button>
+      <ion-item-options>
+        <button ion-button color="danger" (click)="deletePlayer(player)">
+          {{ 'DELETE_BUTTON' | translate }}
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>

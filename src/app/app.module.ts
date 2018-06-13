@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { DatabaseRepository } from '../providers/repositories/database.repository';
 import { ContactRepository } from '../providers/repositories/contact.repository';
+import { PlayerRepository } from '../providers/repositories/player.repository';
 import { TeamService } from '../providers/services/team.service';
 import { PlayerService } from '../providers/services/player.service';
 import { TeamRepository } from "../providers/repositories/team.repository";
@@ -48,6 +49,7 @@ export function createTranslateLoader(http: HttpClient) {
     DatabaseRepository,
     TeamRepository,
     ContactRepository,
+    PlayerRepository,
     TeamService,
     PlayerService,
     Contacts,
